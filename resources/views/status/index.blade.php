@@ -38,12 +38,12 @@
 
                     <flux:dropdown>
                         <flux:button variant="ghost" class="!px-3 !py-1.5">...</flux:button>
-                        <flux:menu class="min-w-[220px]">
-                            <flux:menu.item>{{ __('Monitors') }}</flux:menu.item>
-                            <flux:menu.item>{{ __('Global settings') }}</flux:menu.item>
-                            <flux:menu.item>{{ __('Un-publish') }}</flux:menu.item>
+                        <flux:menu class="min-w-[220px] bg-black !text-white">
+                            <flux:menu.item class="hover:bg-gray-400 hover:!text-gray-900">{{ __('Monitors') }}</flux:menu.item>
+                            <flux:menu.item class="hover:bg-gray-400 hover:!text-gray-900">{{ __('Global settings') }}</flux:menu.item>
+                            <flux:menu.item class="hover:bg-gray-400 hover:!text-gray-900">{{ __('Un-publish') }}</flux:menu.item>
                             <flux:menu.separator />
-                            <flux:menu.item class="text-red-500">{{ __('Delete') }}</flux:menu.item>
+                            <flux:menu.item class="!text-red-500 hover:bg-gray-400 hover:!text-gray-900">{{ __('Delete') }}</flux:menu.item>
                         </flux:menu>
                     </flux:dropdown>
                 </div>

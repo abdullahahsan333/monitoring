@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Livewire\Volt\Volt;
+// all controller
+use App\Http\Controllers\MonitoringController;
+use App\Http\Controllers\StatusController;
+use App\Http\Controllers\MonitorController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -12,33 +16,33 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-Route::view('monitoring', 'monitoring.index')
+Route::get('monitoring', [MonitoringController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('monitoring.index');
 
-Route::view('status-page', 'status.index')
+Route::get('monitoring/single', [MonitoringController::class, 'show'])
+    ->middleware(['auth', 'verified'])
+    ->name('monitoring.show');
+
+Route::get('status-page', [StatusController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('status.index');
 
-Route::view('monitors/create', 'monitors.create')
+Route::get('monitors/create', [MonitorController::class, 'create'])
     ->middleware(['auth', 'verified'])
     ->name('monitors.create');
 
-Route::view('monitors/notifications', 'monitors.notifications')
+Route::get('monitors/notifications', [MonitorController::class, 'notifications'])
     ->middleware(['auth', 'verified'])
     ->name('monitors.notifications');
 
-Route::view('monitors/status', 'monitors.status')
+Route::get('monitors/status', [MonitorController::class, 'status'])
     ->middleware(['auth', 'verified'])
     ->name('monitors.status');
 
-Route::view('monitors/complete', 'monitors.complete')
+Route::get('monitors/complete', [MonitorController::class, 'complete'])
     ->middleware(['auth', 'verified'])
     ->name('monitors.complete');
-
-Route::view('monitoring/single', 'monitoring.show')
-    ->middleware(['auth', 'verified'])
-    ->name('monitoring.show');
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');

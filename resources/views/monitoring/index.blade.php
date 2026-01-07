@@ -11,18 +11,18 @@
                             <flux:button variant="primary" class="bg-blue-600 hover:bg-blue-700 !text-white px-4 py-2 rounded-l-lg rounded-r-none text-sm font-medium">
                                 + {{ __('New') }}
                             </flux:button>
-                            <flux:dropdown class="dd relative" position="bottom" align="end">
-                                <flux:button variant="primary" class="dd-trigger bg-blue-600 hover:bg-blue-700 !text-white px-3 py-2 rounded-l-none rounded-r-lg">
+                            <flux:dropdown position="bottom" align="end">
+                                <flux:button variant="primary" class="bg-blue-600 hover:bg-blue-700 !text-white px-3 py-2 rounded-l-none rounded-r-lg">
                                     <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
                                         <path d="M5 12l5-6 5 6H5z"/>
                                     </svg>
                                 </flux:button>
-                                <flux:menu class="dd-panel absolute top-full right-0 mt-2 min-w-[220px] rounded-xl border border-neutral-800 bg-panel p-2 !text-white shadow-lg hidden z-50">
-                                    <flux:menu.item icon="document-text" class="!text-white hover:bg-gray-400 hover:!text-gray-900">{{ __('Single monitor') }}</flux:menu.item>
-                                    <flux:menu.item icon="sparkles" class="!text-white hover:bg-gray-400 hover:!text-gray-900">{{ __('Monitor wizard') }}</flux:menu.item>
-                                    <flux:menu.item icon="arrow-up-tray" class="!text-white hover:bg-gray-400 hover:!text-gray-900">{{ __('Bulk upload') }}</flux:menu.item>
+                                <flux:menu class="min-w-[220px] bg-black !text-white">
+                                    <flux:menu.item icon="document-text" class="hover:bg-gray-400 hover:!text-gray-900">{{ __('Single monitor') }}</flux:menu.item>
+                                    <flux:menu.item icon="sparkles" class="hover:bg-gray-400 hover:!text-gray-900">{{ __('Monitor wizard') }}</flux:menu.item>
+                                    <flux:menu.item icon="arrow-up-tray" class="hover:bg-gray-400 hover:!text-gray-900">{{ __('Bulk upload') }}</flux:menu.item>
                                     <flux:menu.separator />
-                                    <flux:menu.item disabled class="flex items-center !text-gray-400 gap-2">
+                                    <flux:menu.item disabled class="flex items-center gap-2 hover:bg-gray-400 hover:!text-gray-900">
                                         <span>{{ __('Group') }}</span>
                                         <span class="ms-auto text-[10px] rounded bg-neutral-800 px-2 py-0.5 text-amber-400">{{ __('Premium') }}</span>
                                     </flux:menu.item>
@@ -34,8 +34,11 @@
                     <!-- Filters Bar -->
                     <div class="flex flex-wrap items-center gap-3">
                         <button class="inline-flex items-center gap-2 rounded-lg bg-panel border border-neutral-700 px-3 py-2 text-sm text-white hover:bg-gray-400 hover:text-gray-900 transition-colors">
-                            <input type="checkbox" class="w-4 h-4 rounded border-neutral-600 bg-neutral-800" />
-                            <span>0 / 1</span>
+                            <label class="relative inline-flex items-center">
+                                <input id="select-all" type="checkbox" class="peer appearance-none w-4 h-4 rounded border border-neutral-600 bg-neutral-800" />
+                                <span class="absolute inset-0 hidden peer-checked:flex items-center justify-center text-xs">✔</span>
+                            </label>
+                            <span id="selection-count">0 / 1</span>
                         </button>
                         <button class="inline-flex items-center gap-2 rounded-lg bg-panel border border-neutral-700 px-3 py-2 text-sm text-white hover:bg-gray-400 hover:text-gray-900 transition-colors">
                             <svg class="w-4 h-4 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
@@ -51,19 +54,19 @@
                                     placeholder="{{ __('Search by name or url') }}" 
                                 />
                             </div>
-                            <flux:dropdown class="dd relative" position="bottom" align="start">
-                                <flux:button variant="ghost" class="dd-trigger inline-flex items-center gap-2 rounded-lg border border-neutral-700 px-3 py-2 text-sm !text-white hover:bg-gray-400 hover:text-gray-900 transition-colors">
+                            <flux:dropdown position="bottom" align="start">
+                                <flux:button variant="ghost" class="inline-flex items-center gap-2 rounded-lg border border-neutral-700 px-3 py-2 text-sm !text-white transition-colors">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
                                     </svg>
                                     <span>{{ __('Filter') }}</span>
                                 </flux:button>
-                                <div class="dd-panel absolute top-full left-0 mt-2 min-w-[280px] rounded-xl border border-neutral-800 bg-panel p-4 !text-white shadow-lg hidden z-50">
+                                <flux:menu class="min-w-[280px] p-4 bg-black !text-white">
                                     <div class="flex items-center justify-between mb-3">
                                         <span class="font-semibold">{{ __('Filter') }}</span>
                                         <span class="text-neutral-400">✖</span>
                                     </div>
-                                    <div class="space-y-4">
+                                    <div class="space-y-4 bg-black">
                                         <div>
                                             <label class="text-xs text-neutral-400 mb-1 block">{{ __('Status') }}</label>
                                             <div class="ms-select relative">
@@ -114,25 +117,22 @@
                                             <button class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 !text-white text-sm hover:bg-gray-400 hover:text-gray-900 transition-colors">{{ __('Apply') }}</button>
                                         </div>
                                     </div>
-                                </div>
+                                </flux:menu>
                             </flux:dropdown>
-                            <flux:dropdown class="dd relative" position="bottom" align="start">
-                                <flux:button variant="ghost" class="dd-trigger inline-flex items-center gap-2 rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm !text-white transition-colors">
+                            <flux:dropdown position="bottom" align="start">
+                                <flux:button variant="ghost" class="inline-flex items-center gap-2 rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm !text-white transition-colors">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
                                     </svg>
                                     <span>{{ __('Down first') }}</span>
                                 </flux:button>
-                                <div class="dd-panel absolute top-full left-0 mt-2 min-w-[220px] rounded-xl border border-neutral-800 bg-panel p-2 !text-white shadow-lg hidden z-50">
-                                    <button class="group flex items-center justify-between w-full px-3 py-2 rounded text-sm hover:bg-gray-400 hover:text-gray-900">
-                                        <span>{{ __('Down first') }}</span>
-                                        <span class="text-emerald-500 group-hover:text-gray-900">✔</span>
-                                    </button>
-                                    <button class="w-full px-3 py-2 rounded text-left text-sm hover:bg-gray-400 hover:text-gray-900">{{ __('Up first') }}</button>
-                                    <button class="w-full px-3 py-2 rounded text-left text-sm hover:bg-gray-400 hover:text-gray-900">{{ __('Paused first') }}</button>
-                                    <button class="w-full px-3 py-2 rounded text-left text-sm hover:bg-gray-400 hover:text-gray-900">{{ __('A → Z') }}</button>
-                                    <button class="w-full px-3 py-2 rounded text-left text-sm hover:bg-gray-400 hover:text-gray-900">{{ __('Newest first') }}</button>
-                                </div>
+                                <flux:menu class="min-w-[220px] bg-black !text-white">
+                                    <flux:menu.item class="hover:bg-gray-400 hover:!text-gray-900">{{ __('Down first') }}</flux:menu.item>
+                                    <flux:menu.item class="hover:bg-gray-400 hover:!text-gray-900">{{ __('Up first') }}</flux:menu.item>
+                                    <flux:menu.item class="hover:bg-gray-400 hover:!text-gray-900">{{ __('Paused first') }}</flux:menu.item>
+                                    <flux:menu.item class="hover:bg-gray-400 hover:!text-gray-900">{{ __('A → Z') }}</flux:menu.item>
+                                    <flux:menu.item class="hover:bg-gray-400 hover:!text-gray-900">{{ __('Newest first') }}</flux:menu.item>
+                                </flux:menu>
                             </flux:dropdown>
                         </div>
                     </div>
@@ -141,8 +141,11 @@
                     <div class="monitor-row group rounded-xl bg-panel border border-neutral-800 p-4 hover:border-neutral-700 transition-all cursor-pointer" data-href="{{ route('monitoring.show') }}" tabindex="0">
                         <div class="flex items-center gap-4">
                             <!-- Checkbox (appears on hover) -->
-                            <div class="w-0 opacity-0 overflow-hidden transition-all duration-200 group-hover:w-5 group-hover:opacity-100">
-                                <input type="checkbox" class="w-4 h-4 rounded border-neutral-600 bg-neutral-800 text-blue-600 focus:ring-blue-600" />
+                            <div class="monitor-checkbox-wrap w-0 opacity-0 overflow-hidden transition-all duration-200 group-hover:w-5 group-hover:opacity-100">
+                                <label class="relative inline-flex">
+                                    <input type="checkbox" class="peer monitor-checkbox appearance-none w-4 h-4 rounded border border-neutral-600 bg-neutral-800" />
+                                    <span class="absolute inset-0 hidden peer-checked:flex items-center justify-center text-xs">✔</span>
+                                </label>
                             </div>
                             
                             <!-- Status Dot -->
@@ -196,38 +199,67 @@
                                 </div>
 
                                 <div class="flex items-center justify-between">
-                                    <!-- Check Interval -->
-                                    <div class="hidden sm:flex items-center gap-2 text-sm text-neutral-400">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                        </svg>
-                                        <span>5 min</span>
+                                    <div class="grid grid-cols-1 gap-2">
+                                        <div class="flex items-center gap-0.5 text-sm text-neutral-400">
+                                            <span class="w-1 h-2 bg-emerald-500"></span>
+                                            <span class="w-1 h-2 bg-emerald-500"></span>
+                                            <span class="w-1 h-2 bg-emerald-500"></span>
+                                            <span class="w-1 h-2 bg-emerald-500"></span>
+                                            <span class="w-1 h-2 bg-emerald-500"></span>
+                                            <span class="w-1 h-2 bg-emerald-500"></span>
+                                            <span class="w-1 h-2 bg-emerald-500"></span>
+                                            <span class="w-1 h-2 bg-emerald-500"></span>
+                                            <span class="w-1 h-2 bg-emerald-500"></span>
+                                            <span class="w-1 h-2 bg-emerald-500"></span>
+                                            <span class="w-1 h-2 bg-emerald-500"></span>
+                                            <span class="w-1 h-2 bg-emerald-500"></span>
+                                            <span class="w-1 h-2 bg-emerald-500"></span>
+                                            <span class="w-1 h-2 bg-emerald-500"></span>
+                                            <span class="w-1 h-2 bg-emerald-500"></span>
+                                            <span class="w-1 h-2 bg-emerald-500"></span>
+                                            <span class="w-1 h-2 bg-emerald-500"></span>
+                                            <span class="w-1 h-2 bg-emerald-500"></span>
+                                            <span class="w-1 h-2 bg-emerald-500"></span>
+                                            <span class="w-1 h-2 bg-emerald-500"></span>
+                                            <span class="w-1 h-2 bg-emerald-500"></span>
+                                            <span class="w-1 h-2 bg-emerald-500"></span>
+                                            <span class="w-1 h-2 bg-emerald-500"></span>
+                                            <span class="w-1 h-2 bg-emerald-500"></span>
+                                        </div>
+                                        <!-- Check Interval -->
+                                        <div class="w-full flex items-center justify-between text-sm text-neutral-400">
+                                            <div class="flex items-center justify-center">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                                </svg>
+                                                <span>5 min</span>
+                                            </div>
+                                            <span class="text-sm text-neutral-400 font-medium">100%</span>
+                                        </div>
                                     </div>
-                                    <span class="text-sm text-neutral-400 font-medium w-12 text-right">100%</span>
+
+                                    <div class="flex items-center gap-2">
+                                        <flux:dropdown>
+                                            <flux:button variant="ghost" class="!px-2 !py-1 !text-white">
+                                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"/>
+                                                </svg>
+                                            </flux:button>
+                                            <flux:menu class="min-w-[220px] bg-black !text-white">
+                                                <flux:menu.item class="hover:bg-gray-400 hover:!text-gray-900">{{ __('Edit monitor') }}</flux:menu.item>
+                                                <flux:menu.item class="hover:bg-gray-400 hover:!text-gray-900">{{ __('Integrations & team') }}</flux:menu.item>
+                                                <flux:menu.item class="hover:bg-gray-400 hover:!text-gray-900">{{ __('Maintenance') }}</flux:menu.item>
+                                                <flux:menu.item class="hover:bg-gray-400 hover:!text-gray-900">{{ __('Add / Remove tags') }}</flux:menu.item>
+                                                <flux:menu.item class="hover:bg-gray-400 hover:!text-gray-900">{{ __('Add to status page') }}</flux:menu.item>
+                                                <flux:menu.item class="hover:bg-gray-400 hover:!text-gray-900">{{ __('Clone monitor') }}</flux:menu.item>
+                                                <flux:menu.item class="hover:bg-gray-400 hover:!text-gray-900">{{ __('Pause monitor') }}</flux:menu.item>
+                                                <flux:menu.item class="hover:bg-gray-400 hover:!text-gray-900">{{ __('Reset stats') }}</flux:menu.item>
+                                                <flux:menu.separator />
+                                                <flux:menu.item class="!text-red-500 hover:bg-gray-400 hover:!text-gray-900">{{ __('Delete monitor') }}</flux:menu.item>
+                                            </flux:menu>
+                                        </flux:dropdown>
+                                    </div>
                                 </div>
-                            </div>
-                            
-                            <!-- Menu -->
-                            <div class="flex items-center gap-2">
-                                <flux:dropdown class="dd relative">
-                                    <flux:button variant="ghost" class="dd-trigger !px-2 !py-1 !text-white hover:!text-white">
-                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                            <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"/>
-                                        </svg>
-                                    </flux:button>
-                                    <flux:menu class="dd-panel absolute top-full right-0 mt-2 min-w-[220px] rounded-xl border border-neutral-800 bg-panel p-2 !text-white shadow-lg hidden z-50">
-                                        <flux:menu.item class="!text-white hover:bg-gray-400 hover:!text-gray-900">{{ __('Edit monitor') }}</flux:menu.item>
-                                        <flux:menu.item class="!text-white hover:bg-gray-400 hover:!text-gray-900">{{ __('Integrations & team') }}</flux:menu.item>
-                                        <flux:menu.item class="!text-white hover:bg-gray-400 hover:!text-gray-900">{{ __('Maintenance') }}</flux:menu.item>
-                                        <flux:menu.item class="!text-white hover:bg-gray-400 hover:!text-gray-900">{{ __('Add / Remove tags') }}</flux:menu.item>
-                                        <flux:menu.item class="!text-white hover:bg-gray-400 hover:!text-gray-900">{{ __('Add to status page') }}</flux:menu.item>
-                                        <flux:menu.item class="!text-white hover:bg-gray-400 hover:!text-gray-900">{{ __('Clone monitor') }}</flux:menu.item>
-                                        <flux:menu.item class="!text-white hover:bg-gray-400 hover:!text-gray-900">{{ __('Pause monitor') }}</flux:menu.item>
-                                        <flux:menu.item class="!text-white hover:bg-gray-400 hover:!text-gray-900">{{ __('Reset stats') }}</flux:menu.item>
-                                        <flux:menu.separator />
-                                        <flux:menu.item class="!text-red-500">{{ __('Delete monitor') }}</flux:menu.item>
-                                    </flux:menu>
-                                </flux:dropdown>
                             </div>
                         </div>
                     </div>
@@ -273,17 +305,17 @@
                     <div class="rounded-xl bg-panel border border-neutral-800 p-5">
                         <div class="flex items-center justify-between mb-4">
                             <flux:heading size="md" class="!text-white font-semibold"><span id="range-title">{{ __('Last 24 hours.') }}</span></flux:heading>
-                            <flux:dropdown class="dd relative" position="bottom" align="end">
-                                <flux:button variant="ghost" class="dd-trigger !text-white hover:!text-white !px-2 !py-1">
+                            <flux:dropdown position="bottom" align="end">
+                                <flux:button variant="ghost" class="!text-white !px-2 !py-1">
                                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"/>
                                     </svg>
                                 </flux:button>
-                                <div class="dd-panel absolute top-full right-0 mt-2 min-w-[180px] rounded-xl border border-neutral-800 bg-panel p-2 !text-white shadow-lg hidden z-50">
-                                    <button type="button" data-range="24 hours" class="w-full text-left px-3 py-2 rounded text-sm hover:bg-gray-400 hover:text-gray-900">24 hours</button>
-                                    <button type="button" data-range="7 days" class="w-full text-left px-3 py-2 rounded text-sm hover:bg-gray-400 hover:text-gray-900">7 days</button>
-                                    <button type="button" data-range="30 days" class="w-full text-left px-3 py-2 rounded text-sm hover:bg-gray-400 hover:text-gray-900">30 days</button>
-                                </div>
+                                <flux:menu class="min-w-[180px] bg-black !text-white">
+                                    <flux:menu.item data-range="24 hours" class="hover:bg-gray-400 hover:!text-gray-900">24 hours</flux:menu.item>
+                                    <flux:menu.item data-range="7 days" class="hover:bg-gray-400 hover:!text-gray-900">7 days</flux:menu.item>
+                                    <flux:menu.item data-range="30 days" class="hover:bg-gray-400 hover:!text-gray-900">30 days</flux:menu.item>
+                                </flux:menu>
                             </flux:dropdown>
                         </div>
                         
@@ -312,6 +344,42 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            function updateSelectionCount() {
+                var total = document.querySelectorAll('.monitor-row').length;
+                var selected = document.querySelectorAll('.monitor-checkbox:checked').length;
+                var countEl = document.getElementById('selection-count');
+                if (countEl) countEl.textContent = selected + ' / ' + total;
+            }
+            function syncCheckboxWrap(chk) {
+                var wrap = chk.closest('.monitor-checkbox-wrap');
+                if (!wrap) return;
+                if (chk.checked) {
+                    wrap.classList.add('w-5', 'opacity-100');
+                    wrap.classList.remove('w-0', 'opacity-0');
+                } else {
+                    wrap.classList.add('w-0', 'opacity-0');
+                    wrap.classList.remove('w-5', 'opacity-100');
+                }
+            }
+            document.querySelectorAll('.monitor-checkbox').forEach(function (chk) {
+                syncCheckboxWrap(chk);
+                chk.addEventListener('change', function () {
+                    syncCheckboxWrap(chk);
+                    updateSelectionCount();
+                });
+            });
+            var selectAll = document.getElementById('select-all');
+            if (selectAll) {
+                selectAll.addEventListener('change', function () {
+                    var target = !!selectAll.checked;
+                    document.querySelectorAll('.monitor-checkbox').forEach(function (chk) {
+                        chk.checked = target;
+                        syncCheckboxWrap(chk);
+                    });
+                    updateSelectionCount();
+                });
+            }
+            updateSelectionCount();
             var title = document.getElementById('range-title');
             document.querySelectorAll('[data-range]').forEach(function (el) {
                 el.addEventListener('click', function () {
@@ -325,45 +393,9 @@
                 });
             });
 
-            var dropdowns = document.querySelectorAll('.dd');
-            dropdowns.forEach(function (dd) {
-                var button = dd.querySelector(':scope > .dd-trigger');
-                var panel = dd.querySelector(':scope > .dd-panel');
-
-                if (panel) {
-                    panel.classList.add('hidden');
-                    panel.classList.add('z-50');
-                    panel.addEventListener('click', function (e) { e.stopPropagation(); });
-                }
-
-                if (button) {
-                    button.addEventListener('click', function (e) {
-                        e.stopPropagation();
-                        var isOpen = panel && !panel.classList.contains('hidden');
-
-                        document.querySelectorAll('.dd').forEach(function (other) {
-                            if (other !== dd) {
-                                var op = other.querySelector(':scope > .dd-panel');
-                                if (op) op.classList.add('hidden');
-                            }
-                        });
-
-                        if (isOpen) {
-                            if (panel) panel.classList.add('hidden');
-                        } else {
-                            if (panel) panel.classList.remove('hidden');
-                        }
-                    });
-                }
-
-                dd.addEventListener('click', function (e) { e.stopPropagation(); });
-            });
+            // Use Flux built-in dropdowns; no custom .dd handling needed.
 
             document.addEventListener('click', function () {
-                document.querySelectorAll('.dd').forEach(function (dd) {
-                    var p = dd.querySelector(':scope > .dd-panel');
-                    if (p) p.classList.add('hidden');
-                });
                 document.querySelectorAll('.ms-select').forEach(function (ms) {
                     var mp = ms.querySelector(':scope > .ms-panel');
                     if (mp) mp.classList.add('hidden');
@@ -372,10 +404,6 @@
 
             document.addEventListener('keydown', function (e) {
                 if (e.key === 'Escape') {
-                    document.querySelectorAll('.dd').forEach(function (dd) {
-                        var p = dd.querySelector(':scope > .dd-panel');
-                        if (p) p.classList.add('hidden');
-                    });
                     document.querySelectorAll('.ms-select').forEach(function (ms) {
                         var mp = ms.querySelector(':scope > .ms-panel');
                         if (mp) mp.classList.add('hidden');
@@ -392,6 +420,7 @@
                     panel.classList.add('hidden');
                     panel.classList.add('z-50');
                     panel.addEventListener('click', function (e) { e.stopPropagation(); });
+                    panel.addEventListener('mousedown', function (e) { e.stopPropagation(); });
                 }
 
                 if (trigger) {
@@ -411,6 +440,7 @@
                             panel.classList.remove('hidden');
                         }
                     });
+                    trigger.addEventListener('mousedown', function (e) { e.stopPropagation(); });
                 }
 
                 ms.querySelectorAll(':scope .ms-option input[type="checkbox"]').forEach(function (cb) {
@@ -421,14 +451,17 @@
                             valueEl.textContent = selected.length ? selected.join(', ') : 'None';
                         }
                     });
+                    cb.addEventListener('click', function (e) { e.stopPropagation(); });
+                    cb.addEventListener('mousedown', function (e) { e.stopPropagation(); });
                 });
 
                 ms.addEventListener('click', function (e) { e.stopPropagation(); });
+                ms.addEventListener('mousedown', function (e) { e.stopPropagation(); });
             });
 
             document.querySelectorAll('.monitor-row').forEach(function (row) {
                 row.addEventListener('click', function (e) {
-                    var interactive = e.target.closest('input, button, a, flux\\:dropdown, .dd, .ms-select');
+                    var interactive = e.target.closest('input, button, a, flux\\:dropdown, .ms-select');
                     if (interactive) return;
                     var href = row.getAttribute('data-href');
                     if (href) window.location.href = href;
