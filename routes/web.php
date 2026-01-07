@@ -36,6 +36,10 @@ Route::view('monitors/complete', 'monitors.complete')
     ->middleware(['auth', 'verified'])
     ->name('monitors.complete');
 
+Route::view('monitoring/single', 'monitoring.show')
+    ->middleware(['auth', 'verified'])
+    ->name('monitoring.show');
+
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 

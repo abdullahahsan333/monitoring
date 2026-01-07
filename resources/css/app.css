@@ -51,6 +51,14 @@
     @apply grid gap-2;
 }
 
+[data-force-white],
+[data-force-white] * {
+    color: #ffffff !important;
+}
+[data-force-white] ::placeholder {
+    color: #ffffff !important;
+}
+
 [data-flux-label] {
     @apply  !mb-0 !leading-tight;
 }
@@ -112,10 +120,19 @@ select:focus[data-flux-control] {
     :root {
         --sidebar-bg: #0f1823;
         --body-bg: #1a1f2e;
+        --panel-bg: #20253a;
     }
 }
 
 @layer utilities {
     .bg-sidebar { background-color: var(--sidebar-bg); }
     .bg-body { background-color: var(--body-bg); }
+    .bg-panel { background-color: var(--panel-bg); }
+}
+
+@layer utilities {
+    .auth-white,
+    .auth-white * { color: #ffffff !important; }
+    .auth-white ::placeholder { color: #ffffff !important; opacity: 0.9; }
+    .auth-white [data-flux-label] { color: #ffffff !important; }
 }
