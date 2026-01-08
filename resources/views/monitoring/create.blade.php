@@ -285,7 +285,7 @@
                                         <div class="relative">
                                             <label class="text-xs text-neutral-400 mb-1 block">&nbsp;</label>
                                             <input id="auth-password" name="auth_password" type="password" class="w-full rounded-lg bg-[#0d1320] border border-neutral-800 px-3 py-2 pr-10 text-sm text-neutral-400" placeholder="{{ __('Password') }}" disabled>
-                                            <button type="button" id="auth-pass-toggle" class="absolute right-2 top-2.5 text-neutral-400 hover:text-neutral-200 text-sm">👁</button>
+                                            <button type="button" id="auth-pass-toggle" class="absolute right-2 top-7 text-neutral-400 hover:text-neutral-200 text-sm">👁</button>
                                         </div>
                                     </div>
                                 </div>
