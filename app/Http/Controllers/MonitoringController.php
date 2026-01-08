@@ -11,6 +11,16 @@ class MonitoringController extends Controller
         return view('monitoring.index');
     }
 
+    public function create(Request $request)
+    {
+        return view('monitoring.create');
+    }
+    
+    public function store(Request $request)
+    {
+        return redirect()->route('monitoring.index');
+    }
+
     public function show(Request $request)
     {
         return view('monitoring.show');

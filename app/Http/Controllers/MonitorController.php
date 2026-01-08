@@ -6,11 +6,6 @@ use Illuminate\Http\Request;
 
 class MonitorController extends Controller
 {
-    public function create(Request $request)
-    {
-        return view('monitors.create');
-    }
-
     public function notifications(Request $request)
     {
         return view('monitors.notifications');
@@ -26,4 +21,3 @@ class MonitorController extends Controller
         return view('monitors.complete');
     }
 }
-

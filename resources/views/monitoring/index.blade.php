@@ -8,9 +8,9 @@
                     <div class="flex items-center justify-between">
                         <flux:heading size="xl" class="!text-white">{{ __('Monitors.') }}</flux:heading>
                         <div class="flex items-center">
-                            <flux:button variant="primary" class="bg-blue-600 hover:bg-blue-700 !text-white px-4 py-2 rounded-l-lg rounded-r-none text-sm font-medium">
+                            <flux:link :href="route('monitoring.create')" class="bg-blue-600 hover:bg-blue-700 !text-white px-4 py-2 rounded-l-lg rounded-r-none text-sm font-medium" wire:navigate>
                                 + {{ __('New') }}
-                            </flux:button>
+                            </flux:link>
                             <flux:dropdown position="bottom" align="end">
                                 <flux:button variant="primary" class="bg-blue-600 hover:bg-blue-700 !text-white px-3 py-2 rounded-l-none rounded-r-lg">
                                     <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
@@ -18,7 +18,7 @@
                                     </svg>
                                 </flux:button>
                                 <flux:menu class="min-w-[220px] bg-panel !text-white">
-                                    <flux:menu.item icon="document-text" class="hover:bg-gray-400 hover:!text-gray-900">{{ __('Single monitor') }}</flux:menu.item>
+                                    <flux:menu.item icon="document-text" class="hover:bg-gray-400 hover:!text-gray-900" onclick="window.location='{{ route('monitors.create') }}'">{{ __('Single monitor') }}</flux:menu.item>
                                     <flux:menu.item icon="sparkles" class="hover:bg-gray-400 hover:!text-gray-900">{{ __('Monitor wizard') }}</flux:menu.item>
                                     <flux:menu.item icon="arrow-up-tray" class="hover:bg-gray-400 hover:!text-gray-900">{{ __('Bulk upload') }}</flux:menu.item>
                                     <flux:menu.separator />

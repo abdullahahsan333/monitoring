@@ -1,0 +1,600 @@
+<x-layouts.app :title="__('Create Monitor')">
+    <div class="mx-auto max-w-7xl relative">
+
+        <div class="flex items-center justify-between mb-4">
+            <a href="{{ route('monitoring.index') }}" class="inline-flex items-center gap-1 rounded-full bg-[#1a1f2e] px-2.5 py-1 text-xs text-neutral-400 border border-neutral-700" wire:navigate>
+                <span>‹</span>
+                <span>{{ __('Monitoring') }}</span>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-6 mb-10">
+            <div id="tab-details" class="space-y-6">
+                <div class="rounded-xl bg-panel border border-neutral-800 p-5">
+                    <flux:heading size="md" class="!text-white">{{ __('Monitor type') }}</flux:heading>
+                    <div class="mt-3 ms-select relative">
+                        <button type="button" class="ms-trigger w-full flex items-center gap-3 rounded-lg bg-[#1a1f2e] border border-neutral-800 px-4 py-3 text-left">
+                            <span class="inline-flex h-8 w-8 items-center justify-center rounded bg-[#253047] text-neutral-300">HTTP</span>
+                            <div class="flex-1">
+                                <div class="ms-label text-white font-medium">HTTP / website monitoring</div>
+                                <div class="text-xs text-neutral-400">Use HTTP(s) monitor to monitor your website, API endpoint, or anything running on HTTP.</div>
+                            </div>
+                            <span class="text-neutral-400">▾</span>
+                        </button>
+                        <div class="ms-panel absolute top-full left-0 mt-2 min-w-full rounded-xl border border-neutral-800 bg-[#1a1f2e] p-2 text-white shadow-lg hidden z-50">
+                            <button type="button" class="ms-option w-full flex items-center gap-3 p-3 rounded-md hover:bg-gray-400 hover:text-gray-900" data-value="http" data-label="HTTP / website monitoring">
+                                <span class="inline-flex h-8 w-8 items-center justify-center rounded bg-[#253047] text-neutral-300">HTTP</span>
+                                <div class="flex-1 text-left">
+                                    <div class="text-white text-sm font-medium">HTTP / website monitoring</div>
+                                    <div class="text-xs text-neutral-400">Use HTTP(s) monitor to monitor your website, API endpoint, or anything running on HTTP.</div>
+                                </div>
+                            </button>
+                            <button type="button" class="ms-option w-full flex items-center gap-3 p-3 rounded-md hover:bg-gray-400 hover:text-gray-900" data-value="keyword" data-label="Keyword monitoring">
+                                <span class="inline-flex h-8 w-8 items-center justify-center rounded bg-[#253047] text-neutral-300">🔑</span>
+                                <div class="flex-1 text-left">
+                                    <div class="text-white text-sm font-medium">Keyword monitoring</div>
+                                    <div class="text-xs text-neutral-400">Check presence or absence of specific text in the response.</div>
+                                </div>
+                            </button>
+                            <button type="button" class="ms-option w-full flex items-center gap-3 p-3 rounded-md hover:bg-gray-400 hover:text-gray-900" data-value="ping" data-label="Ping monitoring">
+                                <span class="inline-flex h-8 w-8 items-center justify-center rounded bg-[#253047] text-neutral-300">📶</span>
+                                <div class="flex-1 text-left">
+                                    <div class="text-white text-sm font-medium">Ping monitoring</div>
+                                    <div class="text-xs text-neutral-400">Ensure your server or any device is always available.</div>
+                                </div>
+                            </button>
+                            <button type="button" class="ms-option w-full flex items-center gap-3 p-3 rounded-md hover:bg-gray-400 hover:text-gray-900" data-value="port" data-label="Port monitoring">
+                                <span class="inline-flex h-8 w-8 items-center justify-center rounded bg-[#253047] text-neutral-300">🧩</span>
+                                <div class="flex-1 text-left">
+                                    <div class="text-white text-sm font-medium">Port monitoring</div>
+                                    <div class="text-xs text-neutral-400">Monitor services via specific TCP ports.</div>
+                                </div>
+                            </button>
+                            <div class="w-full flex items-center gap-3 p-3 rounded-md bg-[#0d1320] opacity-60">
+                                <span class="inline-flex h-8 w-8 items-center justify-center rounded bg-[#253047] text-neutral-300">⏱</span>
+                                <div class="flex-1 text-left">
+                                    <div class="text-sm text-white">Cron job / Heartbeat monitoring</div>
+                                    <div class="text-xs text-neutral-400">Available only in Solo, Team and Enterprise. <a class="text-emerald-500 underline">Upgrade now</a></div>
+                                </div>
+                            </div>
+                            <div class="w-full flex items-center gap-3 p-3 rounded-md bg-[#0d1320] opacity-60">
+                                <span class="inline-flex h-8 w-8 items-center justify-center rounded bg-[#253047] text-neutral-300">🧾</span>
+                                <div class="flex-1 text-left">
+                                    <div class="text-sm text-white">DNS monitoring</div>
+                                    <div class="text-xs text-neutral-400">Available only in Solo, Team and Enterprise. <a class="text-emerald-500 underline">Upgrade now</a></div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="monitor_type" value="http">
+                    </div>
+                </div>
+
+                <form class="rounded-xl bg-panel border border-neutral-800 p-5 space-y-6" action="#" method="post">
+                    @csrf
+                    <flux:input
+                        name="url"
+                        :label="__('URL to monitor')"
+                        type="text"
+                        placeholder="https://"
+                        required
+                    />
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="text-xs text-neutral-200 mb-1 block">{{ __('Group') }}</label>
+                            <div class="text-[11px] text-neutral-400 mb-2">{{ __('Groups are available only on Paid plans.') }} <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a></div>
+                            <div class="text-[11px] text-neutral-400 mb-2">{{ __('Your monitor will be automatically added to the chosen group') }}</div>
+                            <select class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white">
+                                <option>{{ __('Monitors (default)') }}</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-xs text-neutral-200 mb-1 block">{{ __('Add tags') }}</label>
+                            <div class="text-[11px] text-neutral-400 mb-2">{{ __('Tags will enable you to organise your monitors in a better way') }}</div>
+                            <input type="text" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white" placeholder="{{ __('Click to add tag...') }}">
+                        </div>
+                    </div>
+                    <div class="border-t border-neutral-800"></div>
+
+                    <div class="space-y-4">
+                        <div class="text-neutral-200 font-medium">{{ __('How will we notify you?') }}</div>
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            <div class="space-y-1">
+                                <label class="inline-flex items-center gap-2">
+                                    <input type="checkbox" class="rounded border-neutral-700 bg-neutral-900 accent-emerald-500" checked>
+                                    <span class="text-sm text-white">{{ __('E-mail') }}</span>
+                                </label>
+                                <div class="text-xs text-neutral-400">
+                                    {{ auth()->user()->email ?? 'you@example.com' }}
+                                </div>
+                                <div class="mt-2 inline-flex items-center gap-2 rounded-md bg-[#1a1f2e] border border-neutral-700 px-2 py-1 text-xs text-neutral-300">
+                                    <span class="inline-flex h-5 w-5 items-center justify-center rounded bg-[#253047] text-neutral-300">⟳</span>
+                                    <span>{{ __('No delay, no repeat') }}</span>
+                                </div>
+                            </div>
+                            <div class="space-y-1">
+                                <label class="inline-flex items-center gap-2">
+                                    <input type="checkbox" class="rounded border-neutral-700 bg-neutral-900 accent-emerald-500">
+                                    <span class="text-sm text-white">{{ __('SMS message') }}</span>
+                                </label>
+                                <div class="text-xs"><a href="#" class="text-emerald-500 underline">{{ __('Add phone number') }}</a></div>
+                                <div class="mt-2 inline-flex items-center gap-2 rounded-md bg-[#1a1f2e] border border-neutral-700 px-2 py-1 text-xs text-neutral-300">
+                                    <span class="inline-flex h-5 w-5 items-center justify-center rounded bg-[#253047] text-neutral-300">⟳</span>
+                                    <span>{{ __('No delay, no repeat') }}</span>
+                                </div>
+                            </div>
+                            <div class="space-y-1">
+                                <label class="inline-flex items-center gap-2">
+                                    <input type="checkbox" class="rounded border-neutral-700 bg-neutral-900 accent-emerald-500">
+                                    <span class="text-sm text-white">{{ __('Voice call') }}</span>
+                                </label>
+                                <div class="text-xs"><a href="#" class="text-emerald-500 underline">{{ __('Add phone number') }}</a></div>
+                                <div class="mt-2 inline-flex items-center gap-2 rounded-md bg-[#1a1f2e] border border-neutral-700 px-2 py-1 text-xs text-neutral-300">
+                                    <span class="inline-flex h-5 w-5 items-center justify-center rounded bg-[#253047] text-neutral-300">⟳</span>
+                                    <span>{{ __('No delay, no repeat') }}</span>
+                                </div>
+                            </div>
+                            <div class="space-y-1">
+                                <label class="inline-flex items-center gap-2">
+                                    <input type="checkbox" class="rounded border-neutral-700 bg-neutral-900 accent-emerald-500">
+                                    <span class="text-sm text-white">{{ __('Push') }}</span>
+                                </label>
+                                <div class="text-xs text-neutral-400">
+                                    {{ __('Download app for') }} <a href="#" class="text-emerald-500 underline">iOS</a> {{ __('or') }} <a href="#" class="text-emerald-500 underline">Android</a>
+                                </div>
+                                <div class="mt-2 inline-flex items-center gap-2 rounded-md bg-[#1a1f2e] border border-neutral-700 px-2 py-1 text-xs text-neutral-300">
+                                    <span class="inline-flex h-5 w-5 items-center justify-center rounded bg-[#253047] text-neutral-300">⟳</span>
+                                    <span>{{ __('No delay, no repeat') }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-xs text-neutral-400">
+                            {{ __('You can set up notifications for') }} <a href="{{ route('monitors.notifications') }}" class="text-emerald-500 underline">{{ __('Integrations & Team') }}</a> {{ __('in the specific tab and edit it later.') }}
+                        </div>
+                    </div>
+
+                    <div class="rounded-lg bg-[#121826] border border-neutral-800 p-4 space-y-3">
+                        <div class="text-neutral-200 font-medium">{{ __('Monitor interval') }}</div>
+                        <div class="text-xs text-neutral-400">
+                            {{ __('Your monitor will be checked every') }}
+                            <span id="mi-label" class="text-blue-400">5 minutes</span>.
+                            {{ __('We recommend to use at least 1-minute checks') }}
+                            <a href="#" class="text-emerald-500 underline">{{ __('available in paid plans') }}</a>
+                        </div>
+                        <input id="mi-range" type="range" min="0" max="6" step="1" value="2" class="w-full h-2 rounded bg-[#253047] accent-blue-600">
+                        <div class="grid grid-cols-7 gap-2 text-xs text-neutral-400">
+                            <div>30s</div>
+                            <div>1m</div>
+                            <div>5m</div>
+                            <div>30m</div>
+                            <div>1h</div>
+                            <div>12h</div>
+                            <div>24h</div>
+                        </div>
+                        <input type="hidden" name="interval" id="mi-value" value="5m">
+                    </div>
+
+                    <div class="rounded-lg bg-[#121826] border border-neutral-800 p-4 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <div class="text-neutral-200 font-medium">{{ __('Region to monitor from') }}</div>
+                            <div class="text-[11px] text-neutral-400">{{ __('Available only in Solo, Team and Enterprise.') }} <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a></div>
+                        </div>
+                        <select disabled class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white">
+                            <option>{{ __('Default (auto-select by UptimeRobot)') }}</option>
+                        </select>
+                    </div>
+
+                    <details class="rounded-lg bg-[#121826] border border-neutral-800 p-4">
+                        <summary class="cursor-pointer flex items-center justify-between">
+                            <span class="text-neutral-200 font-medium">{{ __('SSL certificate and Domain checks') }}</span>
+                            <span class="text-[11px] text-neutral-400">{{ __('Available only in Solo, Team and Enterprise.') }} <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a></span>
+                        </summary>
+                        <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2 opacity-60">
+                                <span class="text-sm text-white">Check SSL errors</span>
+                                <input type="checkbox" class="peer sr-only" disabled>
+                                <span class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 relative">
+                                    <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-500"></span>
+                                </span>
+                            </label>
+                            <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2 opacity-60">
+                                <span class="text-sm text-white">SSL expiry reminders</span>
+                                <input type="checkbox" class="peer sr-only" disabled>
+                                <span class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 relative">
+                                    <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-500"></span>
+                                </span>
+                            </label>
+                            <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2 opacity-60">
+                                <span class="text-sm text-white">Domain expiry reminders</span>
+                                <input type="checkbox" class="peer sr-only" disabled>
+                                <span class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 relative">
+                                    <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-500"></span>
+                                </span>
+                            </label>
+                        </div>
+                    </details>
+
+                    <details class="rounded-lg bg-[#121826] border border-neutral-800 p-4">
+                        <summary class="cursor-pointer text-neutral-200 font-medium">{{ __('Advanced settings') }}</summary>
+                        <div class="mt-4 space-y-6">
+                            <div class="space-y-3">
+                                <div class="text-neutral-200 font-medium">{{ __('Request timeout') }}</div>
+                                <div class="text-xs text-neutral-400">
+                                    {{ __('The request timeout is') }}
+                                    <span id="rt-label" class="text-blue-400">30 seconds</span>.
+                                    {{ __('The shorter the timeout the earlier we mark website as down.') }}
+                                </div>
+                                <input id="rt-range" type="range" min="0" max="4" step="1" value="2" class="w-full h-2 rounded bg-[#253047] accent-blue-600">
+                                <div class="grid grid-cols-5 gap-2 text-xs text-neutral-400">
+                                    <div>1s</div>
+                                    <div>15s</div>
+                                    <div>30s</div>
+                                    <div>45s</div>
+                                    <div>60s</div>
+                                </div>
+                                <input type="hidden" id="rt-value" name="request_timeout" value="30s">
+                            </div>
+
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2 text-neutral-300">
+                                    <span class="inline-flex h-4 w-4 items-center justify-center rounded bg-[#253047] text-neutral-300">🔒</span>
+                                    <span class="text-sm">{{ __('Slow response time alert') }}</span>
+                                    <a href="#" class="text-xs text-emerald-500 underline">{{ __('Upgrade to unlock') }}</a>
+                                </div>
+                                <div class="text-xs text-neutral-400">
+                                    {{ __('You\'ll receive a notification if the response time exceeds your set threshold.') }}
+                                    {{ __('Once it drops back below the threshold, you\'ll be notified again, and the incident will be marked as resolved.') }}
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <input type="number" class="w-full rounded-lg bg-[#0d1320] border border-neutral-800 px-3 py-2 text-sm text-neutral-400" value="1000" disabled>
+                                    <span class="text-xs text-neutral-400">{{ __('milliseconds') }}</span>
+                                </div>
+                            </div>
+
+                            <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2">
+                                <span class="text-sm text-white">Follow redirections</span>
+                                <input type="checkbox" class="peer sr-only" checked>
+                                <span data-switch class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 relative transition-colors cursor-pointer select-none">
+                                    <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-300 transition-transform"></span>
+                                </span>
+                            </label>
+
+                            <div>
+                                <div class="flex items-center justify-between mb-1">
+                                    <label class="text-xs text-neutral-400">{{ __('Up HTTP status codes') }}</label>
+                                    <div class="text-[11px] text-neutral-400">{{ __('Available only in Solo, Team and Enterprise.') }} <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a></div>
+                                </div>
+                                <div class="text-[11px] text-neutral-400 mb-2">{{ __('We will consider incident when we receive HTTP status code other than defined below.') }}</div>
+                                <input type="text" class="w-full rounded-lg bg-[#0d1320] border border-neutral-800 px-3 py-2 text-sm text-neutral-400" placeholder="2xx, 3xx" disabled>
+                            </div>
+
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <label class="text-xs text-neutral-400">{{ __('Auth. type') }}</label>
+                                    <div class="text-[11px] text-neutral-400">{{ __('Available only in Solo, Team and Enterprise.') }} <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a></div>
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-[1fr_1fr] gap-3">
+                                    <div>
+                                        <select id="auth-type" disabled class="w-full rounded-lg bg-[#0d1320] border border-neutral-800 px-3 py-2 text-sm text-neutral-400">
+                                            <option value="none">{{ __('None') }}</option>
+                                            <option value="basic">{{ __('Basic') }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-3" id="auth-creds" style="display:none;">
+                                        <div>
+                                            <label class="text-xs text-neutral-400 mb-1 block">{{ __('Auth. credentials') }}</label>
+                                            <input type="text" class="w-full rounded-lg bg-[#0d1320] border border-neutral-800 px-3 py-2 text-sm text-neutral-400" placeholder="{{ __('Username') }}" disabled>
+                                        </div>
+                                        <div>
+                                            <label class="text-xs text-neutral-400 mb-1 block">&nbsp;</label>
+                                            <input type="password" class="w-full rounded-lg bg-[#0d1320] border border-neutral-800 px-3 py-2 text-sm text-neutral-400" placeholder="{{ __('Password') }}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <label class="text-xs text-neutral-400">{{ __('HTTP method') }}</label>
+                                    <div class="text-[11px] text-neutral-400">{{ __('Available only in Solo, Team and Enterprise.') }} <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a></div>
+                                </div>
+                                <div class="flex flex-wrap gap-2 opacity-60">
+                                    <button type="button" class="http-method px-3 py-1.5 rounded bg-emerald-600 text-xs text-white cursor-not-allowed" data-value="HEAD" disabled>HEAD</button>
+                                    <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-not-allowed" data-value="GET" disabled>GET</button>
+                                    <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-not-allowed" data-value="POST" disabled>POST</button>
+                                    <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-not-allowed" data-value="PUT" disabled>PUT</button>
+                                    <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-not-allowed" data-value="PATCH" disabled>PATCH</button>
+                                    <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-not-allowed" data-value="DELETE" disabled>DELETE</button>
+                                    <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-not-allowed" data-value="OPTIONS" disabled>OPTIONS</button>
+                                </div>
+                                <input type="hidden" id="http-method-value" name="method" value="HEAD">
+                            </div>
+
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <label class="text-xs text-neutral-400">{{ __('Request body') }}</label>
+                                    <div class="text-[11px] text-neutral-400">{{ __('Available only in Solo, Team and Enterprise.') }} <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a></div>
+                                </div>
+                                <textarea class="w-full rounded-lg bg-[#0d1320] border border-neutral-800 px-3 py-2 text-sm text-neutral-400" rows="3" placeholder='{"key":"value"}' disabled></textarea>
+                                <label class="flex items-center justify-between rounded-lg bg-[#0d1320] border border-neutral-800 px-3 py-2">
+                                    <span class="text-sm text-neutral-300">Send as JSON (application/json)</span>
+                                    <input type="checkbox" class="peer sr-only" disabled>
+                                    <span data-switch class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 relative select-none">
+                                        <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-500"></span>
+                                    </span>
+                                </label>
+                                <div class="text-[11px] text-neutral-400">{{ __('Data will be sent as a standard POST (application/x-www-form-urlencoded) unless you choose the JSON option.') }}</div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <label class="text-xs text-neutral-400">{{ __('Request headers') }}</label>
+                                    <div class="text-[11px] text-neutral-400">{{ __('Available only in Solo, Team and Enterprise.') }} <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a></div>
+                                </div>
+                                <div class="grid grid-cols-[1fr_1fr_32px] gap-2">
+                                    <input class="rounded-lg bg-[#0d1320] border border-neutral-800 px-3 py-2 text-sm text-neutral-400" placeholder="X-Header-Name" disabled>
+                                    <input class="rounded-lg bg-[#0d1320] border border-neutral-800 px-3 py-2 text-sm text-neutral-400" placeholder="Value" disabled>
+                                    <button type="button" class="rounded bg-neutral-800 text-neutral-500 text-sm cursor-not-allowed" disabled>＋</button>
+                                </div>
+                                <div class="flex justify-end">
+                                    <button type="button" class="rounded bg-neutral-800 text-red-400 text-xs px-2 py-1 cursor-not-allowed" disabled>✖</button>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                </form>
+            </div>
+            <div id="tab-team" class="space-y-6 hidden">
+                <div class="rounded-xl bg-panel border border-neutral-800 p-5 space-y-4">
+                    <div class="text-neutral-200 font-medium">{{ __('Add single monitor.') }}</div>
+                    <div class="rounded-lg bg-[#121826] border border-neutral-800 p-4 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="text-neutral-200 font-medium">{{ __('Notify team members.') }}</div>
+                            <button type="button" class="rounded-md bg-[#1a1f2e] border border-neutral-700 px-3 py-1 text-xs text-white">{{ __('Manage') }}</button>
+                        </div>
+                        <div class="rounded-md bg-[#0d1320] border border-neutral-800 p-6 text-center">
+                            <div class="text-neutral-300">
+                                <span class="text-emerald-500 font-bold">{{ __('Notify') }}</span>
+                                <span>{{ __('anyone via e-mail, SMS or voice call.') }}</span>
+                            </div>
+                            <div class="text-xs text-neutral-400 mt-2">
+                                {{ __('Solve incidents faster, together. Keep every team member in the loop with their own access. Available in our Team and Enterprise plans.') }}
+                            </div>
+                            <div class="text-xs text-neutral-400">
+                                {{ __('Notify anyone without sharing your account with Notify-only seats, available even in Solo plans (sold separately).') }}
+                            </div>
+                            <div class="mt-4">
+                                <a href="#" class="inline-flex items-center justify-center rounded-full bg-emerald-600 px-4 py-2 text-white text-sm">{{ __('See plans') }}</a>
+                                <span class="text-xs text-neutral-400 ms-2">{{ __('Plans start at $7 / month. 10-day money-back guarantee.') }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rounded-lg bg-[#121826] border border-neutral-800 p-4 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="text-neutral-200 font-medium">{{ __('Connect integrations.') }}</div>
+                            <button type="button" class="rounded-md bg-[#1a1f2e] border border-neutral-700 px-3 py-1 text-xs text-white">{{ __('Manage') }}</button>
+                        </div>
+                        <div class="rounded-md bg-[#0d1320] border border-neutral-800 p-6 text-center">
+                            <div class="text-neutral-300">
+                                <span class="text-emerald-500 font-bold">{{ __('Connect') }}</span>
+                                <span>{{ __('any services you are using.') }}</span>
+                            </div>
+                            <div class="text-xs text-neutral-400 mt-2">
+                                {{ __('Slack, MS Teams, Telegram, Webhooks... we got it all. Send up, down, SSL & domain alerts to your favorite service.') }}
+                            </div>
+                            <div class="mt-4">
+                                <a href="{{ route('monitors.notifications') }}" class="inline-flex items-center justify-center rounded-md bg-indigo-600 px-4 py-2 text-white text-sm">{{ __('Manage integrations') }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="tab-maintenance" class="space-y-6 hidden">
+                <div class="rounded-xl bg-panel border border-neutral-800 p-5 space-y-4">
+                    <div class="text-neutral-200 font-medium">{{ __('Add single monitor.') }}</div>
+                    <div class="rounded-lg bg-[#121826] border border-neutral-800 p-4 space-y-3">
+                        <div class="text-neutral-200 font-medium">{{ __('Setup Maintenance windows.') }}</div>
+                        <div class="rounded-md bg-[#0d1320] border border-neutral-800 p-6 text-center">
+                            <div class="text-neutral-300">
+                                <span>{{ __('Setup planned') }}</span>
+                                <span class="text-emerald-500 font-bold">{{ __('maintenance') }}</span>
+                                <span>{{ __('period.') }}</span>
+                            </div>
+                            <div class="text-xs text-neutral-400 mt-2">
+                                {{ __('Unlock seamless maintenance planning! Keep your uptime untouched with scheduled regular or unplanned maintenance.') }}
+                            </div>
+                            <div class="text-xs text-neutral-400">
+                                {{ __('During maintenance windows, no alerts are sent.') }}
+                            </div>
+                            <div class="mt-4">
+                                <a href="#" class="inline-flex items-center justify-center rounded-full bg-emerald-600 px-4 py-2 text-white text-sm">{{ __('See plans') }}</a>
+                                <span class="text-xs text-neutral-400 ms-2">{{ __('Plans start at $7 / month. 10-day money-back guarantee.') }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <div class="rounded-xl bg-panel border border-neutral-800 p-5">
+                    <button type="button" class="tab-link w-full text-left text-emerald-500 font-medium mb-2" data-tab="details">{{ __('Monitor details') }}</button>
+                    <button type="button" class="tab-link w-full text-left text-neutral-400 mb-1" data-tab="team">{{ __('Integrations & Team') }}</button>
+                    <button type="button" class="tab-link w-full text-left text-neutral-400" data-tab="maintenance">{{ __('Maintenance info') }}</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="fixed bottom-0 left-0 right-0 border-t border-neutral-800 bg-[#0f1823]">
+            <div class="mx-auto max-w-7xl p-4">
+                <div class="flex items-center justify-end">
+                    <flux:link :href="route('monitors.notifications')" class="inline-flex items-center justify-center rounded-md bg-blue-600 px-5 py-2 text-white hover:bg-blue-700">
+                        {{ __('Create monitor') }}
+                    </flux:link>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var miRange = document.getElementById('mi-range');
+            var miLabel = document.getElementById('mi-label');
+            var miValue = document.getElementById('mi-value');
+            if (miRange && miLabel && miValue) {
+                var steps = ['30s','1m','5m','30m','1h','12h','24h'];
+                function fmt(v) {
+                    if (v.endsWith('s')) return v.replace('s', ' seconds');
+                    if (v.endsWith('m')) return v.replace('m', ' minutes');
+                    if (v.endsWith('h')) return v.replace('h', ' hours');
+                    return v;
+                }
+                function updateMi() {
+                    var idx = parseInt(miRange.value, 10);
+                    var v = steps[idx] || '5m';
+                    miValue.value = v;
+                    miLabel.textContent = fmt(v);
+                }
+                updateMi();
+                miRange.addEventListener('input', updateMi);
+                miRange.addEventListener('change', updateMi);
+            }
+            var rtRange = document.getElementById('rt-range');
+            var rtLabel = document.getElementById('rt-label');
+            var rtValue = document.getElementById('rt-value');
+            if (rtRange && rtLabel && rtValue) {
+                var rtSteps = ['1s','15s','30s','45s','60s'];
+                function updateRt() {
+                    var idx = parseInt(rtRange.value, 10);
+                    var v = rtSteps[idx] || '30s';
+                    rtValue.value = v;
+                    rtLabel.textContent = v.endsWith('s') ? v.replace('s', ' seconds') : v;
+                }
+                updateRt();
+                rtRange.addEventListener('input', updateRt);
+                rtRange.addEventListener('change', updateRt);
+            }
+            document.querySelectorAll('.ms-select').forEach(function (wrap) {
+                var trigger = wrap.querySelector('.ms-trigger');
+                var panel = wrap.querySelector('.ms-panel');
+                var input = wrap.querySelector('input[type="hidden"]');
+                var labelEl = trigger.querySelector('.ms-label');
+                function closeAll() {
+                    document.querySelectorAll('.ms-panel').forEach(function (p) { p.classList.add('hidden'); });
+                }
+                if (trigger && panel) {
+                    panel.classList.add('hidden');
+                    trigger.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        var open = !panel.classList.contains('hidden');
+                        closeAll();
+                        if (!open) panel.classList.remove('hidden');
+                    });
+                    panel.addEventListener('click', function (e) { e.stopPropagation(); });
+                }
+                wrap.querySelectorAll('.ms-option').forEach(function (opt) {
+                    opt.addEventListener('click', function () {
+                        var v = opt.getAttribute('data-value');
+                        var lbl = opt.getAttribute('data-label');
+                        if (input) input.value = v || '';
+                        if (labelEl && lbl) labelEl.textContent = lbl;
+                        if (panel) panel.classList.add('hidden');
+                    });
+                });
+                document.addEventListener('click', closeAll);
+                document.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape') closeAll();
+                });
+            });
+            document.querySelectorAll('[data-switch]').forEach(function (switchEl) {
+                var input = switchEl.previousElementSibling;
+                var knob = switchEl.querySelector('span');
+                function updateSwitch() {
+                    if (!input || !knob) return;
+                    if (input.checked) {
+                        switchEl.classList.remove('bg-neutral-700');
+                        switchEl.classList.add('bg-indigo-600');
+                        knob.classList.add('translate-x-5');
+                    } else {
+                        switchEl.classList.add('bg-neutral-700');
+                        switchEl.classList.remove('bg-indigo-600');
+                        knob.classList.remove('translate-x-5');
+                    }
+                }
+                updateSwitch();
+                if (input) {
+                    input.addEventListener('change', updateSwitch);
+                }
+                switchEl.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    if (input) {
+                        input.checked = !input.checked;
+                        input.dispatchEvent(new Event('change', { bubbles: true }));
+                    }
+                });
+            });
+            document.querySelectorAll('.mi-opt').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    document.querySelectorAll('.mi-opt').forEach(function (b) {
+                        b.classList.remove('bg-emerald-600');
+                        b.classList.add('bg-[#253047]');
+                    });
+                    btn.classList.remove('bg-[#253047]');
+                    btn.classList.add('bg-emerald-600');
+                    var v = btn.getAttribute('data-value');
+                    var input = document.getElementById('mi-value');
+                    if (input) input.value = v;
+                });
+            });
+            var authType = document.getElementById('auth-type');
+            var creds = document.getElementById('auth-creds');
+            if (authType && creds) {
+                function updateAuth() {
+                    creds.style.display = authType.value === 'basic' ? '' : 'none';
+                }
+                updateAuth();
+                authType.addEventListener('change', updateAuth);
+            }
+            document.querySelectorAll('.http-method').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    document.querySelectorAll('.http-method').forEach(function (b) {
+                        b.classList.remove('bg-emerald-600');
+                        b.classList.add('bg-[#253047]');
+                    });
+                    btn.classList.remove('bg-[#253047]');
+                    btn.classList.add('bg-emerald-600');
+                    var v = btn.getAttribute('data-value');
+                    var input = document.getElementById('http-method-value');
+                    if (input) input.value = v;
+                });
+            });
+            var panes = {
+                details: document.getElementById('tab-details'),
+                team: document.getElementById('tab-team'),
+                maintenance: document.getElementById('tab-maintenance')
+            };
+            function activateTab(name) {
+                Object.keys(panes).forEach(function (k) {
+                    if (!panes[k]) return;
+                    if (k === name) {
+                        panes[k].classList.remove('hidden');
+                    } else {
+                        panes[k].classList.add('hidden');
+                    }
+                });
+                document.querySelectorAll('.tab-link').forEach(function (el) {
+                    var isActive = el.getAttribute('data-tab') === name;
+                    el.classList.toggle('text-emerald-500', isActive);
+                    el.classList.toggle('font-medium', isActive);
+                    el.classList.toggle('text-neutral-400', !isActive);
+                });
+            }
+            document.querySelectorAll('.tab-link').forEach(function (el) {
+                el.addEventListener('click', function () {
+                    var name = el.getAttribute('data-tab') || 'details';
+                    activateTab(name);
+                });
+            });
+            activateTab('details');
+        });
+    </script>
+</x-layouts.app>

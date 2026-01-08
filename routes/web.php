@@ -29,6 +29,14 @@ Route::get('monitoring/single', [MonitoringController::class, 'show'])
     ->middleware(['auth', 'verified'])
     ->name('monitoring.show');
 
+Route::get('monitoring/create', [MonitoringController::class, 'create'])
+    ->middleware(['auth', 'verified'])
+    ->name('monitoring.create');
+
+Route::post('monitoring/store', [MonitoringController::class, 'store'])
+    ->middleware(['auth', 'verified'])
+    ->name('monitoring.store');
+
 Route::get('status-page', [StatusController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('status.index');
