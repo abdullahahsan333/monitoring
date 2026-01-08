@@ -1,5 +1,5 @@
 <x-layouts.app :title="__('Create Monitor')">
-    <div class="mx-auto max-w-7xl relative">
+    <div class="mx-auto max-w-7xl">
 
         <div class="flex items-center justify-between mb-4">
             <a href="{{ route('monitoring.index') }}" class="inline-flex items-center gap-1 rounded-full bg-[#1a1f2e] px-2.5 py-1 text-xs text-neutral-400 border border-neutral-700" wire:navigate>
@@ -8,8 +8,9 @@
             </a>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-6 mb-10">
+        <div class="relative grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-6 mb-10">
             <div id="tab-details" class="space-y-6">
+                <div class="text-neutral-200 font-medium">{{ __('Add single monitor.') }}</div>
                 <div class="rounded-xl bg-panel border border-neutral-800 p-5">
                     <flux:heading size="md" class="!text-white">{{ __('Monitor type') }}</flux:heading>
                     <div class="mt-3 ms-select relative">
@@ -268,25 +269,23 @@
                             </div>
 
                             <div class="space-y-2">
-                                <div class="flex items-center justify-between">
-                                    <label class="text-xs text-neutral-400">{{ __('Auth. type') }}</label>
-                                    <div class="text-[11px] text-neutral-400">{{ __('Available only in Solo, Team and Enterprise.') }} <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a></div>
-                                </div>
-                                <div class="grid grid-cols-1 sm:grid-cols-[1fr_1fr] gap-3">
+                                <div class="grid grid-cols-1 sm:grid-cols-[240px_1fr] gap-3 items-start">
                                     <div>
-                                        <select id="auth-type" disabled class="w-full rounded-lg bg-[#0d1320] border border-neutral-800 px-3 py-2 text-sm text-neutral-400">
+                                        <label class="text-xs text-neutral-400 mb-1 block">{{ __('Auth. type') }}</label>
+                                        <select id="auth-type" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white">
                                             <option value="none">{{ __('None') }}</option>
                                             <option value="basic">{{ __('Basic') }}</option>
                                         </select>
                                     </div>
-                                    <div class="grid grid-cols-2 gap-3" id="auth-creds" style="display:none;">
+                                    <div id="auth-creds" class="grid grid-cols-2 gap-3">
                                         <div>
                                             <label class="text-xs text-neutral-400 mb-1 block">{{ __('Auth. credentials') }}</label>
-                                            <input type="text" class="w-full rounded-lg bg-[#0d1320] border border-neutral-800 px-3 py-2 text-sm text-neutral-400" placeholder="{{ __('Username') }}" disabled>
+                                            <input id="auth-username" name="auth_username" type="text" class="w-full rounded-lg bg-[#0d1320] border border-neutral-800 px-3 py-2 text-sm text-neutral-400" placeholder="{{ __('Username') }}" disabled>
                                         </div>
-                                        <div>
+                                        <div class="relative">
                                             <label class="text-xs text-neutral-400 mb-1 block">&nbsp;</label>
-                                            <input type="password" class="w-full rounded-lg bg-[#0d1320] border border-neutral-800 px-3 py-2 text-sm text-neutral-400" placeholder="{{ __('Password') }}" disabled>
+                                            <input id="auth-password" name="auth_password" type="password" class="w-full rounded-lg bg-[#0d1320] border border-neutral-800 px-3 py-2 pr-10 text-sm text-neutral-400" placeholder="{{ __('Password') }}" disabled>
+                                            <button type="button" id="auth-pass-toggle" class="absolute right-2 top-2.5 text-neutral-400 hover:text-neutral-200 text-sm">👁</button>
                                         </div>
                                     </div>
                                 </div>
@@ -328,24 +327,32 @@
                             <div class="space-y-2">
                                 <div class="flex items-center justify-between">
                                     <label class="text-xs text-neutral-400">{{ __('Request headers') }}</label>
-                                    <div class="text-[11px] text-neutral-400">{{ __('Available only in Solo, Team and Enterprise.') }} <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a></div>
+                                    <div class="inline-flex items-center gap-2 rounded-full bg-[#0d1320] border border-neutral-800 px-2 py-1 text-[11px] text-neutral-400">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12 2a5 5 0 00-5 5v3H6a2 2 0 00-2 2v7a2 2 0 002 2h12a2 2 0 002-2v-7a2 2 0 00-2-2h-1V7a5 5 0 00-5-5zm-3 8V7a3 3 0 016 0v3H9zm3 4a2 2 0 110 4 2 2 0 010-4z"/>
+                                        </svg>
+                                        <span>{{ __('Available only in Solo, Team and Enterprise.') }}</span>
+                                        <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a>
+                                    </div>
                                 </div>
-                                <div class="grid grid-cols-[1fr_1fr_32px] gap-2">
+                                <div class="grid grid-cols-[1fr_1fr_40px] gap-2">
                                     <input class="rounded-lg bg-[#0d1320] border border-neutral-800 px-3 py-2 text-sm text-neutral-400" placeholder="X-Header-Name" disabled>
                                     <input class="rounded-lg bg-[#0d1320] border border-neutral-800 px-3 py-2 text-sm text-neutral-400" placeholder="Value" disabled>
-                                    <button type="button" class="rounded bg-neutral-800 text-neutral-500 text-sm cursor-not-allowed" disabled>＋</button>
-                                </div>
-                                <div class="flex justify-end">
-                                    <button type="button" class="rounded bg-neutral-800 text-red-400 text-xs px-2 py-1 cursor-not-allowed" disabled>✖</button>
+                                    <button type="button" class="inline-flex items-center justify-center rounded-lg bg-neutral-800 text-red-400 px-2 py-2 cursor-not-allowed" disabled>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M9 3h6a1 1 0 011 1v2h4v2h-1l-1 12a2 2 0 01-2 2H8a2 2 0 01-2-2L5 8H4V6h4V4a1 1 0 011-1zm2 3h2V5h-2v1zm-1 5h2v8H10v-8zm4 0h2v8h-2v-8z"/>
+                                        </svg>
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </details>
                 </form>
             </div>
+
             <div id="tab-team" class="space-y-6 hidden">
+                <div class="text-neutral-200 font-medium">{{ __('Add single monitor.') }}</div>
                 <div class="rounded-xl bg-panel border border-neutral-800 p-5 space-y-4">
-                    <div class="text-neutral-200 font-medium">{{ __('Add single monitor.') }}</div>
                     <div class="rounded-lg bg-[#121826] border border-neutral-800 p-4 space-y-3">
                         <div class="flex items-center justify-between">
                             <div class="text-neutral-200 font-medium">{{ __('Notify team members.') }}</div>
@@ -388,9 +395,10 @@
                     </div>
                 </div>
             </div>
+
             <div id="tab-maintenance" class="space-y-6 hidden">
+                <div class="text-neutral-200 font-medium">{{ __('Add single monitor.') }}</div>
                 <div class="rounded-xl bg-panel border border-neutral-800 p-5 space-y-4">
-                    <div class="text-neutral-200 font-medium">{{ __('Add single monitor.') }}</div>
                     <div class="rounded-lg bg-[#121826] border border-neutral-800 p-4 space-y-3">
                         <div class="text-neutral-200 font-medium">{{ __('Setup Maintenance windows.') }}</div>
                         <div class="rounded-md bg-[#0d1320] border border-neutral-800 p-6 text-center">
@@ -416,16 +424,17 @@
 
             <div class="space-y-4">
                 <div class="rounded-xl bg-panel border border-neutral-800 p-5">
-                    <button type="button" class="tab-link w-full text-left text-emerald-500 font-medium mb-2" data-tab="details">{{ __('Monitor details') }}</button>
-                    <button type="button" class="tab-link w-full text-left text-neutral-400 mb-1" data-tab="team">{{ __('Integrations & Team') }}</button>
-                    <button type="button" class="tab-link w-full text-left text-neutral-400" data-tab="maintenance">{{ __('Maintenance info') }}</button>
+                    <button type="button" class="py-2 tab-link w-full text-left text-emerald-500 font-medium mb-2" data-tab="details">{{ __('Monitor details') }}</button>
+                    <button type="button" class="py-2 tab-link w-full text-left text-neutral-400 mb-1" data-tab="team">{{ __('Integrations & Team') }}</button>
+                    <button type="button" class="py-2 tab-link w-full text-left text-neutral-400" data-tab="maintenance">{{ __('Maintenance info') }}</button>
                 </div>
             </div>
-        </div>
 
-        <div class="fixed bottom-0 left-0 right-0 border-t border-neutral-800 bg-[#0f1823]">
-            <div class="mx-auto max-w-7xl p-4">
-                <div class="flex items-center justify-end">
+        </div>
+        
+        <div class="border-t rounded-xl border-neutral-800 bg-panel">
+            <div class="mx-auto p-4">
+                <div class="flex items-center gap-6">
                     <flux:link :href="route('monitors.notifications')" class="inline-flex items-center justify-center rounded-md bg-blue-600 px-5 py-2 text-white hover:bg-blue-700">
                         {{ __('Create monitor') }}
                     </flux:link>
@@ -546,13 +555,31 @@
                 });
             });
             var authType = document.getElementById('auth-type');
-            var creds = document.getElementById('auth-creds');
-            if (authType && creds) {
-                function updateAuth() {
-                    creds.style.display = authType.value === 'basic' ? '' : 'none';
-                }
-                updateAuth();
-                authType.addEventListener('change', updateAuth);
+            var authUser = document.getElementById('auth-username');
+            var authPass = document.getElementById('auth-password');
+            var authPassToggle = document.getElementById('auth-pass-toggle');
+            function setDisabled(el, disabled) {
+                if (!el) return;
+                el.disabled = disabled;
+                el.classList.toggle('bg-[#0d1320]', disabled);
+                el.classList.toggle('border-neutral-800', disabled);
+                el.classList.toggle('text-neutral-400', disabled);
+                el.classList.toggle('bg-[#1a1f2e]', !disabled);
+                el.classList.toggle('border-neutral-700', !disabled);
+                el.classList.toggle('text-white', !disabled);
+            }
+            function updateAuth() {
+                var isBasic = authType && authType.value === 'basic';
+                setDisabled(authUser, !isBasic);
+                setDisabled(authPass, !isBasic);
+            }
+            updateAuth();
+            if (authType) authType.addEventListener('change', updateAuth);
+            if (authPassToggle && authPass) {
+                authPassToggle.addEventListener('click', function () {
+                    if (authPass.disabled) return;
+                    authPass.type = authPass.type === 'password' ? 'text' : 'password';
+                });
             }
             document.querySelectorAll('.http-method').forEach(function (btn) {
                 btn.addEventListener('click', function () {
