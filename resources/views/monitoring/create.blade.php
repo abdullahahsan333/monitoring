@@ -185,10 +185,14 @@
                     </div>
 
                     <details class="rounded-lg bg-[#121826] border border-neutral-800 p-4">
-                        <summary class="cursor-pointer flex items-center justify-between">
-                            <span class="text-neutral-200 font-medium">{{ __('SSL certificate and Domain checks') }}</span>
-                            <span class="text-[11px] text-neutral-400">{{ __('Available only in Solo, Team and Enterprise.') }} <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a></span>
-                        </summary>
+                        <summary class="cursor-pointer text-neutral-200 font-medium">{{ __('SSL certificate and Domain checks') }}</summary>
+                        <div class="mt-2 inline-flex items-center gap-2 rounded-full bg-[#0d1320] border border-neutral-800 px-2 py-1 text-[11px] text-neutral-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2a5 5 0 00-5 5v3H6a2 2 0 00-2 2v7a2 2 0 002 2h12a2 2 0 002-2v-7a2 2 0 00-2-2h-1V7a5 5 0 00-5-5zm-3 8V7a3 3 0 016 0v3H9zm3 4a2 2 0 110 4 2 2 0 010-4z"/>
+                            </svg>
+                            <span>{{ __('Available only in Solo, Team and Enterprise.') }}</span>
+                            <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a>
+                        </div>
                         <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-2">
                             <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2 opacity-60">
                                 <span class="text-sm text-white">Check SSL errors</span>
@@ -296,7 +300,7 @@
                                     <label class="text-xs text-neutral-400">{{ __('HTTP method') }}</label>
                                     <div class="text-[11px] text-neutral-400">{{ __('Available only in Solo, Team and Enterprise.') }} <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a></div>
                                 </div>
-                                <div class="flex flex-wrap gap-2 opacity-60">
+                                <div class="flex flex-wrap justify-around gap-2 opacity-60">
                                     <button type="button" class="http-method px-3 py-1.5 rounded bg-emerald-600 text-xs text-white cursor-not-allowed" data-value="HEAD" disabled>HEAD</button>
                                     <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-not-allowed" data-value="GET" disabled>GET</button>
                                     <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-not-allowed" data-value="POST" disabled>POST</button>

@@ -8,7 +8,7 @@
                     <div class="flex items-center justify-between">
                         <flux:heading size="xl" class="!text-white">{{ __('Monitors.') }}</flux:heading>
                         <div class="flex items-center">
-                            <flux:link :href="route('monitoring.create')" class="bg-blue-600 hover:bg-blue-700 !text-white px-4 py-2 rounded-l-lg rounded-r-none text-sm font-medium" wire:navigate>
+                            <flux:link :href="route('monitoring.create')" class="bg-blue-600 hover:bg-blue-700 !text-white px-4 py-2.5 rounded-l-lg rounded-r-none text-sm font-medium" wire:navigate>
                                 + {{ __('New') }}
                             </flux:link>
                             <flux:dropdown position="bottom" align="end">
