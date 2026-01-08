@@ -29,24 +29,35 @@
                                 Test Notification
                             </span>
                         </flux:button>
-                        <div class="dd-panel absolute top-full right-0 mt-2 min-w-[360px] rounded-xl border border-neutral-800 bg-[#1a1f2e] p-4 text-white shadow-lg hidden z-50">
-                            <div class="flex items-center justify-between mb-3">
+                        <div class="dd-panel absolute top-full right-0 mt-2 min-w-[420px] rounded-xl border border-neutral-800 bg-[#1a1f2e] p-4 text-white shadow-lg hidden z-50">
+                            <div class="flex items-center justify-between mb-2">
                                 <div class="font-semibold text-white">Send test notifications.</div>
-                                <button class="text-neutral-400 hover:text-gray-900">✖</button>
+                                <button type="button" class="dd-close text-neutral-400 hover:text-gray-300">✖</button>
                             </div>
-                            <!-- Add data-force-white attribute to the integrations div for theme consistency -->
-                            <div class="mb-3 text-xs text-neutral-400 data-force-white">Attached people and integrations</div>
+                            <div class="text-xs text-neutral-400">Attached people and integrations</div>
+                            <div class="text-xs text-neutral-400 mt-1">
+                                Can't see your alert contact here?
+                                <a href="#" class="text-green-500 underline underline-offset-4 hover:text-green-400">Attach it here</a>
+                            </div>
+                            <div class="border-t border-neutral-800 my-3"></div>
+                            <div class="text-xs text-neutral-400 mb-2">Options</div>
                             <div class="space-y-3">
                                 <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2">
                                     <span class="text-sm text-white">Send to attached notify-only users</span>
-                                    <input type="checkbox" class="w-5 h-5 accent-gray-900" />
+                                    <input type="checkbox" class="peer sr-only">
+                                    <span data-switch class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 peer-checked:bg-indigo-600 relative transition-colors cursor-pointer select-none">
+                                        <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-300 peer-checked:translate-x-5 transition-transform"></span>
+                                    </span>
                                 </label>
                                 <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2">
                                     <span class="text-sm text-white">Send to attached Integrations [0]</span>
-                                    <input type="checkbox" class="w-5 h-5 accent-gray-900" />
+                                    <input type="checkbox" class="peer sr-only">
+                                    <span data-switch class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 peer-checked:bg-indigo-600 relative transition-colors cursor-pointer select-none">
+                                        <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-300 peer-checked:translate-x-5 transition-transform"></span>
+                                    </span>
                                 </label>
                             </div>
-                            <button class="mt-4 w-full rounded-lg bg-indigo-600 px-4 py-2 text-sm text-white hover:bg-indigo-700">Send test notifications</button>
+                            <button type="button" disabled class="mt-3 w-full rounded-md bg-gradient-to-r from-indigo-600 to-purple-700 opacity-60 px-4 py-2 text-sm text-white cursor-not-allowed">Send test notifications</button>
                         </div>
                     </div>
                     <flux:button variant="ghost" class="inline-flex items-center gap-2 rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-1.5 text-sm text-white hover:bg-gray-400 hover:text-gray-900 transition-colors">
@@ -286,10 +297,17 @@
             document.querySelectorAll('.dd').forEach(function (dd) {
                 var trigger = dd.querySelector(':scope > .dd-trigger');
                 var panel = dd.querySelector(':scope > .dd-panel');
+                var closeBtn = panel ? panel.querySelector('.dd-close') : null;
                 if (panel) {
                     panel.classList.add('hidden');
                     panel.classList.add('z-50');
                     panel.addEventListener('click', function (e) { e.stopPropagation(); });
+                }
+                if (closeBtn && panel) {
+                    closeBtn.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        panel.classList.add('hidden');
+                    });
                 }
                 if (trigger) {
                     trigger.addEventListener('click', function (e) {
@@ -309,6 +327,33 @@
                     });
                 }
                 dd.addEventListener('click', function (e) { e.stopPropagation(); });
+            });
+
+            document.querySelectorAll('.dd-panel label').forEach(function (label) {
+                var input = label.querySelector('input[type="checkbox"]');
+                var switchEl = label.querySelector('[data-switch]');
+                if (input && switchEl) {
+                    var knob = switchEl.querySelector('span');
+                    function updateSwitch() {
+                        if (!knob) return;
+                        if (input.checked) {
+                            switchEl.classList.remove('bg-neutral-700');
+                            switchEl.classList.add('bg-indigo-600');
+                            knob.classList.add('translate-x-5');
+                        } else {
+                            switchEl.classList.add('bg-neutral-700');
+                            switchEl.classList.remove('bg-indigo-600');
+                            knob.classList.remove('translate-x-5');
+                        }
+                    }
+                    updateSwitch();
+                    input.addEventListener('change', updateSwitch);
+                    switchEl.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        input.checked = !input.checked;
+                        input.dispatchEvent(new Event('change', { bubbles: true }));
+                    });
+                }
             });
 
             document.addEventListener('click', function () {

@@ -12,6 +12,11 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+// Allow GET/HEAD health checks for Boost browser logger endpoint
+Route::match(['GET', 'HEAD'], '_boost/browser-logs', function () {
+    return response()->noContent();
+});
+
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');

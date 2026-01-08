@@ -78,19 +78,11 @@
                     </div>
                     <flux:dropdown position="top" align="end">
                         <flux:button variant="ghost" class="!px-2 !py-1 !text-white">...</flux:button>
-                        <flux:menu class="min-w-[240px] bg-black !text-white">
+                        <flux:menu class="min-w-[280px] bg-panel !text-white">
                             <flux:menu.item icon="user" class="text-white hover:bg-gray-400 hover:!text-gray-900">{{ __('Account details') }}</flux:menu.item>
                             <flux:menu.item icon="bell" class="text-white hover:bg-gray-400 hover:!text-gray-900">{{ __('Notifications & reports') }}</flux:menu.item>
                             <flux:menu.item icon="credit-card" class="text-white hover:bg-gray-400 hover:!text-gray-900">{{ __('Billing, plan & subscription') }}</flux:menu.item>
-                            <flux:menu.item class="text-white hover:bg-gray-400 hover:!text-gray-900">
-                                <div class="flex items-center gap-2">
-                                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                        <path d="M7 3h10a2 2 0 0 1 2 2v14l-3-2-3 2-3-2-3 2V5a2 2 0 0 1 2-2z" />
-                                        <path d="M9 8h6M9 12h6M9 16h4" />
-                                    </svg>
-                                    <span>{{ __('Invoices') }}</span>
-                                </div>
-                            </flux:menu.item>
+                            <flux:menu.item icon="recept" class="text-white hover:bg-gray-400 hover:!text-gray-900">{{ __('Invoices') }}</flux:menu.item>
                             <flux:menu.item icon="lock-closed" class="text-white hover:bg-gray-400 hover:!text-gray-900">{{ __('Security') }}</flux:menu.item>
                             <flux:menu.item icon="users" class="text-white hover:bg-gray-400 hover:!text-gray-900">{{ __('Affiliate') }}</flux:menu.item>
                             <flux:menu.item icon="link" class="text-white hover:bg-gray-400 hover:!text-gray-900">{{ __('Referral') }}</flux:menu.item>
@@ -116,7 +108,7 @@
             <flux:dropdown position="top" align="end">
                 <flux:profile
                     :initials="auth()->user()->initials()"
-                    icon-trailing="chevron-down"
+                    icon:trailing="chevron-down"
                 />
 
                 <flux:menu class="bg-black !text-white">
