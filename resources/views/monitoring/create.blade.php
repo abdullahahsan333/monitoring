@@ -1,5 +1,5 @@
 <x-layouts.app :title="__('Create Monitor')">
-    <div class="mx-auto max-w-7xl">
+    <div class="mx-auto max-w-7xl pb-24">
 
         <div class="flex items-center justify-between mb-4">
             <a href="{{ route('monitoring.index') }}" class="inline-flex items-center gap-1 rounded-full bg-[#1a1f2e] px-2.5 py-1 text-xs text-neutral-400 border border-neutral-700" wire:navigate>
@@ -9,7 +9,7 @@
         </div>
 
         <div class="relative grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-6 mb-10">
-            <div id="tab-details" class="space-y-6">
+            <div id="tab-details" class="space-y-6 lg:order-1 order-2" role="tabpanel" aria-labelledby="tablink-details">
                 <div class="text-neutral-200 font-medium">{{ __('Add single monitor.') }}</div>
                 <div class="rounded-xl bg-panel border border-neutral-800 p-5">
                     <flux:heading size="md" class="!text-white">{{ __('Monitor type') }}</flux:heading>
@@ -350,7 +350,7 @@
                 </form>
             </div>
 
-            <div id="tab-team" class="space-y-6 hidden">
+            <div id="tab-team" class="space-y-6 hidden lg:order-1 order-2" role="tabpanel" aria-labelledby="tablink-team">
                 <div class="text-neutral-200 font-medium">{{ __('Add single monitor.') }}</div>
                 <div class="rounded-xl bg-panel border border-neutral-800 p-5 space-y-4">
                     <div class="rounded-lg bg-[#121826] border border-neutral-800 p-4 space-y-3">
@@ -396,7 +396,7 @@
                 </div>
             </div>
 
-            <div id="tab-maintenance" class="space-y-6 hidden">
+            <div id="tab-maintenance" class="space-y-6 hidden lg:order-1 order-2" role="tabpanel" aria-labelledby="tablink-maintenance">
                 <div class="text-neutral-200 font-medium">{{ __('Add single monitor.') }}</div>
                 <div class="rounded-xl bg-panel border border-neutral-800 p-5 space-y-4">
                     <div class="rounded-lg bg-[#121826] border border-neutral-800 p-4 space-y-3">
@@ -422,11 +422,11 @@
                 </div>
             </div>
 
-            <div class="space-y-4">
-                <div class="rounded-xl bg-panel border border-neutral-800 p-5">
-                    <button type="button" class="py-2 tab-link w-full text-left text-emerald-500 font-medium mb-2" data-tab="details">{{ __('Monitor details') }}</button>
-                    <button type="button" class="py-2 tab-link w-full text-left text-neutral-400 mb-1" data-tab="team">{{ __('Integrations & Team') }}</button>
-                    <button type="button" class="py-2 tab-link w-full text-left text-neutral-400" data-tab="maintenance">{{ __('Maintenance info') }}</button>
+            <div class="space-y-4 lg:order-2 order-1">
+                <div class="rounded-xl bg-panel border border-neutral-800 p-5" role="tablist" aria-orientation="vertical">
+                    <button type="button" id="tablink-details" class="py-2 tab-link w-full text-left text-emerald-500 font-medium mb-2" data-tab="details" role="tab" aria-selected="true" aria-controls="tab-details">{{ __('Monitor details') }}</button>
+                    <button type="button" id="tablink-team" class="py-2 tab-link w-full text-left text-neutral-400 mb-1" data-tab="team" role="tab" aria-selected="false" aria-controls="tab-team">{{ __('Integrations & Team') }}</button>
+                    <button type="button" id="tablink-maintenance" class="py-2 tab-link w-full text-left text-neutral-400" data-tab="maintenance" role="tab" aria-selected="false" aria-controls="tab-maintenance">{{ __('Maintenance info') }}</button>
                 </div>
             </div>
 
@@ -604,8 +604,10 @@
                     if (!panes[k]) return;
                     if (k === name) {
                         panes[k].classList.remove('hidden');
+                        panes[k].removeAttribute('hidden');
                     } else {
                         panes[k].classList.add('hidden');
+                        panes[k].setAttribute('hidden', 'true');
                     }
                 });
                 document.querySelectorAll('.tab-link').forEach(function (el) {
@@ -613,12 +615,46 @@
                     el.classList.toggle('text-emerald-500', isActive);
                     el.classList.toggle('font-medium', isActive);
                     el.classList.toggle('text-neutral-400', !isActive);
+                    el.setAttribute('aria-selected', isActive ? 'true' : 'false');
                 });
             }
+            var tabLinks = Array.prototype.slice.call(document.querySelectorAll('.tab-link'));
             document.querySelectorAll('.tab-link').forEach(function (el) {
                 el.addEventListener('click', function () {
                     var name = el.getAttribute('data-tab') || 'details';
                     activateTab(name);
+                });
+                el.addEventListener('keydown', function (e) {
+                    var idx = tabLinks.indexOf(el);
+                    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        var prev = tabLinks[Math.max(0, idx - 1)];
+                        if (prev) {
+                            prev.focus();
+                            activateTab(prev.getAttribute('data-tab'));
+                        }
+                    } else if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+                        e.preventDefault();
+                        var next = tabLinks[Math.min(tabLinks.length - 1, idx + 1)];
+                        if (next) {
+                            next.focus();
+                            activateTab(next.getAttribute('data-tab'));
+                        }
+                    } else if (e.key === 'Home') {
+                        e.preventDefault();
+                        var first = tabLinks[0];
+                        if (first) {
+                            first.focus();
+                            activateTab(first.getAttribute('data-tab'));
+                        }
+                    } else if (e.key === 'End') {
+                        e.preventDefault();
+                        var last = tabLinks[tabLinks.length - 1];
+                        if (last) {
+                            last.focus();
+                            activateTab(last.getAttribute('data-tab'));
+                        }
+                    }
                 });
             });
             activateTab('details');
