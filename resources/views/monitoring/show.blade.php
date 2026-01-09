@@ -247,8 +247,137 @@
                         @endif
                     </div>
                 </div>
-
+                
                 <div class="space-y-4">
+                    <div class="rounded-xl !bg-panel border border-neutral-800 overflow-hidden">
+                        <div class="px-5 py-4 border-b border-neutral-800">
+                            <div class="text-neutral-200 font-medium">Monitor type</div>
+                        </div>
+
+                        <div class="dd">
+                            <button type="button" class="dd-trigger w-full flex items-start gap-4 px-5 py-4 bg-[#121826] hover:bg-sidebar-active transition-colors">
+                                <span class="dd-current-icon flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-400" data-dd-icon>
+                                    <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6.5A2.5 2.5 0 016.5 4h11A2.5 2.5 0 0120 6.5V15a2 2 0 01-2 2H6a2 2 0 01-2-2V6.5z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 9h16" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 20h4" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 17v3" />
+                                    </svg>
+                                </span>
+                                <div class="flex-1 text-left">
+                                    <div class="dd-current-title text-white font-semibold">HTTP / website monitoring</div>
+                                    <div class="dd-current-desc mt-1 text-xs text-neutral-400">Use HTTP(s) monitor to monitor your website, API endpoint, or anything running on HTTP.</div>
+                                </div>
+                                <span class="mt-0.5 text-neutral-400">
+                                    <svg data-dd-chevron class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 15l6-6 6 6" />
+                                    </svg>
+                                </span>
+                            </button>
+
+                            <div class="dd-panel border-t border-neutral-800">
+                                <button type="button" class="w-full flex items-start gap-4 px-5 py-4 hover:bg-sidebar-active transition-colors" data-dd-option data-title="Keyword monitoring" data-description="Check the presence or absence of specific text in the request's response body (typically HTML or JSON).">
+                                    <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-violet-500/10 text-violet-300" data-dd-icon>
+                                        <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 14l-2 2 3 3 2-2" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 12l7-7a4 4 0 015 5l-7 7" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 7l2 2" />
+                                        </svg>
+                                    </span>
+                                    <div class="flex-1 text-left">
+                                        <div class="text-white font-semibold">Keyword monitoring</div>
+                                        <div class="mt-1 text-xs text-neutral-400">Check the presence or absence of specific text in the request's response body (typically HTML or JSON).</div>
+                                    </div>
+                                </button>
+
+                                <button type="button" class="w-full flex items-start gap-4 px-5 py-4 hover:bg-sidebar-active transition-colors" data-dd-option data-title="Ping monitoring" data-description="Make sure your server or any device in the network is always available.">
+                                    <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-sky-500/10 text-sky-300" data-dd-icon>
+                                        <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3a9 9 0 109 9 9 9 0 00-9-9z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 7a5 5 0 105 5 5 5 0 00-5-5z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 11a1 1 0 101 1 1 1 0 00-1-1z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M20 12h2" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M2 12h2" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 2v2" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 20v2" />
+                                        </svg>
+                                    </span>
+                                    <div class="flex-1 text-left">
+                                        <div class="text-white font-semibold">Ping monitoring</div>
+                                        <div class="mt-1 text-xs text-neutral-400">Make sure your server or any device in the network is always available.</div>
+                                    </div>
+                                </button>
+
+                                <button type="button" class="w-full flex items-start gap-4 px-5 py-4 hover:bg-sidebar-active transition-colors" data-dd-option data-title="Port monitoring" data-description="Monitor any service on your server. Useful for SMTP, POP3, FTP, and other services running on specific TCP ports.">
+                                    <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-fuchsia-500/10 text-fuchsia-300" data-dd-icon>
+                                        <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 9h10v10H7z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 9V7a2 2 0 012-2h2a2 2 0 012 2v2" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v2" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 19v2" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19v2" />
+                                        </svg>
+                                    </span>
+                                    <div class="flex-1 text-left">
+                                        <div class="text-white font-semibold">Port monitoring</div>
+                                        <div class="mt-1 text-xs text-neutral-400">Monitor any service on your server. Useful for SMTP, POP3, FTP, and other services running on specific TCP ports.</div>
+                                    </div>
+                                </button>
+
+                                <div class="w-full flex items-start gap-4 px-5 py-4 bg-[#0d1320] opacity-60">
+                                    <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-300">
+                                        <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 11V7" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 11V9a4 4 0 018 0v2" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 11h10v9a2 2 0 01-2 2H9a2 2 0 01-2-2v-9z" />
+                                        </svg>
+                                    </span>
+                                    <div class="flex-1 text-left">
+                                        <div class="text-white font-semibold">Cron job / Heartbeat monitoring</div>
+                                        <div class="mt-1 flex flex-wrap items-center gap-2 text-xs text-neutral-400">
+                                            <span class="inline-flex items-center gap-1">
+                                                <svg class="h-3.5 w-3.5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 11V7" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 11V9a4 4 0 018 0v2" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 11h10v9a2 2 0 01-2 2H9a2 2 0 01-2-2v-9z" />
+                                                </svg>
+                                                Available only in <span class="text-white font-semibold">Solo, Team</span> and <span class="text-white font-semibold">Enterprise</span>.
+                                            </span>
+                                            <a href="#" class="text-emerald-400 underline underline-offset-2 hover:text-emerald-300">Upgrade now</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="w-full flex items-start gap-4 px-5 py-4 bg-[#0d1320] opacity-60">
+                                    <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-300">
+                                        <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 4h12v4H6z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 10h12v4H6z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 16h12v4H6z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 6h.01M10 6h.01" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M10 12h.01" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 18h.01M10 18h.01" />
+                                        </svg>
+                                    </span>
+                                    <div class="flex-1 text-left">
+                                        <div class="text-white font-semibold">DNS monitoring</div>
+                                        <div class="mt-1 flex flex-wrap items-center gap-2 text-xs text-neutral-400">
+                                            <span class="inline-flex items-center gap-1">
+                                                <svg class="h-3.5 w-3.5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 11V7" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 11V9a4 4 0 018 0v2" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 11h10v9a2 2 0 01-2 2H9a2 2 0 01-2-2v-9z" />
+                                                </svg>
+                                                Available only in <span class="text-white font-semibold">Solo, Team</span> and <span class="text-white font-semibold">Enterprise</span>.
+                                            </span>
+                                            <a href="#" class="text-emerald-400 underline underline-offset-2 hover:text-emerald-300">Upgrade now</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="rounded-xl !bg-panel border border-neutral-800 p-5">
                         <div class="text-neutral-200 font-medium mb-3">Domain & SSL.</div>
                         <div class="space-y-4">
@@ -308,7 +437,7 @@
                 var panel = dd.querySelector(':scope > .dd-panel');
                 var closeBtn = panel ? panel.querySelector('.dd-close') : null;
                 if (panel) {
-                    panel.classList.add('hidden');
+                    if (!dd.hasAttribute('data-open')) panel.classList.add('hidden');
                     panel.classList.add('z-50');
                     panel.addEventListener('click', function (e) { e.stopPropagation(); });
                 }
@@ -319,6 +448,9 @@
                     });
                 }
                 if (trigger) {
+                    trigger.setAttribute('aria-expanded', panel && !panel.classList.contains('hidden') ? 'true' : 'false');
+                    var chevron = trigger.querySelector('[data-dd-chevron]');
+                    if (chevron) chevron.classList.toggle('rotate-180', panel && !panel.classList.contains('hidden'));
                     trigger.addEventListener('click', function (e) {
                         e.stopPropagation();
                         var isOpen = panel && !panel.classList.contains('hidden');
@@ -333,6 +465,35 @@
                         } else {
                             if (panel) panel.classList.remove('hidden');
                         }
+                        trigger.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+                        var chevron2 = trigger.querySelector('[data-dd-chevron]');
+                        if (chevron2) chevron2.classList.toggle('rotate-180', !isOpen);
+                    });
+                }
+
+                if (panel && trigger) {
+                    panel.querySelectorAll('[data-dd-option]').forEach(function (opt) {
+                        opt.addEventListener('click', function (e) {
+                            e.stopPropagation();
+                            var title = opt.getAttribute('data-title');
+                            var description = opt.getAttribute('data-description');
+                            var icon = opt.querySelector('[data-dd-icon]');
+                            var currentTitle = trigger.querySelector('.dd-current-title');
+                            var currentDesc = trigger.querySelector('.dd-current-desc');
+                            var currentIcon = trigger.querySelector('.dd-current-icon');
+
+                            if (currentTitle && title) currentTitle.textContent = title;
+                            if (currentDesc && description) currentDesc.textContent = description;
+                            if (currentIcon && icon) {
+                                currentIcon.className = icon.className + ' dd-current-icon';
+                                currentIcon.innerHTML = icon.innerHTML;
+                            }
+
+                            panel.classList.add('hidden');
+                            trigger.setAttribute('aria-expanded', 'false');
+                            var chevron3 = trigger.querySelector('[data-dd-chevron]');
+                            if (chevron3) chevron3.classList.remove('rotate-180');
+                        });
                     });
                 }
                 dd.addEventListener('click', function (e) { e.stopPropagation(); });
