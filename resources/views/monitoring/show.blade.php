@@ -70,7 +70,7 @@
                     </flux:button>
                     <div class="dd relative">
                         <flux:button variant="ghost" class="dd-trigger !px-2 !py-1 rounded-lg bg-[#1a1f2e] border border-neutral-700 text-white hover:bg-gray-400 hover:text-gray-900">⋮</flux:button>
-                        <div class="dd-panel absolute top-full right-0 mt-2 min-w-[240px] rounded-xl border border-neutral-800 bg-panel p-2 text-white shadow-lg hidden z-50">
+                        <div class="dd-panel absolute top-full right-0 mt-2 min-w-[240px] rounded-xl border border-neutral-800 !bg-panel p-2 text-white shadow-lg hidden z-50">
                             <button class="w-full flex items-center gap-2 px-3 py-2 rounded text-sm hover:bg-gray-400 hover:text-gray-900">
                                 <span>🛠</span><span>Edit monitor</span>
                             </button>
@@ -111,17 +111,17 @@
             <div class="grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-6">
                 <div class="space-y-6">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div class="rounded-xl bg-panel border border-neutral-800 p-5">
+                        <div class="rounded-xl !bg-panel border border-neutral-800 p-5">
                             <div class="text-xs text-neutral-400 mb-2">Current status</div>
                             <div class="text-emerald-500 font-bold">Up</div>
                             <div class="text-xs text-neutral-400 mt-1">Currently up for 20h:49m:46s</div>
                         </div>
-                        <div class="rounded-xl bg-panel border border-neutral-800 p-5">
+                        <div class="rounded-xl !bg-panel border border-neutral-800 p-5">
                             <div class="text-xs text-neutral-400 mb-2">Last check</div>
                             <div class="text-white font-bold">2m, 39s ago</div>
                             <div class="text-xs text-neutral-400 mt-1">Checked every 5m</div>
                         </div>
-                        <div class="rounded-xl bg-panel border border-neutral-800 p-5">
+                        <div class="rounded-xl !bg-panel border border-neutral-800 p-5">
                             <div class="flex items-center justify-between mb-2">
                                 <div class="text-xs text-neutral-400">Last 24 hours</div>
                                 <div class="text-xs text-neutral-400">100%</div>
@@ -152,7 +152,7 @@
                         </div>
                     </div>
 
-                    <div class="rounded-xl bg-panel border border-neutral-800 p-5">
+                    <div class="rounded-xl !bg-panel border border-neutral-800 p-5">
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                             <div>
                                 <div class="text-xs text-neutral-400">Last 7 days</div>
@@ -207,7 +207,7 @@
                         </div>
                     </div>
 
-                    <div class="rounded-xl bg-panel border border-neutral-800 p-5">
+                    <div class="rounded-xl !bg-panel border border-neutral-800 p-5">
                         <div class="flex items-center justify-between mb-4">
                             <div class="text-neutral-200 font-medium">Response time</div>
                             <flux:button variant="ghost" class="rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-1.5 text-xs text-white hover:bg-gray-400 hover:text-gray-900 transition-colors">Setup alerts for slow response times</flux:button>
@@ -231,7 +231,7 @@
                         </div>
                     </div>
 
-                    <div class="rounded-xl bg-panel border border-neutral-800 p-5">
+                    <div class="rounded-xl !bg-panel border border-neutral-800 p-5">
                         <div class="text-neutral-200 font-medium mb-3">Latest incidents.</div>
                         <div class="rounded-lg bg-[#1a1f2e] border border-neutral-800 p-4 text-center">
                             <div class="text-amber-400 font-semibold">Good job, no incidents.</div>
@@ -241,7 +241,7 @@
                 </div>
 
                 <div class="space-y-4">
-                    <div class="rounded-xl bg-panel border border-neutral-800 p-5">
+                    <div class="rounded-xl !bg-panel border border-neutral-800 p-5">
                         <div class="text-neutral-200 font-medium mb-3">Domain & SSL.</div>
                         <div class="space-y-4">
                             <div class="rounded-lg bg-[#1a1f2e] border border-neutral-800 p-3">
@@ -259,13 +259,13 @@
                         </div>
                     </div>
 
-                    <div class="rounded-xl bg-panel border border-neutral-800 p-5">
+                    <div class="rounded-xl !bg-panel border border-neutral-800 p-5">
                         <div class="text-neutral-200 font-medium mb-3">Next maintenance.</div>
                         <div class="text-xs text-neutral-400">No maintenance planned.</div>
                         <flux:button variant="ghost" class="mt-3 rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-1.5 text-xs text-white hover:bg-gray-400 hover:text-gray-900 transition-colors">Set up maintenance</flux:button>
                     </div>
 
-                    <div class="rounded-xl bg-panel border border-neutral-800 p-5">
+                    <div class="rounded-xl !bg-panel border border-neutral-800 p-5">
                         <div class="text-neutral-200 font-medium mb-3">Regions.</div>
                         <div class="rounded-lg bg-[#1a1f2e] border border-neutral-800 p-4 text-center">
                             <div class="inline-flex items-center gap-2 text-white font-medium">
@@ -275,7 +275,7 @@
                         </div>
                     </div>
 
-                    <div class="rounded-xl bg-panel border border-neutral-800 p-5">
+                    <div class="rounded-xl !bg-panel border border-neutral-800 p-5">
                         <div class="text-neutral-200 font-medium mb-3">To be notified.</div>
                         <div class="text-xs text-neutral-400">No one is being alerted.</div>
                         <div class="grid grid-cols-1 gap-2 mt-3">
@@ -284,7 +284,7 @@
                         </div>
                     </div>
 
-                    <div class="rounded-xl bg-panel border border-neutral-800 p-5">
+                    <div class="rounded-xl !bg-panel border border-neutral-800 p-5">
                         <div class="text-neutral-200 font-medium mb-3">Appears on.</div>
                         <div class="text-xs text-neutral-400">Status page</div>
                     </div>

@@ -11,7 +11,7 @@
         <div class="relative grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-6 mb-10">
             <div id="tab-details" class="space-y-6 lg:order-1 order-2" role="tabpanel" aria-labelledby="tablink-details">
                 <div class="text-neutral-200 font-medium">{{ __('Add single monitor.') }}</div>
-                <div class="rounded-xl bg-panel border border-neutral-800 p-5">
+                <div class="rounded-xl !bg-panel border border-neutral-800 p-5">
                     <flux:heading size="md" class="!text-white">{{ __('Monitor type') }}</flux:heading>
                     <div class="mt-3 ms-select relative">
                         <button type="button" class="ms-trigger w-full flex items-center gap-3 rounded-lg bg-[#1a1f2e] border border-neutral-800 px-4 py-3 text-left">
@@ -70,7 +70,7 @@
                     </div>
                 </div>
 
-                <form class="rounded-xl bg-panel border border-neutral-800 p-5 space-y-6" action="#" method="post">
+                <form class="rounded-xl !bg-panel border border-neutral-800 p-5 space-y-6" action="#" method="post">
                     @csrf
                     <flux:input
                         name="url"
@@ -356,7 +356,7 @@
 
             <div id="tab-team" class="space-y-6 hidden lg:order-1 order-2" role="tabpanel" aria-labelledby="tablink-team">
                 <div class="text-neutral-200 font-medium">{{ __('Add single monitor.') }}</div>
-                <div class="rounded-xl bg-panel border border-neutral-800 p-5 space-y-4">
+                <div class="rounded-xl !bg-panel border border-neutral-800 p-5 space-y-4">
                     <div class="rounded-lg bg-[#121826] border border-neutral-800 p-4 space-y-3">
                         <div class="flex items-center justify-between">
                             <div class="text-neutral-200 font-medium">{{ __('Notify team members.') }}</div>
@@ -402,7 +402,7 @@
 
             <div id="tab-maintenance" class="space-y-6 hidden lg:order-1 order-2" role="tabpanel" aria-labelledby="tablink-maintenance">
                 <div class="text-neutral-200 font-medium">{{ __('Add single monitor.') }}</div>
-                <div class="rounded-xl bg-panel border border-neutral-800 p-5 space-y-4">
+                <div class="rounded-xl !bg-panel border border-neutral-800 p-5 space-y-4">
                     <div class="rounded-lg bg-[#121826] border border-neutral-800 p-4 space-y-3">
                         <div class="text-neutral-200 font-medium">{{ __('Setup Maintenance windows.') }}</div>
                         <div class="rounded-md bg-[#0d1320] border border-neutral-800 p-6 text-center">
@@ -427,7 +427,7 @@
             </div>
 
             <div class="space-y-4 lg:order-2 order-1">
-                <div class="rounded-xl bg-panel border border-neutral-800 p-5" role="tablist" aria-orientation="vertical">
+                <div class="rounded-xl !bg-panel border border-neutral-800 p-5" role="tablist" aria-orientation="vertical">
                     <button type="button" id="tablink-details" class="py-2 tab-link w-full text-left text-emerald-500 font-medium mb-2" data-tab="details" role="tab" aria-selected="true" aria-controls="tab-details">{{ __('Monitor details') }}</button>
                     <button type="button" id="tablink-team" class="py-2 tab-link w-full text-left text-neutral-400 mb-1" data-tab="team" role="tab" aria-selected="false" aria-controls="tab-team">{{ __('Integrations & Team') }}</button>
                     <button type="button" id="tablink-maintenance" class="py-2 tab-link w-full text-left text-neutral-400" data-tab="maintenance" role="tab" aria-selected="false" aria-controls="tab-maintenance">{{ __('Maintenance info') }}</button>
@@ -436,7 +436,7 @@
 
         </div>
         
-        <div class="border-t rounded-xl border-neutral-800 bg-panel">
+        <div class="border-t rounded-xl border-neutral-800 !bg-panel">
             <div class="mx-auto p-4">
                 <div class="flex items-center gap-6">
                     <flux:link :href="route('monitors.notifications')" class="inline-flex items-center justify-center rounded-md bg-blue-600 px-5 py-2 text-white hover:bg-blue-700">

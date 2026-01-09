@@ -6,22 +6,22 @@ Fast, dark-themed monitoring UI built with Laravel, Livewire Flux, Tailwind CSS,
 
 Follow these steps in order to run the project locally.
 
-1) Run database migrations
-
-```bash
-php artisan migrate
-```
-
-2) Install frontend dependencies
+1) Install frontend dependencies
 
 ```bash
 npm install
 ```
 
-3) Install PHP dependencies
+2) Install PHP dependencies
 
 ```bash
 composer install
+```
+
+3) Run database migrations
+
+```bash
+php artisan migrate
 ```
 
 4) Start the development environment

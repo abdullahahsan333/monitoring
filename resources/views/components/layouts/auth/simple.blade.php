@@ -12,7 +12,7 @@
                     </span>
                     <span class="sr-only">{{ config('app.name', 'Laravel') }}</span>
                 </a>
-                <div class="rounded-xl border border-neutral-800 bg-panel p-6 shadow-sm auth-white">
+                <div class="rounded-xl border border-neutral-800 !bg-panel p-6 shadow-sm auth-white">
                     <div class="flex flex-col gap-6">
                         {{ $slot }}
                     </div>

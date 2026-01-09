@@ -1,29 +1,29 @@
 <x-layouts.app :title="__('Test Notifications')">
     <flux:modal name="monitors-modal" :show="true" focusable class="max-w-xl">
-        <div class="w-full rounded-xl border border-neutral-200 bg-panel p-6 shadow-sm dark:border-neutral-700 dark:bg-neutral-900">
+        <div class="w-full rounded-xl border border-neutral-200 !bg-panel p-6 shadow-sm">
             <div class="mb-4 flex items-center justify-between">
                 <flux:heading size="xl">
-                    <span class="text-white dark:text-neutral-400">{{ __('Test') }}</span>
+                    <span class="text-white">{{ __('Test') }}</span>
                     <span class="ms-1">{{ __('notifications') }}</span>
                 </flux:heading>
-                <span class="text-xs text-white dark:text-neutral-400">{{ __('Step 2 of 4') }}</span>
+                <span class="text-xs text-white">{{ __('Step 2 of 4') }}</span>
             </div>
 
             <div class="space-y-4">
-                <flux:text class="!text-white dark:!text-neutral-300">
+                <flux:text class="!text-white">
                     {{ __('We will send you an e-mail whenever your website goes down.') }}
                 </flux:text>
 
-                <div class="rounded-lg border border-neutral-200 p-4 dark:border-neutral-700 dark:bg-neutral-800">
-                    <div class="text-sm text-white dark:text-neutral-400">{{ __('Your e-mail') }}</div>
-                    <div class="mt-1 font-medium text-white dark:text-neutral-100">{{ auth()->user()->email }}</div>
-                    <div class="mt-1 text-xs text-white dark:text-neutral-400">
+                <div class="rounded-lg border border-neutral-200 p-4">
+                    <div class="text-sm text-white">{{ __('Your e-mail') }}</div>
+                    <div class="mt-1 font-medium text-white">{{ auth()->user()->email }}</div>
+                    <div class="mt-1 text-xs text-white">
                         {{ __('You can invite your team members later on.') }}
                     </div>
                 </div>
 
                 <div class="flex items-center justify-between">
-                    <div class="text-xs text-white dark:text-neutral-400">
+                    <div class="text-xs text-white">
                         {{ __('We can also call, send you an SMS or you can connect your Slack, MS Teams or any service you already use.') }}
                     </div>
                     <div class="flex items-center">

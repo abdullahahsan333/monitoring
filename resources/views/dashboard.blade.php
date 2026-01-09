@@ -1,6 +1,6 @@
 <x-layouts.app :title="__('Dashboard')">
     <div class="px-4 py-6">
-        <div class="rounded-xl border border-neutral-800 bg-panel p-6 text-white shadow-sm">
+        <div class="rounded-xl border border-neutral-800 !bg-panel p-6 text-white shadow-sm">
             <div class="flex items-center justify-between">
                 <div class="max-w-xl">
                     <h2 class="text-xl font-semibold">
