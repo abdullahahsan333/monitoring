@@ -84,8 +84,7 @@
     @apply grid gap-2;
 }
 
-[data-force-white],
-[data-force-white] * {
+[data-force-white] {
     color: #ffffff !important;
 }
 [data-force-white] ::placeholder {
@@ -134,8 +133,7 @@ select:focus[data-flux-control] {
     .seg { @apply h-2 w-3 rounded bg-neutral-800; }
     .seg-up { @apply bg-emerald-500; }
 
-    .auth-white,
-    .auth-white * { color: #ffffff !important; }
+    .auth-white { color: #ffffff !important; }
     .auth-white ::placeholder { color: #ffffff !important; opacity: 0.9; }
     .auth-white [data-flux-label] { color: #ffffff !important; }
 
@@ -145,4 +143,48 @@ select:focus[data-flux-control] {
 
     [data-flux-sidebar] [data-flux-menu-item],
     [data-flux-sidebar] [data-flux-menu-item-icon] { color: #ffffff !important; }
+
+    .uptime-segment {
+        position: relative;
+        display: inline-block;
+        cursor: help;
+        transition: filter 150ms ease, transform 150ms ease;
+    }
+    .uptime-segment:hover {
+        filter: brightness(1.15);
+        transform: translateY(-1px);
+    }
+    .uptime-segment::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        left: 50%;
+        bottom: calc(100% + 8px);
+        transform: translateX(-50%);
+        z-index: 50;
+        padding: 6px 10px;
+        border-radius: 6px;
+        background: #000000;
+        color: #ffffff;
+        font-size: 12px;
+        line-height: 1.25;
+        white-space: pre;
+        opacity: 0;
+        pointer-events: none;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.35);
+    }
+    .uptime-segment:hover::after { opacity: 1; }
+    .uptime-segment::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: calc(100% + 3px);
+        transform: translateX(-50%);
+        z-index: 50;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #000000 transparent transparent transparent;
+        opacity: 0;
+        pointer-events: none;
+    }
+    .uptime-segment:hover::before { opacity: 1; }
 }

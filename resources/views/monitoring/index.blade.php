@@ -170,61 +170,61 @@
                                 <!-- Uptime Bar -->
                                 <div class="hidden md:flex items-center gap-3">
                                     <div class="flex gap-0.5">
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500"></span>
+                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
                                     </div>
                                 </div>
 
                                 <div class="flex items-center justify-between">
                                     <div class="grid grid-cols-1 gap-2">
                                         <div class="flex items-center gap-0.5 text-sm text-neutral-400">
-                                            <span class="w-1 h-2 bg-emerald-500"></span>
-                                            <span class="w-1 h-2 bg-emerald-500"></span>
-                                            <span class="w-1 h-2 bg-emerald-500"></span>
-                                            <span class="w-1 h-2 bg-emerald-500"></span>
-                                            <span class="w-1 h-2 bg-emerald-500"></span>
-                                            <span class="w-1 h-2 bg-emerald-500"></span>
-                                            <span class="w-1 h-2 bg-emerald-500"></span>
-                                            <span class="w-1 h-2 bg-emerald-500"></span>
-                                            <span class="w-1 h-2 bg-emerald-500"></span>
-                                            <span class="w-1 h-2 bg-emerald-500"></span>
-                                            <span class="w-1 h-2 bg-emerald-500"></span>
-                                            <span class="w-1 h-2 bg-emerald-500"></span>
-                                            <span class="w-1 h-2 bg-emerald-500"></span>
-                                            <span class="w-1 h-2 bg-emerald-500"></span>
-                                            <span class="w-1 h-2 bg-emerald-500"></span>
-                                            <span class="w-1 h-2 bg-emerald-500"></span>
-                                            <span class="w-1 h-2 bg-emerald-500"></span>
-                                            <span class="w-1 h-2 bg-emerald-500"></span>
-                                            <span class="w-1 h-2 bg-emerald-500"></span>
-                                            <span class="w-1 h-2 bg-emerald-500"></span>
-                                            <span class="w-1 h-2 bg-emerald-500"></span>
-                                            <span class="w-1 h-2 bg-emerald-500"></span>
-                                            <span class="w-1 h-2 bg-emerald-500"></span>
-                                            <span class="w-1 h-2 bg-emerald-500"></span>
+                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
                                         </div>
                                         <!-- Check Interval -->
                                         <div class="w-full flex items-center justify-between text-sm text-neutral-400">
