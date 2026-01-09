@@ -1,4 +1,4 @@
-<x-layouts.app :title="__('Monitoring')">
+<x-layouts.app :title="__('Monitoring') . ' - ' . $monitor->name">
     <div data-force-white>
         <div class="mx-auto max-w-7xl" data-force-white>
             <div class="flex items-center justify-between mb-4">
@@ -10,15 +10,21 @@
 
             <div class="flex items-center justify-between mb-6">
                 <div class="flex items-center gap-3">
-                    <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-emerald-600 relative">
-                        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75"></span>
+                    @php
+                        $statusColor = $currentStatus == 'Up' ? 'emerald' : ($currentStatus == 'Down' ? 'red' : 'neutral');
+                        $statusBgColor = $currentStatus == 'Up' ? 'emerald-600' : ($currentStatus == 'Down' ? 'red-600' : 'neutral-600');
+                    @endphp
+                    <span class="inline-flex h-6 w-6 items-center justify-center rounded-full bg-{{ $statusBgColor }} relative">
+                        @if($currentStatus == 'Up')
+                            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75"></span>
+                        @endif
                     </span>
                     <div>
                         <flux:heading size="xl" class="text-white leading-tight inline-flex items-center gap-2">
-                            <span>mail.google.com/</span>
+                            <span>{{ $monitor->name }}</span>
                             <span class="inline-flex items-center justify-center rounded bg-[#253047] px-1.5 py-0.5 text-xs text-neutral-300">↗</span>
                         </flux:heading>
-                        <div class="text-xs text-neutral-400">HTTP/S monitor for <a href="#" class="text-green-500 underline underline-offset-4 hover:text-green-400">https://mail.google.com/</a></div>
+                        <div class="text-xs text-neutral-400">{{ ucfirst($monitor->type) }} monitor for <a href="{{ $monitor->url }}" target="_blank" class="text-green-500 underline underline-offset-4 hover:text-green-400">{{ $monitor->url }}</a></div>
                     </div>
                 </div>
                 <div class="flex items-center gap-2">
@@ -113,42 +119,30 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div class="rounded-xl !bg-panel border border-neutral-800 p-5">
                             <div class="text-xs text-neutral-400 mb-2">Current status</div>
-                            <div class="text-emerald-500 font-bold">Up</div>
-                            <div class="text-xs text-neutral-400 mt-1">Currently up for 20h:49m:46s</div>
+                            <div class="text-{{ $statusColor }}-500 font-bold">{{ $currentStatus }}</div>
+                            <div class="text-xs text-neutral-400 mt-1">{{ $currentStatus == 'Up' ? 'Currently up for ' . $uptimeSince : ($currentStatus == 'Down' ? 'Currently down for ' . $uptimeSince : 'Not started yet') }}</div>
                         </div>
                         <div class="rounded-xl !bg-panel border border-neutral-800 p-5">
                             <div class="text-xs text-neutral-400 mb-2">Last check</div>
-                            <div class="text-white font-bold">2m, 39s ago</div>
-                            <div class="text-xs text-neutral-400 mt-1">Checked every 5m</div>
+                            <div class="text-white font-bold">{{ $lastCheckTime }}</div>
+                            <div class="text-xs text-neutral-400 mt-1">Checked every {{ $monitor->interval_seconds }} seconds</div>
                         </div>
                         <div class="rounded-xl !bg-panel border border-neutral-800 p-5">
                             <div class="flex items-center justify-between mb-2">
                                 <div class="text-xs text-neutral-400">Last 24 hours</div>
-                                <div class="text-xs text-neutral-400">100%</div>
+                                <div class="text-xs text-neutral-400">{{ number_format($uptime24h, 2) }}%</div>
                             </div>
                             <div class="flex gap-0.5">
-                                <span class="w-1 h-3 rounded-sm bg-emerald-500"></span>
-                                <span class="w-1 h-3 rounded-sm bg-emerald-500"></span>
-                                <span class="w-1 h-3 rounded-sm bg-emerald-500"></span>
-                                <span class="w-1 h-3 rounded-sm bg-emerald-500"></span>
-                                <span class="w-1 h-3 rounded-sm bg-emerald-500"></span>
-                                <span class="w-1 h-3 rounded-sm bg-emerald-500"></span>
-                                <span class="w-1 h-3 rounded-sm bg-emerald-500"></span>
-                                <span class="w-1 h-3 rounded-sm bg-emerald-500"></span>
-                                <span class="w-1 h-3 rounded-sm bg-emerald-500"></span>
-                                <span class="w-1 h-3 rounded-sm bg-emerald-500"></span>
-                                <span class="w-1 h-3 rounded-sm bg-emerald-500"></span>
-                                <span class="w-1 h-3 rounded-sm bg-emerald-500"></span>
-                                <span class="w-1 h-3 rounded-sm bg-emerald-500"></span>
-                                <span class="w-1 h-3 rounded-sm bg-emerald-500"></span>
-                                <span class="w-1 h-3 rounded-sm bg-emerald-500"></span>
-                                <span class="w-1 h-3 rounded-sm bg-emerald-500"></span>
-                                <span class="w-1 h-3 rounded-sm bg-emerald-500"></span>
-                                <span class="w-1 h-3 rounded-sm bg-emerald-500"></span>
-                                <span class="w-1 h-3 rounded-sm bg-emerald-500"></span>
-                                <span class="w-1 h-3 rounded-sm bg-emerald-500"></span>
+                                @foreach($uptimeBars as $barColor)
+                                    <span class="w-1 h-3 rounded-sm bg-{{ $barColor }}"></span>
+                                @endforeach
                             </div>
-                            <div class="text-xs text-neutral-400 mt-2">0 incidents, 0m down</div>
+                            <div class="text-xs text-neutral-400 mt-2">
+                                @php
+                                    $incidents24h = 0; // You'll need to calculate this from your data
+                                @endphp
+                                {{ $incidents24h }} incidents
+                            </div>
                         </div>
                     </div>
 
@@ -156,12 +150,12 @@
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                             <div>
                                 <div class="text-xs text-neutral-400">Last 7 days</div>
-                                <div class="text-emerald-500 font-bold">100%</div>
+                                <div class="text-emerald-500 font-bold">{{ number_format($uptime7d, 2) }}%</div>
                                 <div class="text-xs text-neutral-400">0 incidents, 0m down</div>
                             </div>
                             <div>
                                 <div class="text-xs text-neutral-400">Last 30 days</div>
-                                <div class="text-emerald-500 font-bold">100%</div>
+                                <div class="text-emerald-500 font-bold">{{ number_format($uptime30d, 2) }}%</div>
                                 <div class="text-xs text-neutral-400">0 incidents, 0m down</div>
                             </div>
                             <div>
@@ -198,9 +192,8 @@
                                         <input id="fb-end-date" datepicker datepicker-format="dd/mm/yyyy" type="text" class="rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white placeholder-neutral-500" placeholder="07/01/2026" />
                                     </div>
                                 </div>
-                                <!-- Add data-force-white attribute to the stats div for theme consistency -->
                                 <div class="mt-3" data-force-white>
-                                    <div class="text-xl font-bold text-emerald-500">100%</div>
+                                    <div class="text-xl font-bold text-emerald-500">{{ number_format($uptime24h, 2) }}%</div>
                                     <div class="text-xs text-neutral-400">0 incidents, 0m down</div>
                                 </div>
                             </div>
@@ -218,25 +211,40 @@
                         <div class="grid grid-cols-3 gap-4 mt-4">
                             <div>
                                 <div class="text-neutral-400 text-xs">Average</div>
-                                <div class="text-white font-bold">407 ms</div>
+                                <div class="text-white font-bold">{{ is_numeric($avgResponse) ? $avgResponse . ' ms' : $avgResponse }}</div>
                             </div>
                             <div>
                                 <div class="text-neutral-400 text-xs">Minimum</div>
-                                <div class="text-emerald-500 font-bold">394 ms</div>
+                                <div class="text-emerald-500 font-bold">{{ is_numeric($minResponse) ? $minResponse . ' ms' : $minResponse }}</div>
                             </div>
                             <div>
                                 <div class="text-neutral-400 text-xs">Maximum</div>
-                                <div class="text-red-500 font-bold">419 ms</div>
+                                <div class="text-red-500 font-bold">{{ is_numeric($maxResponse) ? $maxResponse . ' ms' : $maxResponse }}</div>
                             </div>
                         </div>
                     </div>
 
                     <div class="rounded-xl !bg-panel border border-neutral-800 p-5">
                         <div class="text-neutral-200 font-medium mb-3">Latest incidents.</div>
-                        <div class="rounded-lg bg-[#1a1f2e] border border-neutral-800 p-4 text-center">
-                            <div class="text-amber-400 font-semibold">Good job, no incidents.</div>
-                            <div class="text-xs text-neutral-400 mt-1">No incidents so far. Keep it up!</div>
-                        </div>
+                        @if(count($incidents) > 0)
+                            <!-- Incident listing would go here -->
+                            <div class="space-y-2">
+                                @foreach($incidents as $incident)
+                                    <div class="rounded-lg bg-[#1a1f2e] border border-neutral-800 p-3">
+                                        <div class="flex items-center justify-between">
+                                            <div class="text-sm text-white">{{ $incident['title'] }}</div>
+                                            <div class="text-xs text-neutral-400">{{ $incident['time'] }}</div>
+                                        </div>
+                                        <div class="text-xs text-neutral-400 mt-1">{{ $incident['description'] }}</div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @else
+                            <div class="rounded-lg bg-[#1a1f2e] border border-neutral-800 p-4 text-center">
+                                <div class="text-amber-400 font-semibold">Good job, no incidents.</div>
+                                <div class="text-xs text-neutral-400 mt-1">No incidents so far. Keep it up!</div>
+                            </div>
+                        @endif
                     </div>
                 </div>
 
@@ -294,6 +302,7 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // JavaScript for dropdowns remains the same
             document.querySelectorAll('.dd').forEach(function (dd) {
                 var trigger = dd.querySelector(':scope > .dd-trigger');
                 var panel = dd.querySelector(':scope > .dd-panel');
@@ -434,10 +443,15 @@
                 });
             });
 
+            // Dynamic chart data from PHP
             var chartEl = document.getElementById('response-time-chart');
             if (window.Chart && chartEl) {
-                var labels = ['Jan 7, 16:41', 'Jan 7, 17:11', 'Jan 7, 17:41'];
-                var data = [407, 394, 419];
+                var labels = @json($chartLabels);
+                var data = @json($chartData);
+                
+                // Convert PHP timestamps to JavaScript dates if needed
+                // labels are already formatted strings from PHP
+                
                 new Chart(chartEl, {
                     type: 'line',
                     data: {
@@ -476,7 +490,7 @@
                             },
                             y: {
                                 beginAtZero: true,
-                                suggestedMax: 600,
+                                suggestedMax: Math.max(...data) * 1.2 || 600,
                                 ticks: { color: '#ffffff' },
                                 grid: { color: 'rgba(255,255,255,0.08)' }
                             }

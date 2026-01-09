@@ -25,9 +25,10 @@ Route::get('monitoring', [MonitoringController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('monitoring.index');
 
-Route::get('monitoring/single', [MonitoringController::class, 'show'])
+Route::get('/monitoring/{monitor}', [MonitoringController::class, 'show'])
     ->middleware(['auth', 'verified'])
-    ->name('monitoring.show');
+    ->name('monitoring.show')
+    ->where('monitor', '[0-9]+'); 
 
 Route::get('monitoring/create', [MonitoringController::class, 'create'])
     ->middleware(['auth', 'verified'])
