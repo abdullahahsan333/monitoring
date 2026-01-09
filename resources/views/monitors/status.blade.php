@@ -21,14 +21,14 @@
 
                 <div class="rounded-lg border border-neutral-200 p-4">
                     <div class="text-xs text-white">{{ __('Your status page will be available at') }}</div>
-                    <div class="mt-1 font-medium text-blue-600">stats.example.com/QsMAunCnY</div>
+                    <div class="mt-1 font-medium text-primary">stats.example.com/QsMAunCnY</div>
                 </div>
 
                 <div class="flex items-center justify-between">
                     <div class="text-xs text-white">
                         {{ __('Status page is fully customizable in settings.') }}
                     </div>
-                    <flux:link :href="route('monitors.complete')" class="inline-flex items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">
+                    <flux:link :href="route('monitors.complete')" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-white hover:bg-primary-hover">
                         {{ __('Finish setup') }}
                     </flux:link>
                 </div>

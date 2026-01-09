@@ -46,7 +46,7 @@
                             {{ __('You can setup monitor interval, domain and SSL monitoring, cron job monitoring and more later in monitor settings.') }}
                         </div>
 
-                        <flux:link :href="route('monitors.notifications')" class="inline-flex items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">
+                        <flux:link :href="route('monitors.notifications')" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-white hover:bg-primary-hover">
                             {{ __('Create monitor') }}
                         </flux:link>
                     </div>

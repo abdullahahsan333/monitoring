@@ -45,19 +45,19 @@
                                 <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2">
                                     <span class="text-sm text-white">Send to attached notify-only users</span>
                                     <input type="checkbox" class="peer sr-only">
-                                    <span data-switch class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 peer-checked:bg-indigo-600 relative transition-colors cursor-pointer select-none">
+                                    <span data-switch class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 peer-checked:bg-primary relative transition-colors cursor-pointer select-none">
                                         <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-300 peer-checked:translate-x-5 transition-transform"></span>
                                     </span>
                                 </label>
                                 <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2">
                                     <span class="text-sm text-white">Send to attached Integrations [0]</span>
                                     <input type="checkbox" class="peer sr-only">
-                                    <span data-switch class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 peer-checked:bg-indigo-600 relative transition-colors cursor-pointer select-none">
+                                    <span data-switch class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 peer-checked:bg-primary relative transition-colors cursor-pointer select-none">
                                         <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-300 peer-checked:translate-x-5 transition-transform"></span>
                                     </span>
                                 </label>
                             </div>
-                            <button type="button" disabled class="mt-3 w-full rounded-md bg-gradient-to-r from-indigo-600 to-purple-700 opacity-60 px-4 py-2 text-sm text-white cursor-not-allowed">Send test notifications</button>
+                            <button type="button" disabled class="mt-3 w-full rounded-md bg-gradient-to-r from-primary to-primary-hover opacity-60 px-4 py-2 text-sm text-white cursor-not-allowed">Send test notifications</button>
                         </div>
                     </div>
                     <flux:button variant="ghost" class="inline-flex items-center gap-2 rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-1.5 text-sm text-white hover:bg-gray-400 hover:text-gray-900 transition-colors">
@@ -338,11 +338,11 @@
                         if (!knob) return;
                         if (input.checked) {
                             switchEl.classList.remove('bg-neutral-700');
-                            switchEl.classList.add('bg-indigo-600');
+                            switchEl.classList.add('bg-primary');
                             knob.classList.add('translate-x-5');
                         } else {
                             switchEl.classList.add('bg-neutral-700');
-                            switchEl.classList.remove('bg-indigo-600');
+                            switchEl.classList.remove('bg-primary');
                             knob.classList.remove('translate-x-5');
                         }
                     }

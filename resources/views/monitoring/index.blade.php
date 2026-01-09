@@ -1,24 +1,23 @@
 <x-layouts.app :title="__('Monitoring')">
     <div data-force-white>
         <div class="mx-auto max-w-7xl">
-            <div class="grid grid-cols-2 lg:grid-cols-[1fr_240px] gap-6">
+            <div class="grid grid-cols-1 lg:grid-cols-[1fr_240px] gap-6">
                 <!-- Main Content -->
                 <div class="space-y-6">
-                    <!-- Header -->
                     <div class="flex items-center justify-between">
-                        <flux:heading size="xl" class="text-main-panel-text">{{ __('Monitors.') }}</flux:heading>
+                        <flux:heading size="xl" class="text-main-panel-text font-semibold">{{ __('Monitors.') }}</flux:heading>
                         <div class="flex items-center">
-                            <flux:link :href="route('monitoring.create')" class="bg-blue-600 hover:bg-blue-700 text-main-panel-text px-4 py-2.5 rounded-l-lg rounded-r-none text-sm font-medium" wire:navigate>
+                            <flux:link :href="route('monitoring.create')" class="bg-primary hover:bg-primary-hover text-main-panel-text px-4 py-2.5 rounded-l-lg rounded-r-none text-sm font-medium" wire:navigate>
                                 + {{ __('New') }}
                             </flux:link>
                             <flux:dropdown position="bottom" align="end">
-                                <flux:button variant="primary" class="bg-blue-600 hover:bg-blue-700 text-main-panel-text px-3 py-2 rounded-l-none rounded-r-lg">
+                                <flux:button variant="primary" class="bg-primary hover:bg-primary-hover text-main-panel-text px-3 py-2 rounded-l-none rounded-r-lg">
                                     <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
                                         <path d="M5 12l5-6 5 6H5z"/>
                                     </svg>
                                 </flux:button>
                                 <flux:menu class="min-w-[220px] bg-main-panel-dropdown">
-                                    <flux:menu.item icon="document-text" class="text-main-panel-text hover:bg-main-panel-dropdown-hover" onclick="window.location='{{ route('monitors.create') }}'">{{ __('Single monitor') }}</flux:menu.item>
+                                    <flux:menu.item icon="document-text" :href="route('monitoring.create')" wire:navigate class="text-main-panel-text hover:bg-main-panel-dropdown-hover">{{ __('Single monitor') }}</flux:menu.item>
                                     <flux:menu.item icon="sparkles" class="text-main-panel-text hover:bg-main-panel-dropdown-hover">{{ __('Monitor wizard') }}</flux:menu.item>
                                     <flux:menu.item icon="arrow-up-tray" class="text-main-panel-text hover:bg-main-panel-dropdown-hover">{{ __('Bulk upload') }}</flux:menu.item>
                                     <flux:menu.separator />
@@ -48,10 +47,10 @@
                         </button>
                         <div class="ml-auto flex items-center gap-2">
                             <div class="relative">
-                                <input 
-                                    type="text" 
-                                    class="rounded-lg bg-main-panel-components border border-neutral-700 px-4 py-2 text-sm text-neutral-200 placeholder-neutral-500 w-64 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500" 
-                                    placeholder="{{ __('Search by name or url') }}" 
+                                <input
+                                    type="text"
+                                    class="rounded-lg bg-main-panel-components border border-neutral-700 px-4 py-2 text-sm text-neutral-200 placeholder-neutral-500 w-64 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                                    placeholder="{{ __('Search by name or url') }}"
                                 />
                             </div>
                             <flux:dropdown position="bottom" align="start" id="filter-dropdown">
@@ -114,22 +113,23 @@
                                         </div>
                                         <div class="flex items-center justify-between">
                                             <button class="px-4 py-2 rounded-lg bg-main-panel-components border border-neutral-700 text-main-panel-text text-sm hover:bg-main-panel-dropdown-hover transition-colors filter-reset">{{ __('Reset') }}</button>
-                                            <button class="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-main-panel-text text-sm hover:bg-main-panel-dropdown-hover transition-colors filter-apply">{{ __('Apply') }}</button>
+                                            <button class="px-4 py-2 rounded-lg bg-primary hover:bg-primary-hover text-main-panel-text text-sm transition-colors filter-apply">{{ __('Apply') }}</button>
                                         </div>
                                     </div>
                                 </flux:menu>
                             </flux:dropdown>
-                            <flux:dropdown position="bottom" align="start">
-                                <flux:button variant="ghost" class="inline-flex items-center gap-2 rounded-lg bg-main-panel-components border border-neutral-700 px-3 py-2 text-sm text-main-panel-text transition-colors">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12"/>
+                            <flux:dropdown position="bottom" align="end">
+                                <flux:button variant="ghost" class="inline-flex items-center gap-2 rounded-lg border border-neutral-700 px-3 py-2 text-sm text-main-panel-text transition-colors">
+                                    <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M10 3a1 1 0 011 1v10.586l2.293-2.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 111.414-1.414L9 14.586V4a1 1 0 011-1z"/>
                                     </svg>
                                     <span>{{ __('Down first') }}</span>
                                 </flux:button>
-                                <flux:menu class="min-w-[220px] bg-main-panel-dropdown">
+                                <flux:menu class="min-w-[220px] bg-main-panel-dropdown text-main-panel-text">
                                     <flux:menu.item class="text-main-panel-text hover:bg-main-panel-dropdown-hover">{{ __('Down first') }}</flux:menu.item>
                                     <flux:menu.item class="text-main-panel-text hover:bg-main-panel-dropdown-hover">{{ __('Up first') }}</flux:menu.item>
                                     <flux:menu.item class="text-main-panel-text hover:bg-main-panel-dropdown-hover">{{ __('Paused first') }}</flux:menu.item>
+                                    <flux:menu.separator />
                                     <flux:menu.item class="text-main-panel-text hover:bg-main-panel-dropdown-hover">{{ __('A → Z') }}</flux:menu.item>
                                     <flux:menu.item class="text-main-panel-text hover:bg-main-panel-dropdown-hover">{{ __('Newest first') }}</flux:menu.item>
                                 </flux:menu>
@@ -162,7 +162,7 @@
                                 </div>
                                 <div class="flex items-center gap-2 text-xs">
                                     <span class="!inline-flex items-center rounded-md bg-[#252b3b] px-2 py-1 text-neutral-400 font-medium">HTTP</span>
-                                    <span class="text-neutral-500">Up 18 hr, 4 min</span>
+                                    <span class="text-neutral-500">Up 2 day, 18 hr</span>
                                 </div>
                             </div>
 

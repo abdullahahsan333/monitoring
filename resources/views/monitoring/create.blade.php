@@ -393,7 +393,7 @@
                                 {{ __('Slack, MS Teams, Telegram, Webhooks... we got it all. Send up, down, SSL & domain alerts to your favorite service.') }}
                             </div>
                             <div class="mt-4">
-                                <a href="{{ route('monitors.notifications') }}" class="inline-flex items-center justify-center rounded-md bg-indigo-600 px-4 py-2 text-white text-sm">{{ __('Manage integrations') }}</a>
+                                <a href="{{ route('monitors.notifications') }}" class="inline-flex items-center justify-center rounded-md bg-primary hover:bg-primary-hover px-4 py-2 text-white text-sm">{{ __('Manage integrations') }}</a>
                             </div>
                         </div>
                     </div>
@@ -439,7 +439,7 @@
         <div class="border-t rounded-xl border-neutral-800 !bg-panel">
             <div class="mx-auto p-4">
                 <div class="flex items-center gap-6">
-                    <flux:link :href="route('monitors.notifications')" class="inline-flex items-center justify-center rounded-md bg-blue-600 px-5 py-2 text-white hover:bg-blue-700">
+                    <flux:link :href="route('monitors.notifications')" class="inline-flex items-center justify-center rounded-md bg-primary px-5 py-2 text-white hover:bg-primary-hover">
                         {{ __('Create monitor') }}
                     </flux:link>
                 </div>
@@ -525,11 +525,11 @@
                     if (!input || !knob) return;
                     if (input.checked) {
                         switchEl.classList.remove('bg-neutral-700');
-                        switchEl.classList.add('bg-indigo-600');
+                        switchEl.classList.add('bg-primary');
                         knob.classList.add('translate-x-5');
                     } else {
                         switchEl.classList.add('bg-neutral-700');
-                        switchEl.classList.remove('bg-indigo-600');
+                        switchEl.classList.remove('bg-primary');
                         knob.classList.remove('translate-x-5');
                     }
                 }

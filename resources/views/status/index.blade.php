@@ -2,7 +2,7 @@
     <div class="p-6">
         <div class="flex items-center justify-between">
             <flux:heading size="xl">{{ __('Status pages.') }}</flux:heading>
-            <flux:link :href="route('monitors.status')" class="inline-flex items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">
+            <flux:link :href="route('monitors.status')" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-white hover:bg-primary-hover">
                 {{ __('Create Status page') }}
             </flux:link>
         </div>
