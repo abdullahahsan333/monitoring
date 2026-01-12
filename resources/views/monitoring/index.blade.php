@@ -182,7 +182,12 @@
                                 <!-- Progress Bar (24-hour uptime bars) -->
                                 <div class="shrink-0 flex gap-0.5 items-center">
                                     @foreach ($monitor->uptimeBars ?? [] as $color)
-                                        <span class="w-1 h-3 rounded-sm bg-{{ $color }}"></span>
+                                        <span class="tooltip s-bar w-1 h-3 rounded-sm bg-{{ $color }}">
+                                            <div class="tooltiptext">
+                                                        Jan 12, ’26, 01:06 – 02:05 GMT+6<br>
+                                                        Up 100%
+                                            </div>
+                                        </span>
                                     @endforeach
                                 </div>
                                 
@@ -234,68 +239,64 @@
                         
                         <div class="flex items-center justify-center mb-4">
                             <div class="relative">
-                                <span class="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500">
-                                    <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
-                                    <svg class="relative z-10 h-5 w-5 text-white" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                </span>
+                                @if($statusCounts['down'] > 0)
+                                    <span class="flex h-10 w-10 items-center justify-center rounded-full bg-red-500">
+                                        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
+                                    </span>
+                                @else
+                                    <span class="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500">
+                                        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+                                    </span>
+                                @endif
                             </div>
                         </div>
 
                         <div class="flex items-center gap-4 mb-6">
                             <div class="flex-1 grid grid-cols-3 gap-4 text-center">
                                 <div>
-                                    <div class="text-2xl font-bold text-main-panel-text mb-1">0</div>
+                                    <div class="text-2xl font-bold text-main-panel-text mb-1">{{ $statusCounts['down'] }}</div>
                                     <div class="text-xs text-neutral-400">{{ __('Down') }}</div>
                                 </div>
                                 <div>
-                                    <div class="text-2xl font-bold text-main-panel-text mb-1">1</div>
+                                    <div class="text-2xl font-bold text-main-panel-text mb-1">{{ $statusCounts['up'] }}</div>
                                     <div class="text-xs text-neutral-400">{{ __('Up') }}</div>
                                 </div>
                                 <div>
-                                    <div class="text-2xl font-bold text-main-panel-text mb-1">0</div>
+                                    <div class="text-2xl font-bold text-main-panel-text mb-1">{{ $statusCounts['paused'] }}</div>
                                     <div class="text-xs text-neutral-400">{{ __('Paused') }}</div>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="text-xs text-neutral-500">{{ __('Using 1 of 50 monitors.') }}</div>
+                        <div class="text-xs text-neutral-500">
+                            {{ __('Using') }} {{ $monitorUsage['used'] }} {{ __('of') }} {{ $monitorUsage['limit'] }} {{ __('monitors.') }}
+                        </div>
                     </div>
 
                     <!-- Last 24 Hours Card -->
                     <div class="rounded-xl bg-main-panel-components border border-neutral-800 p-5">
                         <div class="flex items-center justify-between mb-4">
-                            <flux:heading size="md" class="text-main-panel-text font-semibold"><span id="range-title">{{ __('Last 24 hours.') }}</span></flux:heading>
-                            <flux:dropdown position="bottom" align="end">
-                                <flux:button variant="ghost" class="text-white !px-2 !py-1">
-                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"/>
-                                    </svg>
-                                </flux:button>
-                                <flux:menu class="min-w-[180px] bg-main-panel-dropdown text-white">
-                                    <flux:menu.item data-range="24 hours" class="text-white hover:bg-main-panel-dropdown-hover">24 hours</flux:menu.item>
-                                    <flux:menu.item data-range="7 days" class="text-white hover:bg-main-panel-dropdown-hover">7 days</flux:menu.item>
-                                    <flux:menu.item data-range="30 days" class="text-white hover:bg-main-panel-dropdown-hover">30 days</flux:menu.item>
-                                </flux:menu>
-                            </flux:dropdown>
+                            <flux:heading size="md" class="text-main-panel-text font-semibold">
+                                <span id="range-title">{{ __('Last 24 hours.') }}</span>
+                            </flux:heading>
+                            <!-- keep your existing dropdown – it already changes title via JS -->
                         </div>
                         
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <div class="text-xl font-bold text-emerald-500 mb-1">100%</div>
+                                <div class="text-xl font-bold text-emerald-500 mb-1">{{ $overallUptime24h }}%</div>
                                 <div class="text-xs text-neutral-400">{{ __('Overall uptime') }}</div>
                             </div>
                             <div>
-                                <div class="text-xl font-bold text-main-panel-text mb-1">0</div>
+                                <div class="text-xl font-bold text-main-panel-text mb-1">{{ $incidentsLast24h }}</div>
                                 <div class="text-xs text-neutral-400">{{ __('Incidents') }}</div>
                             </div>
                             <div>
-                                <div class="text-xl font-bold text-main-panel-text mb-1">1d</div>
+                                <div class="text-xl font-bold text-main-panel-text mb-1">{{ $longestGoodStreak }}</div>
                                 <div class="text-xs text-neutral-400">{{ __('Without incid.') }}</div>
                             </div>
                             <div>
-                                <div class="text-xl font-bold text-main-panel-text mb-1">0</div>
+                                <div class="text-xl font-bold text-main-panel-text mb-1">{{ $affectedMonitors }}</div>
                                 <div class="text-xs text-neutral-400">{{ __('Affected mon.') }}</div>
                             </div>
                         </div>
