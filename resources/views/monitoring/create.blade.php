@@ -1,4 +1,8 @@
 <x-layouts.app :title="__('Create Monitor')">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
     <div class="mx-auto max-w-7xl pb-8">
 
         <div class="flex items-center justify-between mb-4">
@@ -10,7 +14,7 @@
 
         <div class="relative grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-6 mb-10">
             <div id="tab-details" class="space-y-6 lg:order-1 order-2" role="tabpanel" aria-labelledby="tablink-details">
-                <div class="text-neutral-200 font-medium">{{ __('Add single monitor.') }}</div>
+                <div class="text-neutral-200 font-medium">{{ __('Add Single Monitor') }}</div>
                 
                 <form id="monitor-create-form" class="space-y-6" 
                     action="{{ route('monitoring.store') }}" 
@@ -44,8 +48,8 @@
                                 </span>
                             </button>
 
-                            <div class="dd-panel border-t border-neutral-800">
-                                <button type="button" class="dd-trigger w-full flex items-start gap-4 px-5 py-4 hover:bg-sidebar-active transition-colors" data-dd-option data-value="http" data-title="HTTP / website monitoring" data-description="Use HTTP(s) monitor to monitor your website, API endpoint, or anything running on HTTP.">
+                            <div class="dd-panel border-t border-neutral-800 hidden">
+                                <button type="button" class="w-full flex items-start gap-4 px-5 py-4 hover:bg-sidebar-active transition-colors" data-dd-option data-value="http" data-title="HTTP / website monitoring" data-description="Use HTTP(s) monitor to monitor your website, API endpoint, or anything running on HTTP.">
                                     <span class="dd-current-icon flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-400" data-dd-icon>
                                         <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6.5A2.5 2.5 0 016.5 4h11A2.5 2.5 0 0120 6.5V15a2 2 0 01-2 2H6a2 2 0 01-2-2V6.5z" />
@@ -59,7 +63,7 @@
                                         <div class="dd-current-desc mt-1 text-xs text-neutral-400">Use HTTP(s) monitor to monitor your website, API endpoint, or anything running on HTTP.</div>
                                     </div>
                                 </button>
-                                <button type="button" class="w-full flex items-start gap-4 px-5 py-4 hover:bg-sidebar-active transition-colors" data-dd-option data-value="keyword" data-title="Keyword monitoring" data-description="Check the presence or absence of specific text in the request's response body (typically HTML or JSON).">
+                                <button type="button" class="w-full flex items-start gap-4 px-5 py-4 hover:bg-sidebar-active transition-colors" data-dd-option data-value="keyword" data-title="Keyword monitoring" data-description="Check presence or absence of specific text in request's response body (typically HTML or JSON).">
                                     <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-violet-500/10 text-violet-300" data-dd-icon>
                                         <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M7 14l-2 2 3 3 2-2" />
@@ -73,7 +77,7 @@
                                     </div>
                                 </button>
 
-                                <button type="button" class="w-full flex items-start gap-4 px-5 py-4 hover:bg-sidebar-active transition-colors" data-dd-option data-value="ping" data-title="Ping monitoring" data-description="Make sure your server or any device in the network is always available.">
+                                <button type="button" class="w-full flex items-start gap-4 px-5 py-4 hover:bg-sidebar-active transition-colors" data-dd-option data-value="ping" data-title="Ping monitoring" data-description="Make sure your server or any device in network is always available.">
                                     <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-sky-500/10 text-sky-300" data-dd-icon>
                                         <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 3a9 9 0 109 9 9 9 0 00-9-9z" />
@@ -540,15 +544,15 @@
         <!-- Bottom submit area -->
         <div class="border-t rounded-xl border-neutral-800 !bg-panel sticky bottom-0 left-0 right-0 z-10">
             <div class="mx-auto max-w-7xl p-4">
-                <div class="flex items-center justify-end gap-4">
-                    <flux:button type="button" variant="ghost" class="px-6 py-2.5 text-sm">
+                <div class="flex items-center gap-4">
+                    <flux:button type="button" variant="ghost" class="px-6 py-2.5 text-sm outline-none hover:outline-none !bg-[var(--color-danger)] text-white hover:bg-[var(--color-danger-hover)] border border-[var(--color-danger)]/30 hover:border-[var(--color-danger-hover)]/30 rounded-lg">
                         {{ __('Cancel') }}
                     </flux:button>
                     
                     <flux:button 
                         type="submit" 
                         form="monitor-create-form"
-                        class="bg-primary hover:bg-primary-hover px-6 py-2.5 text-white text-sm font-medium rounded-lg"
+                        class="px-6 py-2.5 text-sm font-medium outline-none hover:outline-none border border-blue-600 hover:border-blue-700 rounded-lg !bg-blue-600 text-white hover:bg-blue-700"
                     >
                         {{ __('Create monitor') }}
                     </flux:button>
@@ -558,427 +562,106 @@
 
     </div>
 
+    @push('all_script')
     <script>
+        // Page-specific initialization for create monitor
         document.addEventListener('DOMContentLoaded', function () {
-            var miRange = document.getElementById('mi-range');
-            var miLabel = document.getElementById('mi-label');
-            var miValue = document.getElementById('mi-value');
-            if (miRange && miLabel && miValue) {
-                var steps = ['30s','1m','5m','30m','1h','12h','24h'];
-                function fmt(v) {
-                    if (v.endsWith('s')) return v.replace('s', ' seconds');
-                    if (v.endsWith('m')) return v.replace('m', ' minutes');
-                    if (v.endsWith('h')) return v.replace('h', ' hours');
-                    return v;
-                }
-                function updateMi() {
-                    var idx = parseInt(miRange.value, 10);
-                    var v = steps[idx] || '5m';
-                    miValue.value = v;
-                    miLabel.textContent = fmt(v);
-                }
-                updateMi();
-                miRange.addEventListener('input', updateMi);
-                miRange.addEventListener('change', updateMi);
-            }
-            var rtRange = document.getElementById('rt-range');
-            var rtLabel = document.getElementById('rt-label');
-            var rtValue = document.getElementById('rt-value');
-            if (rtRange && rtLabel && rtValue) {
-                function updateRt() {
-                    var seconds = parseInt(rtRange.value, 10);
-                    var v = seconds + 's';
-                    rtValue.value = v;
-                    rtLabel.textContent = seconds === 1 ? '1 second' : seconds + ' seconds';
-                }
-                updateRt();
-                rtRange.addEventListener('input', updateRt);
-                rtRange.addEventListener('change', updateRt);
-            }
+            console.log('Create monitor page loaded');
             
-            // Handle monitor type selector
-            var monitorTypeInput = document.getElementById('monitor-type-value');
-            document.querySelectorAll('.dd').forEach(function (dd) {
-                var trigger = dd.querySelector(':scope > .dd-trigger');
-                var panel = dd.querySelector(':scope > .dd-panel');
-                if (panel) {
-                    panel.classList.add('hidden');
-                    panel.classList.add('z-50');
-                    panel.addEventListener('click', function (e) { e.stopPropagation(); });
+            // Global initialization will handle dropdowns, tabs, and form elements
+            // Any page-specific code can go here
+            
+            // Initialize monitor type specific functionality
+            setTimeout(function() {
+                console.log('Setting up create monitor specific features...');
+                
+                // Monitor interval slider
+                const miRange = document.getElementById('mi-range');
+                const miLabel = document.getElementById('mi-label');
+                const miValue = document.getElementById('mi-value');
+                if (miRange && miLabel && miValue) {
+                    const steps = ['30s','1m','5m','30m','1h','12h','24h'];
+                    function fmt(v) {
+                        if (v.endsWith('s')) return v.replace('s', ' seconds');
+                        if (v.endsWith('m')) return v.replace('m', ' minutes');
+                        if (v.endsWith('h')) return v.replace('h', ' hours');
+                        return v;
+                    }
+                    function updateMi() {
+                        const idx = parseInt(miRange.value, 10);
+                        const v = steps[idx] || '5m';
+                        miValue.value = v;
+                        miLabel.textContent = fmt(v);
+                    }
+                    updateMi();
+                    miRange.addEventListener('input', updateMi);
+                    miRange.addEventListener('change', updateMi);
                 }
                 
-                if (trigger) {
-                    trigger.addEventListener('click', function (e) {
-                        e.stopPropagation();
-                        var isOpen = panel && !panel.classList.contains('hidden');
-                        document.querySelectorAll('.dd').forEach(function (other) {
-                            if (other !== dd) {
-                                var op = other.querySelector(':scope > .dd-panel');
-                                if (op) op.classList.add('hidden');
-                            }
+                // Request timeout slider
+                const rtRange = document.getElementById('rt-range');
+                const rtLabel = document.getElementById('rt-label');
+                const rtValue = document.getElementById('rt-value');
+                if (rtRange && rtLabel && rtValue) {
+                    function updateRt() {
+                        const seconds = parseInt(rtRange.value, 10);
+                        const v = seconds + 's';
+                        rtValue.value = v;
+                        rtLabel.textContent = seconds === 1 ? '1 second' : seconds + ' seconds';
+                    }
+                    updateRt();
+                    rtRange.addEventListener('input', updateRt);
+                    rtRange.addEventListener('change', updateRt);
+                }
+                
+                // HTTP method buttons
+                document.querySelectorAll('.http-method').forEach(function (btn) {
+                    btn.addEventListener('click', function () {
+                        document.querySelectorAll('.http-method').forEach(function (b) {
+                            b.classList.remove('bg-emerald-600');
+                            b.classList.add('bg-[#253047]');
                         });
-                        if (isOpen) {
-                            if (panel) panel.classList.add('hidden');
-                        } else {
-                            if (panel) panel.classList.remove('hidden');
-                        }
-                        var chevron = trigger.querySelector('[data-dd-chevron]');
-                        if (chevron) chevron.classList.toggle('rotate-180', !isOpen);
+                        btn.classList.remove('bg-[#253047]');
+                        btn.classList.add('bg-emerald-600');
+                        const v = btn.getAttribute('data-value');
+                        const input = document.getElementById('http-method-value');
+                        if (input) input.value = v;
+                    });
+                });
+                
+                // Authentication type toggle
+                const authType = document.getElementById('auth-type');
+                const authUser = document.getElementById('auth-username');
+                const authPass = document.getElementById('auth-password');
+                const authPassToggle = document.getElementById('auth-pass-toggle');
+                function setDisabled(el, disabled) {
+                    if (!el) return;
+                    el.disabled = disabled;
+                    el.classList.toggle('bg-[#0d1320]', disabled);
+                    el.classList.toggle('border-neutral-800', disabled);
+                    el.classList.toggle('text-neutral-400', disabled);
+                    el.classList.toggle('bg-[#1a1f2e]', !disabled);
+                    el.classList.toggle('border-neutral-700', !disabled);
+                    el.classList.toggle('text-white', !disabled);
+                }
+                function updateAuth() {
+                    const isBasic = authType && authType.value === 'basic';
+                    setDisabled(authUser, !isBasic);
+                    setDisabled(authPass, !isBasic);
+                }
+                if (authType) {
+                    authType.addEventListener('change', updateAuth);
+                    updateAuth();
+                }
+                if (authPassToggle && authPass) {
+                    authPassToggle.addEventListener('click', function () {
+                        if (authPass.disabled) return;
+                        authPass.type = authPass.type === 'password' ? 'text' : 'password';
                     });
                 }
-
-                if (panel && trigger) {
-                    panel.querySelectorAll('[data-dd-option]').forEach(function (opt) {
-                        opt.addEventListener('click', function (e) {
-                            e.stopPropagation();
-                            var title = opt.getAttribute('data-title');
-                            var description = opt.getAttribute('data-description');
-                            var value = opt.getAttribute('data-value');
-                            var icon = opt.querySelector('[data-dd-icon]');
-                            var currentTitle = trigger.querySelector('.dd-current-title');
-                            var currentDesc = trigger.querySelector('.dd-current-desc');
-                            var currentIcon = trigger.querySelector('.dd-current-icon');
-
-                            if (currentTitle && title) currentTitle.textContent = title;
-                            if (currentDesc && description) currentDesc.textContent = description;
-                            if (currentIcon && icon) {
-                                currentIcon.className = icon.className + ' dd-current-icon';
-                                currentIcon.innerHTML = icon.innerHTML;
-                            }
-                            if (monitorTypeInput && value) {
-                                monitorTypeInput.value = value;
-                            }
-
-                            panel.classList.add('hidden');
-                            var chevron = trigger.querySelector('[data-dd-chevron]');
-                            if (chevron) chevron.classList.remove('rotate-180');
-                        });
-                    });
-                }
-                dd.addEventListener('click', function (e) { e.stopPropagation(); });
-            });
-
-            document.addEventListener('click', function () {
-                document.querySelectorAll('.dd').forEach(function (dd) {
-                    var p = dd.querySelector(':scope > .dd-panel');
-                    if (p) p.classList.add('hidden');
-                });
-            });
-
-            document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape') {
-                    document.querySelectorAll('.dd').forEach(function (dd) {
-                        var p = dd.querySelector(':scope > .dd-panel');
-                        if (p) p.classList.add('hidden');
-                    });
-                }
-            });
-
-            document.querySelectorAll('[data-switch]').forEach(function (switchEl) {
-                var input = switchEl.previousElementSibling;
-                var knob = switchEl.querySelector('span');
-                function updateSwitch() {
-                    if (!input || !knob) return;
-                    if (input.checked) {
-                        switchEl.classList.remove('bg-neutral-700');
-                        switchEl.classList.add('bg-primary');
-                        knob.classList.add('translate-x-5');
-                    } else {
-                        switchEl.classList.add('bg-neutral-700');
-                        switchEl.classList.remove('bg-primary');
-                        knob.classList.remove('translate-x-5');
-                    }
-                }
-                updateSwitch();
-                if (input) {
-                    input.addEventListener('change', updateSwitch);
-                }
-                switchEl.addEventListener('click', function (e) {
-                    e.stopPropagation();
-                    if (input) {
-                        input.checked = !input.checked;
-                        input.dispatchEvent(new Event('change', { bubbles: true }));
-                    }
-                });
-            });
-            
-            var authType = document.getElementById('auth-type');
-            var authUser = document.getElementById('auth-username');
-            var authPass = document.getElementById('auth-password');
-            var authPassToggle = document.getElementById('auth-pass-toggle');
-            function setDisabled(el, disabled) {
-                if (!el) return;
-                el.disabled = disabled;
-                el.classList.toggle('bg-[#0d1320]', disabled);
-                el.classList.toggle('border-neutral-800', disabled);
-                el.classList.toggle('text-neutral-400', disabled);
-                el.classList.toggle('bg-[#1a1f2e]', !disabled);
-                el.classList.toggle('border-neutral-700', !disabled);
-                el.classList.toggle('text-white', !disabled);
-            }
-            function updateAuth() {
-                var isBasic = authType && authType.value === 'basic';
-                setDisabled(authUser, !isBasic);
-                setDisabled(authPass, !isBasic);
-            }
-            updateAuth();
-            if (authType) authType.addEventListener('change', updateAuth);
-            if (authPassToggle && authPass) {
-                authPassToggle.addEventListener('click', function () {
-                    if (authPass.disabled) return;
-                    authPass.type = authPass.type === 'password' ? 'text' : 'password';
-                });
-            }
-            document.querySelectorAll('.http-method').forEach(function (btn) {
-                btn.addEventListener('click', function () {
-                    document.querySelectorAll('.http-method').forEach(function (b) {
-                        b.classList.remove('bg-emerald-600');
-                        b.classList.add('bg-[#253047]');
-                    });
-                    btn.classList.remove('bg-[#253047]');
-                    btn.classList.add('bg-emerald-600');
-                    var v = btn.getAttribute('data-value');
-                    var input = document.getElementById('http-method-value');
-                    if (input) input.value = v;
-                });
-            });
-            var panes = {
-                details: document.getElementById('tab-details'),
-                team: document.getElementById('tab-team'),
-                maintenance: document.getElementById('tab-maintenance')
-            };
-            function activateTab(name) {
-                Object.keys(panes).forEach(function (k) {
-                    if (!panes[k]) return;
-                    if (k === name) {
-                        panes[k].classList.remove('hidden');
-                        panes[k].removeAttribute('hidden');
-                    } else {
-                        panes[k].classList.add('hidden');
-                        panes[k].setAttribute('hidden', 'true');
-                    }
-                });
-                document.querySelectorAll('.tab-link').forEach(function (el) {
-                    var isActive = el.getAttribute('data-tab') === name;
-                    el.classList.toggle('text-emerald-500', isActive);
-                    el.classList.toggle('font-medium', isActive);
-                    el.classList.toggle('text-neutral-400', !isActive);
-                    el.setAttribute('aria-selected', isActive ? 'true' : 'false');
-                });
-            }
-            var tabLinks = Array.prototype.slice.call(document.querySelectorAll('.tab-link'));
-            document.querySelectorAll('.tab-link').forEach(function (el) {
-                el.addEventListener('click', function () {
-                    var name = el.getAttribute('data-tab') || 'details';
-                    activateTab(name);
-                });
-                el.addEventListener('keydown', function (e) {
-                    var idx = tabLinks.indexOf(el);
-                    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-                        e.preventDefault();
-                        var prev = tabLinks[Math.max(0, idx - 1)];
-                        if (prev) {
-                            prev.focus();
-                            activateTab(prev.getAttribute('data-tab'));
-                        }
-                    } else if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
-                        e.preventDefault();
-                        var next = tabLinks[Math.min(tabLinks.length - 1, idx + 1)];
-                        if (next) {
-                            next.focus();
-                            activateTab(next.getAttribute('data-tab'));
-                        }
-                    } else if (e.key === 'Home') {
-                        e.preventDefault();
-                        var first = tabLinks[0];
-                        if (first) {
-                            first.focus();
-                            activateTab(first.getAttribute('data-tab'));
-                        }
-                    } else if (e.key === 'End') {
-                        e.preventDefault();
-                        var last = tabLinks[tabLinks.length - 1];
-                        if (last) {
-                            last.focus();
-                            activateTab(last.getAttribute('data-tab'));
-                        }
-                    }
-                });
-            });
-            activateTab('details');
-
-            // Tags input
-            var tagsInput = document.getElementById('tags-input');
-            var tagsContainer = document.getElementById('tags-container');
-            var tagsList = tagsContainer ? tagsContainer.querySelector('.tags-list') : null;
-            var tagsValue = document.getElementById('tags-value');
-            
-            function addTag(tag) {
-                if (!tag || tag.trim().length === 0 || !tagsList) return;
-                tag = tag.trim();
                 
-                // Check if tag already exists
-                var existingTags = Array.from(tagsList.querySelectorAll('.tag-item')).map(function(el) {
-                    return el.getAttribute('data-tag');
-                });
-                if (existingTags.indexOf(tag) !== -1) return;
-                
-                var tagEl = document.createElement('span');
-                tagEl.className = 'tag-item inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-primary/20 text-primary text-xs font-medium';
-                tagEl.setAttribute('data-tag', tag);
-                tagEl.innerHTML = '<span>' + tag + '</span><button type="button" class="tag-remove hover:text-primary-hover" aria-label="Remove">×</button>';
-                
-                var removeBtn = tagEl.querySelector('.tag-remove');
-                removeBtn.addEventListener('click', function() {
-                    tagEl.remove();
-                    updateTagsValue();
-                });
-                
-                tagsList.appendChild(tagEl);
-                updateTagsValue();
-            }
-            
-            function updateTagsValue() {
-                if (!tagsValue || !tagsList) return;
-                var tags = Array.from(tagsList.querySelectorAll('.tag-item')).map(function(el) {
-                    return el.getAttribute('data-tag');
-                });
-                tagsValue.value = tags.join(',');
-            }
-            
-            if (tagsInput && tagsContainer && tagsList && tagsValue) {
-                tagsInput.addEventListener('keydown', function(e) {
-                    if (e.key === 'Enter' || e.key === ',') {
-                        e.preventDefault();
-                        var value = tagsInput.value.trim();
-                        if (value) {
-                            // Handle comma-separated values
-                            if (e.key === ',' || value.indexOf(',') !== -1) {
-                                var parts = value.split(',').map(function(p) { return p.trim(); }).filter(function(p) { return p.length > 0; });
-                                parts.forEach(function(part) {
-                                    addTag(part);
-                                });
-                            } else {
-                                addTag(value);
-                            }
-                            tagsInput.value = '';
-                        }
-                    } else if (e.key === 'Backspace' && tagsInput.value === '') {
-                        var lastTag = tagsList.querySelector('.tag-item:last-child');
-                        if (lastTag) {
-                            lastTag.remove();
-                            updateTagsValue();
-                        }
-                    }
-                });
-                
-                tagsInput.addEventListener('blur', function() {
-                    var value = tagsInput.value.trim();
-                    if (value) {
-                        if (value.indexOf(',') !== -1) {
-                            var parts = value.split(',').map(function(p) { return p.trim(); }).filter(function(p) { return p.length > 0; });
-                            parts.forEach(function(part) {
-                                addTag(part);
-                            });
-                        } else {
-                            addTag(value);
-                        }
-                        tagsInput.value = '';
-                    }
-                });
-            }
-
-            // Status codes tags input
-            var statusCodesInput = document.getElementById('status-codes-input');
-            var statusCodesTags = document.getElementById('status-codes-tags');
-            var statusCodesList = statusCodesTags ? statusCodesTags.querySelector('.status-tags-list') : null;
-            var statusCodesValue = document.getElementById('status-codes-value');
-            
-            function initStatusCodesTags() {
-                if (!statusCodesValue || !statusCodesList) return;
-                var initialValue = statusCodesValue.value || '2xx, 3xx';
-                var tags = initialValue.split(',').map(function(t) { return t.trim(); }).filter(function(t) { return t.length > 0; });
-                tags.forEach(function(tag) {
-                    addStatusCodeTag(tag);
-                });
-            }
-            
-            function addStatusCodeTag(tag) {
-                if (!tag || tag.trim().length === 0 || !statusCodesList) return;
-                tag = tag.trim();
-                
-                // Check if tag already exists
-                var existingTags = Array.from(statusCodesList.querySelectorAll('.status-tag')).map(function(el) {
-                    return el.getAttribute('data-tag');
-                });
-                if (existingTags.indexOf(tag) !== -1) return;
-                
-                var tagEl = document.createElement('span');
-                tagEl.className = 'status-tag inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-primary/20 text-primary text-xs font-medium';
-                tagEl.setAttribute('data-tag', tag);
-                tagEl.innerHTML = '<span>' + tag + '</span><button type="button" class="status-tag-remove hover:text-primary-hover" aria-label="Remove">×</button>';
-                
-                var removeBtn = tagEl.querySelector('.status-tag-remove');
-                removeBtn.addEventListener('click', function() {
-                    tagEl.remove();
-                    updateStatusCodesValue();
-                });
-                
-                statusCodesList.appendChild(tagEl);
-                updateStatusCodesValue();
-            }
-            
-            function updateStatusCodesValue() {
-                if (!statusCodesValue || !statusCodesList) return;
-                var tags = Array.from(statusCodesList.querySelectorAll('.status-tag')).map(function(el) {
-                    return el.getAttribute('data-tag');
-                });
-                statusCodesValue.value = tags.join(', ');
-            }
-            
-            if (statusCodesInput && statusCodesTags && statusCodesList && statusCodesValue) {
-                initStatusCodesTags();
-                
-                statusCodesInput.addEventListener('keydown', function(e) {
-                    if (e.key === 'Enter' || e.key === ',') {
-                        e.preventDefault();
-                        var value = statusCodesInput.value.trim();
-                        if (value) {
-                            // Handle comma-separated values
-                            if (e.key === ',' || value.indexOf(',') !== -1) {
-                                var parts = value.split(',').map(function(p) { return p.trim(); }).filter(function(p) { return p.length > 0; });
-                                parts.forEach(function(part) {
-                                    addStatusCodeTag(part);
-                                });
-                            } else {
-                                addStatusCodeTag(value);
-                            }
-                            statusCodesInput.value = '';
-                        }
-                    } else if (e.key === 'Backspace' && statusCodesInput.value === '') {
-                        var lastTag = statusCodesList.querySelector('.status-tag:last-child');
-                        if (lastTag) {
-                            lastTag.remove();
-                            updateStatusCodesValue();
-                        }
-                    }
-                });
-                
-                statusCodesInput.addEventListener('blur', function() {
-                    var value = statusCodesInput.value.trim();
-                    if (value) {
-                        if (value.indexOf(',') !== -1) {
-                            var parts = value.split(',').map(function(p) { return p.trim(); }).filter(function(p) { return p.length > 0; });
-                            parts.forEach(function(part) {
-                                addStatusCodeTag(part);
-                            });
-                        } else {
-                            addStatusCodeTag(value);
-                        }
-                        statusCodesInput.value = '';
-                    }
-                });
-            }
-        });
-    </script>
+                console.log('Create monitor specific features initialized');
+            }, 150);
+        </script>
+    @endpush
 </x-layouts.app>

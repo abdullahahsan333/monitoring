@@ -442,9 +442,15 @@
         </div>
     </div>
 
+    @push('all_script')
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // JavaScript for dropdowns remains the same
+            // Clear caches first
+            if (typeof clearCaches === 'function') {
+                clearCaches();
+            }
+            
+            // JavaScript for dropdowns remains same
             document.querySelectorAll('.dd').forEach(function (dd) {
                 var trigger = dd.querySelector(':scope > .dd-trigger');
                 var panel = dd.querySelector(':scope > .dd-panel');
@@ -849,4 +855,5 @@
             });
         });
     </script>
+    @endpush
 </x-layouts.app>

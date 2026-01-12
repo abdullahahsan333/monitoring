@@ -446,8 +446,14 @@
         </div>
     </div>
 
+    @push('all_script')
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Clear caches first
+            if (typeof clearCaches === 'function') {
+                clearCaches();
+            }
+            
             function updateSelectionCount() {
                 var total = document.querySelectorAll('.monitor-row').length;
                 var selected = document.querySelectorAll('.monitor-checkbox:checked').length;
@@ -571,7 +577,7 @@
             var filterDd = document.getElementById('filter-dropdown');
             function closeFluxDropdown(dd) {
                 if (!dd) return;
-                // Close Flux dropdown by hiding the menu (same pattern as data-range dropdowns)
+                // Close Flux dropdown by hiding menu (same pattern as data-range dropdowns)
                 var panel = dd.querySelector('flux\\:menu');
                 if (panel) {
                     panel.classList.add('hidden');
@@ -610,7 +616,7 @@
                         if (btn.classList.contains('filter-reset')) {
                             resetFilters();
                         }
-                        // Close the Flux dropdown
+                        // Close Flux dropdown
                         closeFluxDropdown(filterDd);
                     });
                 });
@@ -659,7 +665,7 @@
                         tagsModal.classList.remove('hidden');
                     }
                     
-                    // Close the dropdown
+                    // Close dropdown
                     const dropdown = target.closest('flux\:dropdown');
                     if (dropdown) {
                         const menu = dropdown.querySelector('flux\:menu');
@@ -679,7 +685,7 @@
                         statusModal.classList.remove('hidden');
                     }
                     
-                    // Close the dropdown
+                    // Close dropdown
                     const dropdown = target.closest('flux\:dropdown');
                     if (dropdown) {
                         const menu = dropdown.querySelector('flux\:menu');
@@ -806,4 +812,5 @@
             });
         });
     </script>
+    @endpush
 </x-layouts.app>

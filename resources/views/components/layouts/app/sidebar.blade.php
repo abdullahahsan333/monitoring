@@ -2,6 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
     <head>
         @include('partials.head')
+        @stack('all_style')
     </head>
     <body class="min-h-screen bg-main-panel">
         <div class="lg:hidden fixed top-4 left-4 z-50">
@@ -105,6 +106,7 @@
 
         {{ $slot }}
 
+        @stack('all_script')
         @fluxScripts
     </body>
 </html>
