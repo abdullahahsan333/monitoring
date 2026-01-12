@@ -137,135 +137,91 @@
                         </div>
                     </div>
 
-                    <!-- Monitor Item -->
-                    <div class="monitor-row group rounded-xl bg-main-panel-components border border-neutral-800 p-4 hover:border-neutral-700 transition-all cursor-pointer" data-href="{{ route('monitoring.show') }}" tabindex="0">
-                        <div class="flex items-center gap-4">
-                            <!-- Checkbox (appears on hover) -->
-                            <div class="monitor-checkbox-wrap w-0 opacity-0 overflow-hidden transition-all duration-200 group-hover:w-5 group-hover:opacity-100">
-                                <label class="relative inline-flex">
-                                    <input type="checkbox" class="peer monitor-checkbox appearance-none w-4 h-4 rounded border border-neutral-600 bg-neutral-800" />
-                                    <span class="absolute inset-0 hidden peer-checked:flex items-center justify-center text-xs">✔</span>
-                                </label>
-                            </div>
-                            
-                            <!-- Status Dot -->
-                            <div class="relative shrink-0">
-                                <span class="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500">
-                                    <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
-                                    <svg class="relative z-10 h-3 w-3 text-white" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                </span>
-                            </div>
-                            
-                            <!-- Monitor Info -->
-                            <div class="flex-1 min-w-0">
-                                <div class="text-main-panel-text font-medium text-base mb-1">
-                                    <a href="{{ route('monitoring.show') }}" class="text-main-panel-text hover:text-main-panel-text">mail.google.com/</a>
+                    <!-- Monitors List -->
+                    @forelse ($monitors as $monitor)
+                        <div class="monitor-row group rounded-xl bg-main-panel-components border border-neutral-800 p-4 hover:border-neutral-700 transition-all cursor-pointer" data-href="{{ route('monitoring.show', $monitor->id) }}" tabindex="0">
+                            <div class="flex items-center gap-4">
+                                <!-- Checkbox -->
+                                <div class="monitor-checkbox-wrap w-0 opacity-0 overflow-hidden transition-all duration-200 group-hover:w-5 group-hover:opacity-100">
+                                    <label class="relative inline-flex">
+                                        <input type="checkbox" class="peer monitor-checkbox appearance-none w-4 h-4 rounded border border-neutral-600 bg-neutral-800" />
+                                        <span class="absolute inset-0 hidden peer-checked:flex items-center justify-center text-xs">✔</span>
+                                    </label>
                                 </div>
-                                <div class="flex items-center gap-2 text-xs">
-                                    <span class="!inline-flex items-center rounded-md bg-[#252b3b] px-2 py-1 text-neutral-400 font-medium">HTTP</span>
-                                    <span class="text-neutral-500">Up 2 day, 18 hr</span>
+                                
+                                <!-- Status Dot -->
+                                <div class="relative shrink-0">
+                                    <span class="flex h-6 w-6 items-center justify-center rounded-full bg-{{ $monitor->current_status === 'Up' ? 'emerald-500' : 'red-500' }}">
+                                        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-{{ $monitor->current_status === 'Up' ? 'emerald-400' : 'red-400' }} opacity-75"></span>
+                                    </span>
                                 </div>
-                            </div>
-
-                            <div class="grid grid-cols-1 gap-2">
-                                <!-- Uptime Bar -->
-                                <div class="hidden md:flex items-center gap-3">
-                                    <div class="flex gap-0.5">
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                        <span class="w-0.5 h-3 rounded-sm bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
+                                
+                                <!-- Monitor Info -->
+                                <div class="flex-1 min-w-0">
+                                    <div class="text-main-panel-text font-medium text-base mb-1">
+                                        <a href="{{ route('monitoring.show', $monitor->id) }}" class="text-main-panel-text hover:text-main-panel-text">{{ $monitor->name }}</a>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-xs text-neutral-400">
+                                        <span>{{ strtoupper($monitor->type) }}</span>
+                                        <span class="inline-flex items-center gap-1 rounded bg-[#253047] px-1.5 py-0.5 text-[10px] text-neutral-300">{{ $monitor->url }}</span>
                                     </div>
                                 </div>
-
-                                <div class="flex items-center justify-between">
-                                    <div class="grid grid-cols-1 gap-2">
-                                        <div class="flex items-center gap-0.5 text-sm text-neutral-400">
-                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                            <span class="w-1 h-3 bg-emerald-500 uptime-segment" data-tooltip="Jan 8, 26 18:27 - 19:26 GMT+6&#10;Up 100%"></span>
-                                        </div>
-                                        <!-- Check Interval -->
-                                        <div class="w-full flex items-center justify-between text-sm text-neutral-400">
-                                            <div class="flex items-center justify-center">
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                                </svg>
-                                                <span>5 min</span>
-                                            </div>
-                                            <span class="text-sm text-neutral-400 font-medium">100%</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="flex items-center gap-2">
-                                        <flux:dropdown>
-                                            <flux:button variant="ghost" class="!px-2 !py-1 text-white">
-                                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"/>
-                                                </svg>
-                                            </flux:button>
-                                            <flux:menu class="min-w-[220px] bg-main-panel-dropdown text-white">
-                                                <flux:menu.item class="text-white hover:bg-main-panel-dropdown-hover">{{ __('Edit monitor') }}</flux:menu.item>
-                                                <flux:menu.item class="text-white hover:bg-main-panel-dropdown-hover">{{ __('Integrations & team') }}</flux:menu.item>
-                                                <flux:menu.item class="text-white hover:bg-main-panel-dropdown-hover">{{ __('Maintenance') }}</flux:menu.item>
-                                                <flux:menu.item class="text-white hover:bg-main-panel-dropdown-hover add-remove-tags-btn">{{ __('Add / Remove tags') }}</flux:menu.item>
-                                                <flux:menu.item class="text-white hover:bg-main-panel-dropdown-hover add-to-status-page-btn">{{ __('Add to status page') }}</flux:menu.item>
-                                                <flux:menu.item class="text-white hover:bg-main-panel-dropdown-hover">{{ __('Clone monitor') }}</flux:menu.item>
-                                                <flux:menu.item class="text-white hover:bg-main-panel-dropdown-hover">{{ __('Pause monitor') }}</flux:menu.item>
-                                                <flux:menu.item class="text-white hover:bg-main-panel-dropdown-hover">{{ __('Reset stats') }}</flux:menu.item>
-                                                <flux:menu.separator />
-                                                <flux:menu.item class="!text-red-500 hover:bg-main-panel-dropdown-hover">{{ __('Delete monitor') }}</flux:menu.item>
-                                            </flux:menu>
-                                        </flux:dropdown>
-                                    </div>
+                                
+                                <!-- Interval -->
+                                <div class="shrink-0 text-right hidden md:block">
+                                    <div class="text-main-panel-text font-medium">{{ $monitor->interval_seconds / 60 }} min</div>
+                                    <div class="text-xs text-neutral-400">Interval</div>
+                                </div>
+                                
+                                <!-- Uptime -->
+                                <div class="shrink-0 text-right hidden md:block">
+                                    <div class="text-main-panel-text font-medium">{{ $monitor->uptime_24h }}%</div>
+                                    <div class="text-xs text-neutral-400">Uptime</div>
+                                </div>
+                                
+                                <!-- Progress Bar (24-hour uptime bars) -->
+                                <div class="shrink-0 flex gap-0.5 items-center">
+                                    @foreach ($monitor->uptimeBars ?? [] as $color)
+                                        <span class="w-1 h-3 rounded-sm bg-{{ $color }}"></span>
+                                    @endforeach
+                                </div>
+                                
+                                <!-- Response Time -->
+                                <div class="shrink-0 text-right hidden md:block">
+                                    <div class="text-main-panel-text font-medium">{{ $monitor->avg_response_ms ?? '-' }} ms</div>
+                                    <div class="text-xs text-neutral-400">Response</div>
+                                </div>
+                                
+                                <!-- Actions -->
+                                <div class="shrink-0">
+                                    <flux:dropdown position="bottom" align="end">
+                                        <flux:button variant="ghost" class="!px-2 !py-1 text-white">
+                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"/>
+                                            </svg>
+                                        </flux:button>
+                                        <flux:menu class="min-w-[220px] bg-main-panel-dropdown text-white">
+                                            <flux:menu.item class="text-white hover:bg-main-panel-dropdown-hover">{{ __('Edit monitor') }}</flux:menu.item>
+                                            <flux:menu.item class="text-white hover:bg-main-panel-dropdown-hover">{{ __('Integrations & team') }}</flux:menu.item>
+                                            <flux:menu.item class="text-white hover:bg-main-panel-dropdown-hover">{{ __('Maintenance') }}</flux:menu.item>
+                                            <flux:menu.item class="text-white hover:bg-main-panel-dropdown-hover">{{ __('Add / Remove tags') }}</flux:menu.item>
+                                            <flux:menu.item class="text-white hover:bg-main-panel-dropdown-hover">{{ __('Add to status page') }}</flux:menu.item>
+                                            <flux:menu.item class="text-white hover:bg-main-panel-dropdown-hover">{{ __('Clone monitor') }}</flux:menu.item>
+                                            <flux:menu.item class="text-white hover:bg-main-panel-dropdown-hover">{{ __('Pause monitor') }}</flux:menu.item>
+                                            <flux:menu.item class="text-white hover:bg-main-panel-dropdown-hover">{{ __('Reset stats') }}</flux:menu.item>
+                                            <flux:menu.separator />
+                                            <flux:menu.item class="!text-red-500 hover:bg-main-panel-dropdown-hover">{{ __('Delete monitor') }}</flux:menu.item>
+                                        </flux:menu>
+                                    </flux:dropdown>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @empty
+                        <div class="rounded-xl bg-main-panel-components border border-neutral-800 p-6 text-center">
+                            <div class="text-neutral-300 font-medium">{{ __('No monitors yet.') }}</div>
+                            <div class="text-xs text-neutral-400 mt-2">{{ __('Add your first monitor to get started.') }}</div>
+                        </div>
+                    @endforelse
                 </div>
 
                 <!-- Sidebar -->

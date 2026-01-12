@@ -10,11 +10,17 @@
 
         <div class="relative grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-6 mb-10">
             <div id="tab-details" class="space-y-6 lg:order-1 order-2" role="tabpanel" aria-labelledby="tablink-details">
-                <div class="text-neutral-200 font-medium">{{ __('Add single monitor') }}</div>
-                <div class="space-y-4">
+                <div class="text-neutral-200 font-medium">{{ __('Add single monitor.') }}</div>
+                
+                <form id="monitor-create-form" class="space-y-6" 
+                    action="{{ route('monitoring.store') }}" 
+                    method="POST">
+                    @csrf
+                    
+                    <!-- Monitor type selection -->
                     <div class="rounded-xl !bg-panel border border-neutral-800 overflow-hidden">
                         <div class="px-5 py-4 border-b border-neutral-800">
-                            <div class="text-neutral-200 font-medium">Monitor type</div>
+                            <div class="text-neutral-200 font-medium">{{ __('Monitor type') }}</div>
                         </div>
 
                         <div class="dd">
@@ -39,7 +45,7 @@
                             </button>
 
                             <div class="dd-panel border-t border-neutral-800">
-                                <button type="button" class="dd-trigger w-full flex items-start gap-4 px-5 py-4 hover:bg-sidebar-active transition-colors" data-dd-option data-title="HTTP / website monitoring" data-description="Use HTTP(s) monitor to monitor your website, API endpoint, or anything running on HTTP.">
+                                <button type="button" class="dd-trigger w-full flex items-start gap-4 px-5 py-4 hover:bg-sidebar-active transition-colors" data-dd-option data-value="http" data-title="HTTP / website monitoring" data-description="Use HTTP(s) monitor to monitor your website, API endpoint, or anything running on HTTP.">
                                     <span class="dd-current-icon flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-400" data-dd-icon>
                                         <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6.5A2.5 2.5 0 016.5 4h11A2.5 2.5 0 0120 6.5V15a2 2 0 01-2 2H6a2 2 0 01-2-2V6.5z" />
@@ -53,7 +59,7 @@
                                         <div class="dd-current-desc mt-1 text-xs text-neutral-400">Use HTTP(s) monitor to monitor your website, API endpoint, or anything running on HTTP.</div>
                                     </div>
                                 </button>
-                                <button type="button" class="w-full flex items-start gap-4 px-5 py-4 hover:bg-sidebar-active transition-colors" data-dd-option data-title="Keyword monitoring" data-description="Check the presence or absence of specific text in the request's response body (typically HTML or JSON).">
+                                <button type="button" class="w-full flex items-start gap-4 px-5 py-4 hover:bg-sidebar-active transition-colors" data-dd-option data-value="keyword" data-title="Keyword monitoring" data-description="Check the presence or absence of specific text in the request's response body (typically HTML or JSON).">
                                     <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-violet-500/10 text-violet-300" data-dd-icon>
                                         <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M7 14l-2 2 3 3 2-2" />
@@ -67,7 +73,7 @@
                                     </div>
                                 </button>
 
-                                <button type="button" class="w-full flex items-start gap-4 px-5 py-4 hover:bg-sidebar-active transition-colors" data-dd-option data-title="Ping monitoring" data-description="Make sure your server or any device in the network is always available.">
+                                <button type="button" class="w-full flex items-start gap-4 px-5 py-4 hover:bg-sidebar-active transition-colors" data-dd-option data-value="ping" data-title="Ping monitoring" data-description="Make sure your server or any device in the network is always available.">
                                     <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-sky-500/10 text-sky-300" data-dd-icon>
                                         <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 3a9 9 0 109 9 9 9 0 00-9-9z" />
@@ -85,7 +91,7 @@
                                     </div>
                                 </button>
 
-                                <button type="button" class="w-full flex items-start gap-4 px-5 py-4 hover:bg-sidebar-active transition-colors" data-dd-option data-title="Port monitoring" data-description="Monitor any service on your server. Useful for SMTP, POP3, FTP, and other services running on specific TCP ports.">
+                                <button type="button" class="w-full flex items-start gap-4 px-5 py-4 hover:bg-sidebar-active transition-colors" data-dd-option data-value="port" data-title="Port monitoring" data-description="Monitor any service on your server. Useful for SMTP, POP3, FTP, and other services running on specific TCP ports.">
                                     <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-fuchsia-500/10 text-fuchsia-300" data-dd-icon>
                                         <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M7 9h10v10H7z" />
@@ -153,298 +159,299 @@
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" name="monitor_type" id="monitor-type-value" value="http">
                     </div>
-                </div>
 
-                <form class="rounded-xl !bg-panel border border-neutral-800 p-5 space-y-6" action="#" method="post">
-                    @csrf
-                    <flux:input
-                        name="url"
-                        :label="__('URL to monitor')"
-                        type="text"
-                        placeholder="https://"
-                        required
-                    />
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="text-xs text-neutral-200 mb-1 block">{{ __('Group') }}</label>
-                            <div class="text-[11px] text-neutral-400 mb-2">{{ __('Groups are available only on Paid plans.') }} <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a></div>
-                            <div class="text-[11px] text-neutral-400 mb-2">{{ __('Your monitor will be automatically added to the chosen group') }}</div>
-                            <select name="group" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white">
-                                <option value="">{{ __('Monitors (default)') }}</option>
+                    <!-- Rest of the form fields -->
+                    <div class="rounded-xl !bg-panel border border-neutral-800 p-5 space-y-6">
+                        <flux:input
+                            name="url"
+                            :label="__('URL to monitor')"
+                            type="text"
+                            placeholder="https://"
+                            required
+                        />
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="text-xs text-neutral-200 mb-1 block">{{ __('Group') }}</label>
+                                <div class="text-[11px] text-neutral-400 mb-2">{{ __('Groups are available only on Paid plans.') }} <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a></div>
+                                <div class="text-[11px] text-neutral-400 mb-2">{{ __('Your monitor will be automatically added to the chosen group') }}</div>
+                                <select class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white" name="group">
+                                    <option value="">{{ __('Monitors (default)') }}</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-xs text-neutral-200 mb-1 block">{{ __('Add tags') }}</label>
+                                <div class="text-[11px] text-neutral-400 mb-2">{{ __('Tags will enable you to organise your monitors in a better way') }}</div>
+                                <div id="tags-container" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 min-h-[42px] flex flex-col gap-2">
+                                    <div class="tags-list flex flex-wrap gap-2"></div>
+                                    <input type="text" id="tags-input" class="w-full bg-transparent border-0 outline-none text-sm text-white placeholder-neutral-400" placeholder="{{ __('Type and press Enter or comma to add tag...') }}" autocomplete="off">
+                                </div>
+                                <input type="hidden" name="tags" id="tags-value" value="">
+                            </div>
+                        </div>
+                        <div class="border-t border-neutral-800"></div>
+
+                        <div class="space-y-4">
+                            <div class="text-neutral-200 font-medium">{{ __('How will we notify you?') }}</div>
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                <div class="space-y-1">
+                                    <label class="inline-flex items-center gap-2">
+                                        <input type="checkbox" name="notify_email" value="1" class="rounded border-neutral-700 bg-neutral-900 accent-emerald-500" checked>
+                                        <span class="text-sm text-white">{{ __('E-mail') }}</span>
+                                    </label>
+                                    <div class="text-xs text-neutral-400">
+                                        {{ auth()->user()->email ?? 'you@example.com' }}
+                                    </div>
+                                    <div class="mt-2 inline-flex items-center gap-2 rounded-md bg-[#1a1f2e] border border-neutral-700 px-2 py-1 text-xs text-neutral-300">
+                                        <span class="inline-flex h-5 w-5 items-center justify-center rounded bg-[#253047] text-neutral-300">⟳</span>
+                                        <span>{{ __('No delay, no repeat') }}</span>
+                                    </div>
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="inline-flex items-center gap-2">
+                                        <input type="checkbox" name="notify_sms" value="1" class="rounded border-neutral-700 bg-neutral-900 accent-emerald-500">
+                                        <span class="text-sm text-white">{{ __('SMS message') }}</span>
+                                    </label>
+                                    <div class="text-xs"><a href="#" class="text-emerald-500 underline">{{ __('Add phone number') }}</a></div>
+                                    <div class="mt-2 inline-flex items-center gap-2 rounded-md bg-[#1a1f2e] border border-neutral-700 px-2 py-1 text-xs text-neutral-300">
+                                        <span class="inline-flex h-5 w-5 items-center justify-center rounded bg-[#253047] text-neutral-300">⟳</span>
+                                        <span>{{ __('No delay, no repeat') }}</span>
+                                    </div>
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="inline-flex items-center gap-2">
+                                        <input type="checkbox" name="notify_voice" value="1" class="rounded border-neutral-700 bg-neutral-900 accent-emerald-500">
+                                        <span class="text-sm text-white">{{ __('Voice call') }}</span>
+                                    </label>
+                                    <div class="text-xs"><a href="#" class="text-emerald-500 underline">{{ __('Add phone number') }}</a></div>
+                                    <div class="mt-2 inline-flex items-center gap-2 rounded-md bg-[#1a1f2e] border border-neutral-700 px-2 py-1 text-xs text-neutral-300">
+                                        <span class="inline-flex h-5 w-5 items-center justify-center rounded bg-[#253047] text-neutral-300">⟳</span>
+                                        <span>{{ __('No delay, no repeat') }}</span>
+                                    </div>
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="inline-flex items-center gap-2">
+                                        <input type="checkbox" name="notify_push" value="1" class="rounded border-neutral-700 bg-neutral-900 accent-emerald-500">
+                                        <span class="text-sm text-white">{{ __('Push') }}</span>
+                                    </label>
+                                    <div class="text-xs text-neutral-400">
+                                        {{ __('Download app for') }} <a href="#" class="text-emerald-500 underline">iOS</a> {{ __('or') }} <a href="#" class="text-emerald-500 underline">Android</a>
+                                    </div>
+                                    <div class="mt-2 inline-flex items-center gap-2 rounded-md bg-[#1a1f2e] border border-neutral-700 px-2 py-1 text-xs text-neutral-300">
+                                        <span class="inline-flex h-5 w-5 items-center justify-center rounded bg-[#253047] text-neutral-300">⟳</span>
+                                        <span>{{ __('No delay, no repeat') }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-xs text-neutral-400">
+                                {{ __('You can set up notifications for') }} <a href="{{ route('monitors.notifications') }}" class="text-emerald-500 underline">{{ __('Integrations & Team') }}</a> {{ __('in the specific tab and edit it later.') }}
+                            </div>
+                        </div>
+
+                        <div class="rounded-lg bg-[#121826] border border-neutral-800 p-4 space-y-3">
+                            <div class="text-neutral-200 font-medium">{{ __('Monitor interval') }}</div>
+                            <div class="text-xs text-neutral-400">
+                                {{ __('Your monitor will be checked every') }}
+                                <span id="mi-label" class="text-blue-400">5 minutes</span>.
+                                {{ __('We recommend to use at least 1-minute checks') }}
+                                <a href="#" class="text-emerald-500 underline">{{ __('available in paid plans') }}</a>
+                            </div>
+                            <input id="mi-range" type="range" min="0" max="6" step="1" value="2" class="w-full h-2 rounded bg-[#253047] accent-blue-600">
+                            <div class="grid grid-cols-7 gap-2 text-xs text-neutral-400">
+                                <div>30s</div>
+                                <div>1m</div>
+                                <div>5m</div>
+                                <div>30m</div>
+                                <div>1h</div>
+                                <div>12h</div>
+                                <div>24h</div>
+                            </div>
+                            <input type="hidden" name="interval" id="mi-value" value="5m">
+                        </div>
+
+                        <div class="rounded-lg bg-[#121826] border border-neutral-800 p-4 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <div class="text-neutral-200 font-medium">{{ __('Region to monitor from') }}</div>
+                                <div class="text-[11px] text-neutral-400">{{ __('Available only in Solo, Team and Enterprise.') }} <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a></div>
+                            </div>
+                            <select name="region" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white">
+                                <option value="auto">{{ __('Default (auto-select by UptimeRobot)') }}</option>
                             </select>
                         </div>
-                        <div>
-                            <label class="text-xs text-neutral-200 mb-1 block">{{ __('Add tags') }}</label>
-                            <div class="text-[11px] text-neutral-400 mb-2">{{ __('Tags will enable you to organise your monitors in a better way') }}</div>
-                            <div id="tags-container" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 min-h-[42px] flex flex-col gap-2">
-                                <div class="tags-list flex flex-wrap gap-2"></div>
-                                <input type="text" id="tags-input" class="w-full bg-transparent border-0 outline-none text-sm text-white placeholder-neutral-400" placeholder="{{ __('Type and press Enter or comma to add tag...') }}" autocomplete="off">
-                            </div>
-                            <input type="hidden" name="tags" id="tags-value" value="">
-                        </div>
-                    </div>
-                    <div class="border-t border-neutral-800"></div>
 
-                    <div class="space-y-4">
-                        <div class="text-neutral-200 font-medium">{{ __('How will we notify you?') }}</div>
-                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                            <div class="space-y-1">
-                                <label class="inline-flex items-center gap-2">
-                                    <input type="checkbox" name="notify_email" value="1" class="rounded border-neutral-700 bg-neutral-900 accent-emerald-500" checked>
-                                    <span class="text-sm text-white">{{ __('E-mail') }}</span>
+                        <details class="rounded-lg bg-[#121826] border border-neutral-800 p-4">
+                            <summary class="cursor-pointer text-neutral-200 font-medium">{{ __('SSL certificate and Domain checks') }}</summary>
+                            <div class="mt-2 inline-flex items-center gap-2 rounded-full bg-[#0d1320] border border-neutral-800 px-2 py-1 text-[11px] text-neutral-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2a5 5 0 00-5 5v3H6a2 2 0 00-2 2v7a2 2 0 002 2h12a2 2 0 002-2v-7a2 2 0 00-2-2h-1V7a5 5 0 00-5-5zm-3 8V7a3 3 0 016 0v3H9zm3 4a2 2 0 110 4 2 2 0 010-4z"/>
+                                </svg>
+                                <span>{{ __('Available only in Solo, Team and Enterprise.') }}</span>
+                                <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a>
+                            </div>
+                            <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2 opacity-60">
+                                    <span class="text-sm text-white">Check SSL errors</span>
+                                    <input type="checkbox" class="peer sr-only" disabled>
+                                    <span class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 peer-checked:bg-primary relative transition-colors cursor-pointer select-none">
+                                        <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-500"></span>
+                                    </span>
                                 </label>
-                                <div class="text-xs text-neutral-400">
-                                    {{ auth()->user()->email ?? 'you@example.com' }}
-                                </div>
-                                <div class="mt-2 inline-flex items-center gap-2 rounded-md bg-[#1a1f2e] border border-neutral-700 px-2 py-1 text-xs text-neutral-300">
-                                    <span class="inline-flex h-5 w-5 items-center justify-center rounded bg-[#253047] text-neutral-300">⟳</span>
-                                    <span>{{ __('No delay, no repeat') }}</span>
-                                </div>
-                            </div>
-                            <div class="space-y-1">
-                                <label class="inline-flex items-center gap-2">
-                                    <input type="checkbox" name="notify_sms" value="1" class="rounded border-neutral-700 bg-neutral-900 accent-emerald-500">
-                                    <span class="text-sm text-white">{{ __('SMS message') }}</span>
+                                <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2 opacity-60">
+                                    <span class="text-sm text-white">SSL expiry reminders</span>
+                                    <input type="checkbox" class="peer sr-only" disabled>
+                                    <span class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 peer-checked:bg-primary relative transition-colors cursor-pointer select-none">
+                                        <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-500"></span>
+                                    </span>
                                 </label>
-                                <div class="text-xs"><a href="#" class="text-emerald-500 underline">{{ __('Add phone number') }}</a></div>
-                                <div class="mt-2 inline-flex items-center gap-2 rounded-md bg-[#1a1f2e] border border-neutral-700 px-2 py-1 text-xs text-neutral-300">
-                                    <span class="inline-flex h-5 w-5 items-center justify-center rounded bg-[#253047] text-neutral-300">⟳</span>
-                                    <span>{{ __('No delay, no repeat') }}</span>
-                                </div>
-                            </div>
-                            <div class="space-y-1">
-                                <label class="inline-flex items-center gap-2">
-                                    <input type="checkbox" name="notify_voice" value="1" class="rounded border-neutral-700 bg-neutral-900 accent-emerald-500">
-                                    <span class="text-sm text-white">{{ __('Voice call') }}</span>
+                                <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2 opacity-60">
+                                    <span class="text-sm text-white">Domain expiry reminders</span>
+                                    <input type="checkbox" class="peer sr-only" disabled>
+                                    <span class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 peer-checked:bg-primary relative transition-colors cursor-pointer select-none">
+                                        <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-500"></span>
+                                    </span>
                                 </label>
-                                <div class="text-xs"><a href="#" class="text-emerald-500 underline">{{ __('Add phone number') }}</a></div>
-                                <div class="mt-2 inline-flex items-center gap-2 rounded-md bg-[#1a1f2e] border border-neutral-700 px-2 py-1 text-xs text-neutral-300">
-                                    <span class="inline-flex h-5 w-5 items-center justify-center rounded bg-[#253047] text-neutral-300">⟳</span>
-                                    <span>{{ __('No delay, no repeat') }}</span>
-                                </div>
                             </div>
-                            <div class="space-y-1">
-                                <label class="inline-flex items-center gap-2">
-                                    <input type="checkbox" name="notify_push" value="1" class="rounded border-neutral-700 bg-neutral-900 accent-emerald-500">
-                                    <span class="text-sm text-white">{{ __('Push') }}</span>
-                                </label>
-                                <div class="text-xs text-neutral-400">
-                                    {{ __('Download app for') }} <a href="#" class="text-emerald-500 underline">iOS</a> {{ __('or') }} <a href="#" class="text-emerald-500 underline">Android</a>
-                                </div>
-                                <div class="mt-2 inline-flex items-center gap-2 rounded-md bg-[#1a1f2e] border border-neutral-700 px-2 py-1 text-xs text-neutral-300">
-                                    <span class="inline-flex h-5 w-5 items-center justify-center rounded bg-[#253047] text-neutral-300">⟳</span>
-                                    <span>{{ __('No delay, no repeat') }}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-xs text-neutral-400">
-                            {{ __('You can set up notifications for') }} <a href="{{ route('monitors.notifications') }}" class="text-emerald-500 underline">{{ __('Integrations & Team') }}</a> {{ __('in the specific tab and edit it later.') }}
-                        </div>
-                    </div>
+                        </details>
 
-                    <div class="rounded-lg bg-[#121826] border border-neutral-800 p-4 space-y-3">
-                        <div class="text-neutral-200 font-medium">{{ __('Monitor interval') }}</div>
-                        <div class="text-xs text-neutral-400">
-                            {{ __('Your monitor will be checked every') }}
-                            <span id="mi-label" class="text-blue-400">5 minutes</span>.
-                            {{ __('We recommend to use at least 1-minute checks') }}
-                            <a href="#" class="text-emerald-500 underline">{{ __('available in paid plans') }}</a>
-                        </div>
-                        <input id="mi-range" type="range" min="0" max="6" step="1" value="2" class="w-full h-2 rounded bg-[#253047] accent-blue-600">
-                        <div class="grid grid-cols-7 gap-2 text-xs text-neutral-400">
-                            <div>30s</div>
-                            <div>1m</div>
-                            <div>5m</div>
-                            <div>30m</div>
-                            <div>1h</div>
-                            <div>12h</div>
-                            <div>24h</div>
-                        </div>
-                        <input type="hidden" name="interval" id="mi-value" value="5m">
-                    </div>
-
-                    <div class="rounded-lg bg-[#121826] border border-neutral-800 p-4 space-y-2">
-                        <div class="flex items-center justify-between">
-                            <div class="text-neutral-200 font-medium">{{ __('Region to monitor from') }}</div>
-                            <div class="text-[11px] text-neutral-400">{{ __('Available only in Solo, Team and Enterprise.') }} <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a></div>
-                        </div>
-                        <select name="region" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white">
-                            <option value="auto">{{ __('Default (auto-select by UptimeRobot)') }}</option>
-                        </select>
-                    </div>
-
-                    <details class="rounded-lg bg-[#121826] border border-neutral-800 p-4">
-                        <summary class="cursor-pointer text-neutral-200 font-medium">{{ __('SSL certificate and Domain checks') }}</summary>
-                        <div class="mt-2 inline-flex items-center gap-2 rounded-full bg-[#0d1320] border border-neutral-800 px-2 py-1 text-[11px] text-neutral-400">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 2a5 5 0 00-5 5v3H6a2 2 0 00-2 2v7a2 2 0 002 2h12a2 2 0 002-2v-7a2 2 0 00-2-2h-1V7a5 5 0 00-5-5zm-3 8V7a3 3 0 016 0v3H9zm3 4a2 2 0 110 4 2 2 0 010-4z"/>
-                            </svg>
-                            <span>{{ __('Available only in Solo, Team and Enterprise.') }}</span>
-                            <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a>
-                        </div>
-                        <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-2">
-                            <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2">
-                                <span class="text-sm text-white">Check SSL errors</span>
-                                <input type="checkbox" name="check_ssl_errors" value="1" class="peer sr-only">
-                                <span data-switch class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 peer-checked:bg-primary relative transition-colors cursor-pointer select-none">
-                                    <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-300 peer-checked:translate-x-5 transition-transform"></span>
-                                </span>
-                            </label>
-                            <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2">
-                                <span class="text-sm text-white">SSL expiry reminders</span>
-                                <input type="checkbox" name="ssl_expiry_reminders" value="1" class="peer sr-only">
-                                <span data-switch class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 peer-checked:bg-primary relative transition-colors cursor-pointer select-none">
-                                    <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-300 peer-checked:translate-x-5 transition-transform"></span>
-                                </span>
-                            </label>
-                            <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2">
-                                <span class="text-sm text-white">Domain expiry reminders</span>
-                                <input type="checkbox" name="domain_expiry_reminders" value="1" class="peer sr-only">
-                                <span data-switch class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 peer-checked:bg-primary relative transition-colors cursor-pointer select-none">
-                                    <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-300 peer-checked:translate-x-5 transition-transform"></span>
-                                </span>
-                            </label>
-                        </div>
-                    </details>
-
-                    <details class="rounded-lg bg-[#121826] border border-neutral-800 p-4">
-                        <summary class="cursor-pointer text-neutral-200 font-medium">{{ __('Advanced settings') }}</summary>
-                        <div class="mt-4 space-y-6">
-                            <div class="space-y-3">
-                                <div class="text-neutral-200 font-medium">{{ __('Request timeout') }}</div>
-                                <div class="text-xs text-neutral-400">
-                                    {{ __('The request timeout is') }}
-                                    <span id="rt-label" class="text-blue-400">30 seconds</span>.
-                                    {{ __('The shorter the timeout the earlier we mark website as down.') }}
-                                </div>
-                                <input id="rt-range" type="range" min="1" max="60" step="1" value="30" class="w-full h-2 rounded bg-[#253047] accent-blue-600">
-                                <div class="flex justify-between text-xs text-neutral-400">
-                                    <div>1s</div>
-                                    <div>15s</div>
-                                    <div>30s</div>
-                                    <div>45s</div>
-                                    <div>60s</div>
-                                </div>
-                                <input type="hidden" id="rt-value" name="request_timeout" value="30s">
-                            </div>
-
-                            <div class="space-y-2">
-                                <div class="flex items-center gap-2 text-neutral-300">
-                                    <span class="inline-flex h-4 w-4 items-center justify-center rounded bg-[#253047] text-neutral-300">🔒</span>
-                                    <span class="text-sm">{{ __('Slow response time alert') }}</span>
-                                    <a href="#" class="text-xs text-emerald-500 underline">{{ __('Upgrade to unlock') }}</a>
-                                </div>
-                                <div class="text-xs text-neutral-400">
-                                    {{ __('You\'ll receive a notification if the response time exceeds your set threshold.') }}
-                                    {{ __('Once it drops back below the threshold, you\'ll be notified again, and the incident will be marked as resolved.') }}
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <input type="number" name="slow_response_threshold" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white" value="1000">
-                                    <span class="text-xs text-neutral-400">{{ __('milliseconds') }}</span>
-                                </div>
-                            </div>
-
-                            <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2">
-                                <span class="text-sm text-white">Follow redirections</span>
-                                <input type="checkbox" name="follow_redirects" value="1" class="peer sr-only" checked>
-                                <span data-switch class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 peer-checked:bg-primary relative transition-colors cursor-pointer select-none">
-                                    <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-300 peer-checked:translate-x-5 transition-transform"></span>
-                                </span>
-                            </label>
-
-                            <div>
-                                <div class="flex items-center justify-between mb-1">
-                                    <label class="text-xs text-neutral-400">{{ __('Up HTTP status codes') }}</label>
-                                    <div class="text-[11px] text-neutral-400">{{ __('Available only in Solo, Team and Enterprise.') }} <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a></div>
-                                </div>
-                                <div class="text-[11px] text-neutral-400 mb-2">{{ __('We will consider incident when we receive HTTP status code other than defined below.') }}</div>
-                                <div id="status-codes-tags" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 min-h-[42px] flex flex-wrap gap-2 items-center">
-                                    <div class="status-tags-list flex flex-wrap gap-2 flex-1"></div>
-                                    <input type="text" id="status-codes-input" class="flex-1 min-w-[120px] bg-transparent border-0 outline-none text-sm text-white placeholder-neutral-400" placeholder="Type and press Enter or comma" autocomplete="off">
-                                </div>
-                                <input type="hidden" name="expected_status_codes" id="status-codes-value" value="2xx, 3xx">
-                            </div>
-
-                            <div class="space-y-2">
-                                <div class="grid grid-cols-1 sm:grid-cols-[240px_1fr] gap-3 items-start">
-                                    <div>
-                                        <label class="text-xs text-neutral-400 mb-1 block">{{ __('Auth. type') }}</label>
-                                        <select id="auth-type" name="auth_type" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white">
-                                            <option value="none">{{ __('None') }}</option>
-                                            <option value="basic">{{ __('Basic') }}</option>
-                                        </select>
+                        <details class="rounded-lg bg-[#121826] border border-neutral-800 p-4">
+                            <summary class="cursor-pointer text-neutral-200 font-medium">{{ __('Advanced settings') }}</summary>
+                            <div class="mt-4 space-y-6">
+                                <div class="space-y-3">
+                                    <div class="text-neutral-200 font-medium">{{ __('Request timeout') }}</div>
+                                    <div class="text-xs text-neutral-400">
+                                        {{ __('The request timeout is') }}
+                                        <span id="rt-label" class="text-blue-400">30 seconds</span>.
+                                        {{ __('The shorter the timeout the earlier we mark website as down.') }}
                                     </div>
-                                    <div id="auth-creds" class="grid grid-cols-2 gap-3">
-                                        <div>
-                                            <label class="text-xs text-neutral-400 mb-1 block">{{ __('Auth. credentials') }}</label>
-                                            <input id="auth-username" name="auth_username" type="text" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white" placeholder="{{ __('Username') }}">
-                                        </div>
-                                        <div class="relative">
-                                            <label class="text-xs text-neutral-400 mb-1 block">&nbsp;</label>
-                                            <input id="auth-password" name="auth_password" type="password" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 pr-10 text-sm text-white" placeholder="{{ __('Password') }}">
-                                            <button type="button" id="auth-pass-toggle" class="absolute right-2 top-7 text-neutral-400 hover:text-neutral-200 text-sm">👁</button>
-                                        </div>
+                                    <input id="rt-range" type="range" min="1" max="60" step="1" value="30" class="w-full h-2 rounded bg-[#253047] accent-blue-600">
+                                    <div class="flex justify-between text-xs text-neutral-400">
+                                        <div>1s</div>
+                                        <div>15s</div>
+                                        <div>30s</div>
+                                        <div>45s</div>
+                                        <div>60s</div>
+                                    </div>
+                                    <input type="hidden" id="rt-value" name="request_timeout" value="30s">
+                                </div>
+
+                                <div class="space-y-2">
+                                    <div class="flex items-center gap-2 text-neutral-300">
+                                        <span class="inline-flex h-4 w-4 items-center justify-center rounded bg-[#253047] text-neutral-300">🔒</span>
+                                        <span class="text-sm">{{ __('Slow response time alert') }}</span>
+                                        <a href="#" class="text-xs text-emerald-500 underline">{{ __('Upgrade to unlock') }}</a>
+                                    </div>
+                                    <div class="text-xs text-neutral-400">
+                                        {{ __('You\'ll receive a notification if the response time exceeds your set threshold.') }}
+                                        {{ __('Once it drops back below the threshold, you\'ll be notified again, and the incident will be marked as resolved.') }}
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <input type="number" name="slow_response_threshold" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white" value="1000">
+                                        <span class="text-xs text-neutral-400">{{ __('milliseconds') }}</span>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="space-y-2">
-                                <div class="flex items-center justify-between">
-                                    <label class="text-xs text-neutral-400">{{ __('HTTP method') }}</label>
-                                    <div class="text-[11px] text-neutral-400">{{ __('Available only in Solo, Team and Enterprise.') }} <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a></div>
-                                </div>
-                                <div class="flex flex-wrap justify-around gap-2">
-                                    <button type="button" class="http-method px-3 py-1.5 rounded bg-emerald-600 text-xs text-white cursor-pointer" data-value="HEAD">HEAD</button>
-                                    <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-pointer" data-value="GET">GET</button>
-                                    <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-pointer" data-value="POST">POST</button>
-                                    <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-pointer" data-value="PUT">PUT</button>
-                                    <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-pointer" data-value="PATCH">PATCH</button>
-                                    <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-pointer" data-value="DELETE">DELETE</button>
-                                    <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-pointer" data-value="OPTIONS">OPTIONS</button>
-                                </div>
-                                <input type="hidden" id="http-method-value" name="method" value="HEAD">
-                            </div>
-
-                            <div class="space-y-2">
-                                <div class="flex items-center justify-between">
-                                    <label class="text-xs text-neutral-400">{{ __('Request body') }}</label>
-                                    <div class="text-[11px] text-neutral-400">{{ __('Available only in Solo, Team and Enterprise.') }} <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a></div>
-                                </div>
-                                <textarea name="request_body" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white" rows="3" placeholder='{"key":"value"}'></textarea>
                                 <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2">
-                                    <span class="text-sm text-neutral-300">Send as JSON (application/json)</span>
-                                    <input type="checkbox" name="request_body_json" value="1" class="peer sr-only">
+                                    <span class="text-sm text-white">Follow redirections</span>
+                                    <input type="checkbox" name="follow_redirects" value="1" class="peer sr-only" checked>
                                     <span data-switch class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 peer-checked:bg-primary relative transition-colors cursor-pointer select-none">
                                         <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-300 peer-checked:translate-x-5 transition-transform"></span>
                                     </span>
                                 </label>
-                                <div class="text-[11px] text-neutral-400">{{ __('Data will be sent as a standard POST (application/x-www-form-urlencoded) unless you choose the JSON option.') }}</div>
-                            </div>
 
-                            <div class="space-y-2">
-                                <div class="flex items-center justify-between">
-                                    <label class="text-xs text-neutral-400">{{ __('Request headers') }}</label>
-                                    <div class="inline-flex items-center gap-2 rounded-full bg-[#0d1320] border border-neutral-800 px-2 py-1 text-[11px] text-neutral-400">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="currentColor">
-                                            <path d="M12 2a5 5 0 00-5 5v3H6a2 2 0 00-2 2v7a2 2 0 002 2h12a2 2 0 002-2v-7a2 2 0 00-2-2h-1V7a5 5 0 00-5-5zm-3 8V7a3 3 0 016 0v3H9zm3 4a2 2 0 110 4 2 2 0 010-4z"/>
-                                        </svg>
-                                        <span>{{ __('Available only in Solo, Team and Enterprise.') }}</span>
-                                        <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a>
+                                <div>
+                                    <div class="flex items-center justify-between mb-1">
+                                        <label class="text-xs text-neutral-400">{{ __('Up HTTP status codes') }}</label>
+                                        <div class="text-[11px] text-neutral-400">{{ __('Available only in Solo, Team and Enterprise.') }} <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a></div>
+                                    </div>
+                                    <div class="text-[11px] text-neutral-400 mb-2">{{ __('We will consider incident when we receive HTTP status code other than defined below.') }}</div>
+                                    <div id="status-codes-tags" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 min-h-[42px] flex flex-wrap gap-2 items-center">
+                                        <div class="status-tags-list flex flex-wrap gap-2 flex-1"></div>
+                                        <input type="text" id="status-codes-input" class="flex-1 min-w-[120px] bg-transparent border-0 outline-none text-sm text-white placeholder-neutral-400" placeholder="Type and press Enter or comma" autocomplete="off">
+                                    </div>
+                                    <input type="hidden" name="expected_status_codes" id="status-codes-value" value="2xx, 3xx">
+                                </div>
+
+                                <div class="space-y-2">
+                                    <div class="grid grid-cols-1 sm:grid-cols-[240px_1fr] gap-3 items-start">
+                                        <div>
+                                            <label class="text-xs text-neutral-400 mb-1 block">{{ __('Auth. type') }}</label>
+                                            <select id="auth-type" name="auth_type" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white">
+                                                <option value="none">{{ __('None') }}</option>
+                                                <option value="basic">{{ __('Basic') }}</option>
+                                            </select>
+                                        </div>
+                                        <div id="auth-creds" class="grid grid-cols-2 gap-3">
+                                            <div>
+                                                <label class="text-xs text-neutral-400 mb-1 block">{{ __('Auth. credentials') }}</label>
+                                                <input id="auth-username" name="auth_username" type="text" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white" placeholder="{{ __('Username') }}">
+                                            </div>
+                                            <div class="relative">
+                                                <label class="text-xs text-neutral-400 mb-1 block">&nbsp;</label>
+                                                <input id="auth-password" name="auth_password" type="password" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 pr-10 text-sm text-white" placeholder="{{ __('Password') }}">
+                                                <button type="button" id="auth-pass-toggle" class="absolute right-2 top-7 text-neutral-400 hover:text-neutral-200 text-sm">👁</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="grid grid-cols-[1fr_1fr_40px] gap-2">
-                                    <input name="header_name[]" class="rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white" placeholder="X-Header-Name">
-                                    <input name="header_value[]" class="rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white" placeholder="Value">
-                                    <button type="button" class="inline-flex items-center justify-center rounded-lg bg-neutral-800 hover:bg-neutral-700 text-red-400 px-2 py-2 cursor-pointer">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                                            <path d="M9 3h6a1 1 0 011 1v2h4v2h-1l-1 12a2 2 0 01-2 2H8a2 2 0 01-2-2L5 8H4V6h4V4a1 1 0 011-1zm2 3h2V5h-2v1zm-1 5h2v8H10v-8zm4 0h2v8h-2v-8z"/>
-                                        </svg>
-                                    </button>
+
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between">
+                                        <label class="text-xs text-neutral-400">{{ __('HTTP method') }}</label>
+                                        <div class="text-[11px] text-neutral-400">{{ __('Available only in Solo, Team and Enterprise.') }} <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a></div>
+                                    </div>
+                                    <div class="flex flex-wrap justify-around gap-2">
+                                        <button type="button" class="http-method px-3 py-1.5 rounded bg-emerald-600 text-xs text-white cursor-pointer" data-value="HEAD">HEAD</button>
+                                        <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-pointer" data-value="GET">GET</button>
+                                        <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-pointer" data-value="POST">POST</button>
+                                        <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-pointer" data-value="PUT">PUT</button>
+                                        <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-pointer" data-value="PATCH">PATCH</button>
+                                        <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-pointer" data-value="DELETE">DELETE</button>
+                                        <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-pointer" data-value="OPTIONS">OPTIONS</button>
+                                    </div>
+                                    <input type="hidden" id="http-method-value" name="method" value="HEAD">
+                                </div>
+
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between">
+                                        <label class="text-xs text-neutral-400">{{ __('Request body') }}</label>
+                                        <div class="text-[11px] text-neutral-400">{{ __('Available only in Solo, Team and Enterprise.') }} <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a></div>
+                                    </div>
+                                    <textarea name="request_body" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white" rows="3" placeholder='{"key":"value"}'></textarea>
+                                    <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2">
+                                        <span class="text-sm text-neutral-300">Send as JSON (application/json)</span>
+                                        <input type="checkbox" name="request_body_json" value="1" class="peer sr-only">
+                                        <span data-switch class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 peer-checked:bg-primary relative transition-colors cursor-pointer select-none">
+                                            <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-300 peer-checked:translate-x-5 transition-transform"></span>
+                                        </span>
+                                    </label>
+                                    <div class="text-[11px] text-neutral-400">{{ __('Data will be sent as a standard POST (application/x-www-form-urlencoded) unless you choose the JSON option.') }}</div>
+                                </div>
+
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between">
+                                        <label class="text-xs text-neutral-400">{{ __('Request headers') }}</label>
+                                        <div class="inline-flex items-center gap-2 rounded-full bg-[#0d1320] border border-neutral-800 px-2 py-1 text-[11px] text-neutral-400">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M12 2a5 5 0 00-5 5v3H6a2 2 0 00-2 2v7a2 2 0 002 2h12a2 2 0 002-2v-7a2 2 0 00-2-2h-1V7a5 5 0 00-5-5zm-3 8V7a3 3 0 016 0v3H9zm3 4a2 2 0 110 4 2 2 0 010-4z"/>
+                                            </svg>
+                                            <span>{{ __('Available only in Solo, Team and Enterprise.') }}</span>
+                                            <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a>
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-[1fr_1fr_40px] gap-2">
+                                        <input name="header_name[]" class="rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white" placeholder="X-Header-Name">
+                                        <input name="header_value[]" class="rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white" placeholder="Value">
+                                        <button type="button" class="inline-flex items-center justify-center rounded-lg bg-neutral-800 hover:bg-neutral-700 text-red-400 px-2 py-2 cursor-pointer">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M9 3h6a1 1 0 011 1v2h4v2h-1l-1 12a2 2 0 01-2 2H8a2 2 0 01-2-2L5 8H4V6h4V4a1 1 0 011-1zm2 3h2V5h-2v1zm-1 5h2v8H10v-8zm4 0h2v8h-2v-8z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </details>
+                        </details>
+                    </div>
                 </form>
             </div>
 
@@ -527,20 +534,29 @@
                     <button type="button" id="tablink-maintenance" class="py-2 tab-link w-full text-left text-neutral-400" data-tab="maintenance" role="tab" aria-selected="false" aria-controls="tab-maintenance">{{ __('Maintenance info') }}</button>
                 </div>
             </div>
+
+        </div>
+        
+        <!-- Bottom submit area -->
+        <div class="border-t rounded-xl border-neutral-800 !bg-panel sticky bottom-0 left-0 right-0 z-10">
+            <div class="mx-auto max-w-7xl p-4">
+                <div class="flex items-center justify-end gap-4">
+                    <flux:button type="button" variant="ghost" class="px-6 py-2.5 text-sm">
+                        {{ __('Cancel') }}
+                    </flux:button>
+                    
+                    <flux:button 
+                        type="submit" 
+                        form="monitor-create-form"
+                        class="bg-primary hover:bg-primary-hover px-6 py-2.5 text-white text-sm font-medium rounded-lg"
+                    >
+                        {{ __('Create monitor') }}
+                    </flux:button>
+                </div>
+            </div>
         </div>
 
     </div>
-    
-    <div class="fixed bottom-0 left-64 right-0 z-50 border-t border-neutral-800 !bg-panel shadow-lg">
-        <div class="mx-auto max-w-7xl p-4 pl-10">
-            <div class="flex items-center gap-6">
-                <flux:link :href="route('monitors.notifications')" class="inline-flex items-center justify-center rounded-md bg-primary px-5 py-2 text-white hover:bg-primary-hover">
-                    {{ __('Create monitor') }}
-                </flux:link>
-            </div>
-        </div>
-    </div>
-    
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -579,26 +595,19 @@
                 rtRange.addEventListener('input', updateRt);
                 rtRange.addEventListener('change', updateRt);
             }
-            // Handle .dd dropdowns (Monitor type selector)
+            
+            // Handle monitor type selector
+            var monitorTypeInput = document.getElementById('monitor-type-value');
             document.querySelectorAll('.dd').forEach(function (dd) {
                 var trigger = dd.querySelector(':scope > .dd-trigger');
                 var panel = dd.querySelector(':scope > .dd-panel');
-                var closeBtn = panel ? panel.querySelector('.dd-close') : null;
                 if (panel) {
-                    if (!dd.hasAttribute('data-open')) panel.classList.add('hidden');
+                    panel.classList.add('hidden');
                     panel.classList.add('z-50');
                     panel.addEventListener('click', function (e) { e.stopPropagation(); });
                 }
-                if (closeBtn && panel) {
-                    closeBtn.addEventListener('click', function (e) {
-                        e.stopPropagation();
-                        panel.classList.add('hidden');
-                    });
-                }
+                
                 if (trigger) {
-                    trigger.setAttribute('aria-expanded', panel && !panel.classList.contains('hidden') ? 'true' : 'false');
-                    var chevron = trigger.querySelector('[data-dd-chevron]');
-                    if (chevron) chevron.classList.toggle('rotate-180', panel && !panel.classList.contains('hidden'));
                     trigger.addEventListener('click', function (e) {
                         e.stopPropagation();
                         var isOpen = panel && !panel.classList.contains('hidden');
@@ -613,9 +622,8 @@
                         } else {
                             if (panel) panel.classList.remove('hidden');
                         }
-                        trigger.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
-                        var chevron2 = trigger.querySelector('[data-dd-chevron]');
-                        if (chevron2) chevron2.classList.toggle('rotate-180', !isOpen);
+                        var chevron = trigger.querySelector('[data-dd-chevron]');
+                        if (chevron) chevron.classList.toggle('rotate-180', !isOpen);
                     });
                 }
 
@@ -625,6 +633,7 @@
                             e.stopPropagation();
                             var title = opt.getAttribute('data-title');
                             var description = opt.getAttribute('data-description');
+                            var value = opt.getAttribute('data-value');
                             var icon = opt.querySelector('[data-dd-icon]');
                             var currentTitle = trigger.querySelector('.dd-current-title');
                             var currentDesc = trigger.querySelector('.dd-current-desc');
@@ -636,11 +645,13 @@
                                 currentIcon.className = icon.className + ' dd-current-icon';
                                 currentIcon.innerHTML = icon.innerHTML;
                             }
+                            if (monitorTypeInput && value) {
+                                monitorTypeInput.value = value;
+                            }
 
                             panel.classList.add('hidden');
-                            trigger.setAttribute('aria-expanded', 'false');
-                            var chevron3 = trigger.querySelector('[data-dd-chevron]');
-                            if (chevron3) chevron3.classList.remove('rotate-180');
+                            var chevron = trigger.querySelector('[data-dd-chevron]');
+                            if (chevron) chevron.classList.remove('rotate-180');
                         });
                     });
                 }
@@ -690,19 +701,7 @@
                     }
                 });
             });
-            document.querySelectorAll('.mi-opt').forEach(function (btn) {
-                btn.addEventListener('click', function () {
-                    document.querySelectorAll('.mi-opt').forEach(function (b) {
-                        b.classList.remove('bg-emerald-600');
-                        b.classList.add('bg-[#253047]');
-                    });
-                    btn.classList.remove('bg-[#253047]');
-                    btn.classList.add('bg-emerald-600');
-                    var v = btn.getAttribute('data-value');
-                    var input = document.getElementById('mi-value');
-                    if (input) input.value = v;
-                });
-            });
+            
             var authType = document.getElementById('auth-type');
             var authUser = document.getElementById('auth-username');
             var authPass = document.getElementById('auth-password');
