@@ -17,9 +17,10 @@ Route::match(['GET', 'HEAD'], '_boost/browser-logs', function () {
     return response()->noContent();
 });
 
-Route::view('dashboard', 'dashboard')
+Route::get('dashboard', [MonitoringController::class, 'index'])
     ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+    ->name('monitoring.index');
+
 
 Route::get('monitoring', [MonitoringController::class, 'index'])
     ->middleware(['auth', 'verified'])
