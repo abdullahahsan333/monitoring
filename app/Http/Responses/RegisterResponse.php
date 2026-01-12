@@ -14,6 +14,6 @@ class RegisterResponse implements RegisterResponseContract
      */
     public function toResponse($request)
     {
-        return redirect()->intended('/monitoring/create');
+        return redirect()->intended('/dashboard');
     }
 }
