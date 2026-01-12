@@ -134,7 +134,12 @@
                             </div>
                             <div class="flex gap-0.5">
                                 @foreach($uptimeBars as $barColor)
-                                    <span class="w-1 h-3 rounded-sm bg-{{ $barColor }}"></span>
+                                    <span class="s-bar tooltip w-1 h-3 rounded-sm bg-{{ $barColor }}">
+                                        <div class="tooltiptext">
+                                            Jan 12, ’26, 01:06 – 02:05 GMT+6<br>
+                                            Up 100%
+                                        </div>
+                                    </span>
                                 @endforeach
                             </div>
                             <div class="text-xs text-neutral-400 mt-2">

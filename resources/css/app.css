@@ -189,4 +189,59 @@ select:focus[data-flux-control] {
         pointer-events: none;
     }
     .uptime-segment:hover::before { opacity: 1; }
+    .s-bar {
+        width: 6px;
+        height: 14px;
+        background: #22c55e;
+        border-radius: 2px;
+        transition: transform 0.2s ease-out;
+        cursor: pointer;
+    }
+    
+    /* Hover grow effect */
+    .s-bar:hover {
+        transform: scaleY(1.6);
+    }
+    
+    /* Tooltip container */
+    .tooltip {
+        position: relative;
+    }
+    
+    /* Tooltip box */
+    .tooltiptext {
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        position: absolute;
+        bottom: 120%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #0f172a;
+        color: #fff;
+        padding: 9px 14px;
+        border-radius: 6px;
+        font-size: 8px;
+        line-height: 10px;
+        white-space: nowrap;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
+    
+    /* Tooltip arrow */
+    .tooltiptext::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 6px;
+        border-style: solid;
+        border-color: #0f172a transparent transparent transparent;
+    }
+    
+    /* Show tooltip on hover */
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+    }
 }

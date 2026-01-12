@@ -15,23 +15,77 @@ class MonitoringController extends Controller
     {
         $monitors = Auth::user()->monitors()->latest()->get();
 
-        // For each monitor, compute basic dynamic data (status, uptime, etc.)
+        // Per-monitor stats (already good – keep it)
         $monitors->each(function ($monitor) {
             $lastCheck = $monitor->checkLogs()->latest()->first();
             $monitor->current_status = $lastCheck ? ($lastCheck->status ? 'Up' : 'Down') : 'Not started';
             $monitor->last_check_time = $lastCheck ? $lastCheck->checked_at->diffForHumans() : '-';
-            
-            // Uptime last 24h (simple calc)
-            $checks24h = $monitor->checkLogs()->where('checked_at', '>=', Carbon::now()->subDay())->get();
+
+            $checks24h = $monitor->checkLogs()
+                ->where('checked_at', '>=', Carbon::now()->subDay())
+                ->get();
+
             $total24h = $checks24h->count();
-            $up24h = $checks24h->where('status', 1)->count();
-            $monitor->uptime_24h = $total24h ? round(($up24h / $total24h) * 100, 2) : 100;
-            $monitor->uptimeBars = $this->getUptimeBars($monitor, 24);
-            // Average response time (last 24h)
+            $up24h    = $checks24h->where('status', 1)->count();
+
+            $monitor->uptime_24h    = $total24h ? round(($up24h / $total24h) * 100, 1) : 100;
+            $monitor->uptimeBars    = $this->getUptimeBars($monitor, 24);
             $monitor->avg_response_ms = $checks24h->avg('response_time_ms') ?? '-';
         });
 
-        return view('monitoring.index', compact('monitors'));
+        // ── NEW: Global / summary stats for sidebar ───────────────────────────────
+
+        $allMonitors = $monitors; // already loaded
+
+        // Current status counts
+        $statusCounts = [
+            'up'     => $allMonitors->where('current_status', 'Up')->count(),
+            'down'   => $allMonitors->where('current_status', 'Down')->count(),
+            'paused' => $allMonitors->where('is_active', 0)->count(), // assuming is_active = 0 means paused
+            'total'  => $allMonitors->count(),
+        ];
+
+        // Overall uptime (last 24h) – average of all monitors' 24h uptimes
+        $overallUptime24h = $allMonitors->avg('uptime_24h') ?? 100;
+        $overallUptime24h = round($overallUptime24h, 1);
+
+        // Very simple incident count (last 24h) – count distinct down→up transitions
+        // (this is approximate – better solution would use an incidents table)
+        $incidentsLast24h = 0;
+        foreach ($allMonitors as $m) {
+            $downs = $m->checkLogs()
+                ->where('checked_at', '>=', Carbon::now()->subDay())
+                ->where('status', 0)
+                ->count();
+            $incidentsLast24h += $downs > 0 ? 1 : 0; // at least one down = one incident
+        }
+
+        // Longest time without incident (very naive – max streak of "up" checks across all)
+        $longestGoodStreak = '—'; // you can improve this later
+
+        // Affected monitors in last 24h (had at least one down)
+        $affectedMonitors = $allMonitors->filter(function ($m) {
+            return $m->checkLogs()
+                ->where('checked_at', '>=', Carbon::now()->subDay())
+                ->where('status', 0)
+                ->exists();
+        })->count();
+
+        // Monitor usage / quota
+        $monitorUsage = [
+            'used' => $statusCounts['total'],
+            'limit' => 50, // hardcoded for now – later from plan/subscription
+        ];
+
+        return view('monitoring.index', compact(
+            'monitors',
+            'statusCounts',
+            'overallUptime24h',
+            'incidentsLast24h',
+            'longestGoodStreak',
+            'affectedMonitors',
+            'monitorUsage'
+        ));
     }
 
     public function create()
