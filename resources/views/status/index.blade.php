@@ -1,24 +1,25 @@
 <x-layouts.app :title="__('Status Pages')">
-    <div class="mx-auto max-w-7xl">
-        <div class="flex items-center justify-between mb-6">
-            <flux:heading size="xl" class="text-main-panel-text font-semibold">
-                {{ __('Status pages.') }}
-                <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 ml-1"></span>
-            </flux:heading>
-            <flux:link :href="route('monitors.status')" class="bg-primary hover:bg-primary-hover text-main-panel-text px-4 py-2.5 rounded-lg text-sm font-medium" wire:navigate>
-                {{ __('Create Status page') }}
-            </flux:link>
-        </div>
+    <div data-force-white>
+        <div class="mx-auto max-w-7xl">
+            <div class="flex items-center justify-between mb-6">
+                <flux:heading size="xl" class="text-main-panel-text font-semibold">
+                    {{ __('Status pages.') }}
+                    <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 ml-1"></span>
+                </flux:heading>
+                <flux:link :href="route('monitors.status')" class="bg-primary hover:bg-primary-hover text-main-panel-text px-4 py-2.5 rounded-lg text-sm font-medium" wire:navigate>
+                    {{ __('Create Status page') }}
+                </flux:link>
+            </div>
 
-        <div class="rounded-xl border border-neutral-800 !bg-panel overflow-hidden">
-            <div class="bg-[#14202d] grid grid-cols-[1.6fr_1fr_1fr_160px] items-center gap-3 border border-2 border-neutral-800 px-4 py-3 text-xs text-neutral-400">
+            <div class="rounded-xl border border-neutral-800 !bg-panel overflow-hidden bg-[#131a25]" data-force-white>
+                <div class="bg-[#131a25] grid grid-cols-[1.6fr_1fr_1fr_160px] items-center gap-3 border border-2 border-neutral-800 px-4 py-3 text-xs text-neutral-400" data-force-white>
                 <div>{{ __('Name') }}</div>
                 <div>{{ __('Access level') }}</div>
                 <div>{{ __('Status') }}</div>
                 <div class="text-right">{{ __('Actions') }}</div>
             </div>
 
-            <div class="grid grid-cols-[1.6fr_1fr_1fr_160px] items-center gap-3 px-4 py-3 hover:bg-neutral-800/30 transition-colors">
+            <div class="grid grid-cols-[1.6fr_1fr_1fr_160px] items-center gap-3 px-4 py-3 hover:bg-neutral-800/30 transition-colors bg-[#131a25]" data-force-white>
                 <div class="flex items-center gap-3">
                     <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400">
                         <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

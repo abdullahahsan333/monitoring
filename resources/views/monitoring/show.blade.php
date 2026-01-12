@@ -23,7 +23,7 @@
                 </div>
                 <div class="flex items-center gap-2">
                     <div class="dd relative">
-                        <flux:button variant="ghost" class="dd-trigger inline-flex items-center gap-2 rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-1.5 text-sm text-white hover:bg-gray-400 hover:text-gray-900 transition-colors">
+                        <flux:button variant="ghost" class="dd-trigger inline-flex items-center gap-2 rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-1.5 text-sm text-white hover:bg-gray-400 hover:text-white focus:text-white focus:outline-none focus:ring-2 focus:ring-primary transition-colors">
                             <span class="inline-flex items-center gap-1">
                                 <span class="inline-block w-4 h-4 rounded-full border border-neutral-600 text-neutral-300">⟳</span>
                                 Test Notification
@@ -60,16 +60,16 @@
                             <button type="button" disabled class="mt-3 w-full rounded-md bg-gradient-to-r from-primary to-primary-hover opacity-60 px-4 py-2 text-sm text-white cursor-not-allowed">Send test notifications</button>
                         </div>
                     </div>
-                    <flux:button variant="ghost" class="inline-flex items-center gap-2 rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-1.5 text-sm text-white hover:bg-gray-400 hover:text-gray-900 transition-colors">
+                    <flux:button variant="ghost" class="inline-flex items-center gap-2 rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-1.5 text-sm text-white hover:bg-gray-400 hover:text-white focus:text-white focus:outline-none focus:ring-2 focus:ring-primary transition-colors">
                         <span class="inline-block w-4 h-4 border border-neutral-600 text-neutral-300">⏸</span>
                         <span>Pause</span>
                     </flux:button>
-                    <flux:button variant="ghost" class="inline-flex items-center gap-2 rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-1.5 text-sm text-white hover:bg-gray-400 hover:text-gray-900 transition-colors">
+                    <flux:button variant="ghost" class="inline-flex items-center gap-2 rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-1.5 text-sm text-white hover:bg-gray-400 hover:text-white focus:text-white focus:outline-none focus:ring-2 focus:ring-primary transition-colors">
                         <span class="inline-block w-4 h-4 border border-neutral-600 text-neutral-300">⚙</span>
                         <span>Edit</span>
                     </flux:button>
                     <div class="dd relative">
-                        <flux:button variant="ghost" class="dd-trigger !px-2 !py-1 rounded-lg bg-[#1a1f2e] border border-neutral-700 text-white hover:bg-gray-400 hover:text-gray-900">⋮</flux:button>
+                        <flux:button variant="ghost" class="dd-trigger !px-2 !py-1 rounded-lg bg-[#1a1f2e] border border-neutral-700 text-white hover:bg-gray-400 hover:text-white focus:text-white focus:outline-none focus:ring-2 focus:ring-primary">⋮</flux:button>
                         <div class="dd-panel absolute top-full right-0 mt-2 min-w-[240px] rounded-xl border border-neutral-800 !bg-panel p-2 text-white shadow-lg hidden z-50">
                             <button class="w-full flex items-center gap-2 px-3 py-2 rounded text-sm hover:bg-gray-400 hover:text-gray-900">
                                 <span>🛠</span><span>Edit monitor</span>
@@ -80,10 +80,10 @@
                             <button class="w-full flex items-center gap-2 px-3 py-2 rounded text-sm hover:bg-gray-400 hover:text-gray-900">
                                 <span>🪛</span><span>Maintenance</span>
                             </button>
-                            <button class="w-full flex items-center gap-2 px-3 py-2 rounded text-sm hover:bg-gray-400 hover:text-gray-900">
+                            <button class="w-full flex items-center gap-2 px-3 py-2 rounded text-sm hover:bg-gray-400 hover:text-gray-900 add-remove-tags-btn">
                                 <span>🏷️</span><span>Add / Remove tags</span>
                             </button>
-                            <button class="w-full flex items-center gap-2 px-3 py-2 rounded text-sm hover:bg-gray-400 hover:text-gray-900">
+                            <button class="w-full flex items-center gap-2 px-3 py-2 rounded text-sm hover:bg-gray-400 hover:text-gray-900 add-to-status-page-btn">
                                 <span>📄</span><span>Add to status page</span>
                             </button>
                             <button class="w-full flex items-center gap-2 px-3 py-2 rounded text-sm hover:bg-gray-400 hover:text-gray-900">
@@ -275,6 +275,148 @@
             </div>
         </div>
     </div>
+
+    <!-- Add/Remove Tags Modal -->
+    <div id="tags-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-main-panel-components rounded-xl border border-neutral-800 w-full max-w-md mx-4">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-semibold text-main-panel-text">{{ __('Add / Remove tags') }}</h2>
+                    <button id="close-tags-modal" class="text-neutral-400 hover:text-white transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="mb-6">
+                    <input 
+                        type="text" 
+                        id="tag-search" 
+                        placeholder="{{ __('Search tags...') }}"
+                        class="w-full rounded-lg bg-main-panel-dropdown border border-neutral-700 px-4 py-3 text-sm text-main-panel-text placeholder-neutral-400 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                    />
+                </div>
+
+                <div class="mb-6">
+                    <button id="deselect-all-tags" class="text-sm text-neutral-400 hover:text-white transition-colors">
+                        {{ __('Deselect all') }}
+                    </button>
+                </div>
+
+                <div class="space-y-2 mb-6 max-h-64 overflow-y-auto" id="tags-list">
+                    <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-main-panel-dropdown cursor-pointer transition-colors">
+                        <input type="checkbox" value="git" class="tag-checkbox w-4 h-4 rounded border-neutral-600 bg-neutral-800 accent-primary" />
+                        <span class="text-main-panel-text">git</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-main-panel-dropdown cursor-pointer transition-colors">
+                        <input type="checkbox" value="production" class="tag-checkbox w-4 h-4 rounded border-neutral-600 bg-neutral-800 accent-primary" />
+                        <span class="text-main-panel-text">production</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-main-panel-dropdown cursor-pointer transition-colors">
+                        <input type="checkbox" value="api" class="tag-checkbox w-4 h-4 rounded border-neutral-600 bg-neutral-800 accent-primary" />
+                        <span class="text-main-panel-text">api</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-main-panel-dropdown cursor-pointer transition-colors">
+                        <input type="checkbox" value="database" class="tag-checkbox w-4 h-4 rounded border-neutral-600 bg-neutral-800 accent-primary" />
+                        <span class="text-main-panel-text">database</span>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-main-panel-dropdown cursor-pointer transition-colors">
+                        <input type="checkbox" value="critical" class="tag-checkbox w-4 h-4 rounded border-neutral-600 bg-neutral-800 accent-primary" />
+                        <span class="text-main-panel-text">critical</span>
+                    </label>
+                </div>
+
+                <div class="flex gap-3">
+                    <button id="cancel-tags" class="flex-1 px-4 py-2.5 rounded-lg border border-neutral-700 text-main-panel-text hover:bg-main-panel-dropdown transition-colors">
+                        {{ __('Cancel') }}
+                    </button>
+                    <button id="save-tags" class="flex-1 px-4 py-2.5 rounded-lg bg-primary hover:bg-primary-hover text-main-panel-text transition-colors">
+                        {{ __('Save') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add / Remove monitors to Status page Modal -->
+    <div id="status-page-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-main-panel-components rounded-xl border border-neutral-800 w-full max-w-md mx-4">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-semibold text-main-panel-text">{{ __('Add / Remove monitors to Status page') }}</h2>
+                    <button id="close-status-modal" class="text-neutral-400 hover:text-white transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="mb-6">
+                    <input 
+                        type="text" 
+                        id="monitor-search" 
+                        placeholder="{{ __('Search monitors...') }}"
+                        class="w-full rounded-lg bg-main-panel-dropdown border border-neutral-700 px-4 py-3 text-sm text-main-panel-text placeholder-neutral-400 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                    />
+                </div>
+
+                <div class="mb-6">
+                    <button id="deselect-all-monitors" class="text-sm text-neutral-400 hover:text-white transition-colors">
+                        {{ __('Deselect all') }}
+                    </button>
+                </div>
+
+                <div class="space-y-2 mb-6 max-h-64 overflow-y-auto" id="monitors-list">
+                    <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-main-panel-dropdown cursor-pointer transition-colors">
+                        <input type="checkbox" value="mail.google.com" class="monitor-checkbox w-4 h-4 rounded border-neutral-600 bg-neutral-800 accent-primary" />
+                        <div class="flex-1">
+                            <div class="text-main-panel-text font-medium">mail.google.com</div>
+                            <div class="text-xs text-neutral-400">HTTP Monitor</div>
+                        </div>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-main-panel-dropdown cursor-pointer transition-colors">
+                        <input type="checkbox" value="api.example.com" class="monitor-checkbox w-4 h-4 rounded border-neutral-600 bg-neutral-800 accent-primary" />
+                        <div class="flex-1">
+                            <div class="text-main-panel-text font-medium">api.example.com</div>
+                            <div class="text-xs text-neutral-400">API Monitor</div>
+                        </div>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-main-panel-dropdown cursor-pointer transition-colors">
+                        <input type="checkbox" value="database.local" class="monitor-checkbox w-4 h-4 rounded border-neutral-600 bg-neutral-800 accent-primary" />
+                        <div class="flex-1">
+                            <div class="text-main-panel-text font-medium">database.local</div>
+                            <div class="text-xs text-neutral-400">Database Monitor</div>
+                        </div>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-main-panel-dropdown cursor-pointer transition-colors">
+                        <input type="checkbox" value="website.com" class="monitor-checkbox w-4 h-4 rounded border-neutral-600 bg-neutral-800 accent-primary" />
+                        <div class="flex-1">
+                            <div class="text-main-panel-text font-medium">website.com</div>
+                            <div class="text-xs text-neutral-400">Website Monitor</div>
+                        </div>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-main-panel-dropdown cursor-pointer transition-colors">
+                        <input type="checkbox" value="cdn.assets.com" class="monitor-checkbox w-4 h-4 rounded border-neutral-600 bg-neutral-800 accent-primary" />
+                        <div class="flex-1">
+                            <div class="text-main-panel-text font-medium">cdn.assets.com</div>
+                            <div class="text-xs text-neutral-400">CDN Monitor</div>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="flex gap-3">
+                    <button id="cancel-status" class="flex-1 px-4 py-2.5 rounded-lg border border-neutral-700 text-main-panel-text hover:bg-main-panel-dropdown transition-colors">
+                        {{ __('Cancel') }}
+                    </button>
+                    <button id="save-status" class="flex-1 px-4 py-2.5 rounded-lg bg-primary hover:bg-primary-hover text-main-panel-text transition-colors">
+                        {{ __('Save') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             document.querySelectorAll('.dd').forEach(function (dd) {
@@ -499,6 +641,181 @@
                     }
                 });
             }
+
+            // Tags Modal Functionality
+            const tagsModal = document.getElementById('tags-modal');
+            const tagSearch = document.getElementById('tag-search');
+            const tagsList = document.getElementById('tags-list');
+            const deselectAllBtn = document.getElementById('deselect-all-tags');
+            const closeTagsModalBtn = document.getElementById('close-tags-modal');
+            const cancelTagsBtn = document.getElementById('cancel-tags');
+            const saveTagsBtn = document.getElementById('save-tags');
+
+            // Status Page Modal Functionality
+            const statusModal = document.getElementById('status-page-modal');
+            const monitorSearch = document.getElementById('monitor-search');
+            const monitorsList = document.getElementById('monitors-list');
+            const deselectAllMonitorsBtn = document.getElementById('deselect-all-monitors');
+            const closeStatusModalBtn = document.getElementById('close-status-modal');
+            const cancelStatusBtn = document.getElementById('cancel-status');
+            const saveStatusBtn = document.getElementById('save-status');
+
+            // Open tags modal when "Add / Remove tags" is clicked
+            document.addEventListener('click', function(e) {
+                const target = e.target.closest('.add-remove-tags-btn, .header-tags-btn');
+                if (target) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const tagsModal = document.getElementById('tags-modal');
+                    if (tagsModal) {
+                        tagsModal.classList.remove('hidden');
+                    }
+                    
+                    // Close dropdown if clicked from dropdown
+                    const dropdown = target.closest('.dd');
+                    if (dropdown) {
+                        const panel = dropdown.querySelector(':scope > .dd-panel');
+                        if (panel) panel.classList.add('hidden');
+                    }
+                }
+            });
+
+            // Open status modal when "Add to status page" is clicked
+            document.addEventListener('click', function(e) {
+                const target = e.target.closest('.add-to-status-page-btn, .header-status-btn');
+                if (target) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const statusModal = document.getElementById('status-page-modal');
+                    if (statusModal) {
+                        statusModal.classList.remove('hidden');
+                    }
+                    
+                    // Close dropdown if clicked from dropdown
+                    const dropdown = target.closest('.dd');
+                    if (dropdown) {
+                        const panel = dropdown.querySelector(':scope > .dd-panel');
+                        if (panel) panel.classList.add('hidden');
+                    }
+                }
+            });
+
+            // Close modal functions
+            function closeTagsModal() {
+                tagsModal.classList.add('hidden');
+                tagSearch.value = '';
+                filterTags('');
+            }
+
+            function closeStatusModal() {
+                statusModal.classList.add('hidden');
+                monitorSearch.value = '';
+                filterMonitors('');
+            }
+
+            closeTagsModalBtn.addEventListener('click', closeTagsModal);
+            cancelTagsBtn.addEventListener('click', closeTagsModal);
+
+            closeStatusModalBtn.addEventListener('click', closeStatusModal);
+            cancelStatusBtn.addEventListener('click', closeStatusModal);
+
+            // Close modals on background click
+            tagsModal.addEventListener('click', function(e) {
+                if (e.target === tagsModal) {
+                    closeTagsModal();
+                }
+            });
+
+            statusModal.addEventListener('click', function(e) {
+                if (e.target === statusModal) {
+                    closeStatusModal();
+                }
+            });
+
+            // Close modals on Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    if (!tagsModal.classList.contains('hidden')) {
+                        closeTagsModal();
+                    }
+                    if (!statusModal.classList.contains('hidden')) {
+                        closeStatusModal();
+                    }
+                }
+            });
+
+            // Filter tags based on search
+            function filterTags(searchTerm) {
+                const tags = tagsList.querySelectorAll('label');
+                tags.forEach(function(tag) {
+                    const tagName = tag.querySelector('span').textContent.toLowerCase();
+                    if (tagName.includes(searchTerm.toLowerCase())) {
+                        tag.style.display = 'flex';
+                    } else {
+                        tag.style.display = 'none';
+                    }
+                });
+            }
+
+            // Filter monitors based on search
+            function filterMonitors(searchTerm) {
+                const monitors = monitorsList.querySelectorAll('label');
+                monitors.forEach(function(monitor) {
+                    const monitorName = monitor.querySelector('.text-main-panel-text').textContent.toLowerCase();
+                    const monitorType = monitor.querySelector('.text-neutral-400').textContent.toLowerCase();
+                    if (monitorName.includes(searchTerm.toLowerCase()) || monitorType.includes(searchTerm.toLowerCase())) {
+                        monitor.style.display = 'flex';
+                    } else {
+                        monitor.style.display = 'none';
+                    }
+                });
+            }
+
+            tagSearch.addEventListener('input', function() {
+                filterTags(this.value);
+            });
+
+            monitorSearch.addEventListener('input', function() {
+                filterMonitors(this.value);
+            });
+
+            // Deselect all tags
+            deselectAllBtn.addEventListener('click', function() {
+                const checkboxes = tagsList.querySelectorAll('.tag-checkbox');
+                checkboxes.forEach(function(checkbox) {
+                    checkbox.checked = false;
+                });
+            });
+
+            // Deselect all monitors
+            deselectAllMonitorsBtn.addEventListener('click', function() {
+                const checkboxes = monitorsList.querySelectorAll('.monitor-checkbox');
+                checkboxes.forEach(function(checkbox) {
+                    checkbox.checked = false;
+                });
+            });
+
+            // Save tags (you can implement actual save logic here)
+            saveTagsBtn.addEventListener('click', function() {
+                const selectedTags = Array.from(tagsList.querySelectorAll('.tag-checkbox:checked'))
+                    .map(function(checkbox) {
+                        return checkbox.value;
+                    });
+                
+                // Here you would typically send the selected tags to your backend
+                closeTagsModal();
+            });
+
+            // Save monitors to status page (you can implement actual save logic here)
+            saveStatusBtn.addEventListener('click', function() {
+                const selectedMonitors = Array.from(monitorsList.querySelectorAll('.monitor-checkbox:checked'))
+                    .map(function(checkbox) {
+                        return checkbox.value;
+                    });
+                
+                // Here you would typically send the selected monitors to your backend
+                closeStatusModal();
+            });
         });
     </script>
 </x-layouts.app>
