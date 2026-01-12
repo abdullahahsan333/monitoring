@@ -33,21 +33,21 @@
                     data-test="sidebar-menu-button"
                 />
 
-                <flux:menu class="w-[220px] bg-sidebar-dropdown">
+                <flux:menu class="w-[220px] bg-sidebar-dropdown text-white">
                     <flux:menu.radio.group>
                         <div class="p-0 text-sm font-normal">
                             <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
                                 <span class="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-lg">
                                     <span
-                                    class="flex h-full w-full items-center justify-center rounded-lg bg-sidebar-dropdown text-sidebar-text"
+                                    class="flex h-full w-full items-center justify-center rounded-lg bg-sidebar-dropdown text-white"
                                 >
                                         {{ auth()->user()->initials() }}
                                     </span>
                                 </span>
 
                                 <div class="grid flex-1 text-start text-sm leading-tight">
-                                    <span class="truncate font-semibold text-sidebar-text">{{ auth()->user()->name }}</span>
-                                    <span class="truncate text-xs text-sidebar-text/70">{{ auth()->user()->email }}</span>
+                                    <span class="truncate font-semibold text-white">{{ auth()->user()->name }}</span>
+                                    <span class="truncate text-xs text-white/70">{{ auth()->user()->email }}</span>
                                 </div>
                             </div>
                         </div>
@@ -56,14 +56,14 @@
                     <flux:menu.separator />
 
                     <flux:menu.radio.group>
-                        <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate class="text-sidebar-text hover:bg-sidebar-dropdown-hover">{{ __('Settings') }}</flux:menu.item>
+                        <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate class="text-white hover:bg-sidebar-dropdown-hover">{{ __('Settings') }}</flux:menu.item>
                     </flux:menu.radio.group>
 
                     <flux:menu.separator />
 
                     <form method="POST" action="{{ route('logout') }}" class="w-full">
                         @csrf
-                        <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full text-sidebar-text hover:bg-sidebar-dropdown-hover" data-test="logout-button">
+                        <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full text-white hover:bg-sidebar-dropdown-hover" data-test="logout-button">
                             {{ __('Log Out') }}
                         </flux:menu.item>
                     </form>
@@ -71,35 +71,35 @@
             </flux:dropdown>
 
             <div class="mt-auto w-full border-t border-neutral-800 p-2">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-2">
-                        <span class="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-lg">
-                            <span class="flex h-full w-full items-center justify-center rounded-lg bg-neutral-700 text-white">
-                                {{ auth()->user()->initials() }}
+                <flux:dropdown position="top" align="end">
+                    <flux:button variant="ghost" class="w-full flex items-center justify-between !px-2 !py-1 text-white">
+                        <div class="flex items-center gap-2">
+                            <span class="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-lg">
+                                <span class="flex h-full w-full items-center justify-center rounded-lg bg-neutral-700 text-white">
+                                    {{ auth()->user()->initials() }}
+                                </span>
                             </span>
-                        </span>
-                        <span class="truncate text-sm text-sidebar-text">{{ auth()->user()->name }}</span>
-                    </div>
-                    <flux:dropdown position="top" align="end">
-                        <flux:button variant="ghost" class="!px-2 !py-1 text-sidebar-text">...</flux:button>
-                        <flux:menu class="min-w-[280px] bg-sidebar-dropdown">
-                            <flux:menu.item icon="user" class="text-sidebar-text hover:bg-sidebar-dropdown-hover">{{ __('Account details') }}</flux:menu.item>
-                            <flux:menu.item icon="bell" class="text-sidebar-text hover:bg-sidebar-dropdown-hover">{{ __('Notifications & reports') }}</flux:menu.item>
-                            <flux:menu.item icon="credit-card" class="text-sidebar-text hover:bg-sidebar-dropdown-hover">{{ __('Billing, plan & subscription') }}</flux:menu.item>
-                            <flux:menu.item icon="recept" class="text-sidebar-text hover:bg-sidebar-dropdown-hover">{{ __('Invoices') }}</flux:menu.item>
-                            <flux:menu.item icon="lock-closed" class="text-sidebar-text hover:bg-sidebar-dropdown-hover">{{ __('Security') }}</flux:menu.item>
-                            <flux:menu.item icon="users" class="text-sidebar-text hover:bg-sidebar-dropdown-hover">{{ __('Affiliate') }}</flux:menu.item>
-                            <flux:menu.item icon="link" class="text-sidebar-text hover:bg-sidebar-dropdown-hover">{{ __('Referral') }}</flux:menu.item>
-                            <flux:menu.separator />
-                            <form method="POST" action="{{ route('logout') }}" class="w-full">
-                                @csrf
-                                <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full !text-red-500 hover:bg-sidebar-dropdown-hover">
-                                    {{ __('Log out') }}
-                                </flux:menu.item>
-                            </form>
-                        </flux:menu>
-                    </flux:dropdown>
-                </div>
+                            <span class="truncate text-sm text-white">{{ auth()->user()->name }}</span>
+                        </div>
+                        <svg class="w-5 h-5 text-white" viewBox="0 0 20 20" fill="currentColor"><path d="M6 8a2 2 0 114 0 2 2 0 01-4 0zM12 8a2 2 0 114 0 2 2 0 01-4 0z"/></svg>
+                    </flux:button>
+                    <flux:menu class="min-w-[280px] bg-sidebar-dropdown text-white">
+                        <flux:menu.item icon="user" class="text-white hover:bg-sidebar-dropdown-hover">{{ __('Account details') }}</flux:menu.item>
+                        <flux:menu.item icon="bell" class="text-white hover:bg-sidebar-dropdown-hover">{{ __('Notifications & reports') }}</flux:menu.item>
+                        <flux:menu.item icon="credit-card" class="text-white hover:bg-sidebar-dropdown-hover">{{ __('Billing, plan & subscription') }}</flux:menu.item>
+                        <flux:menu.item icon="recept" class="text-white hover:bg-sidebar-dropdown-hover">{{ __('Invoices') }}</flux:menu.item>
+                        <flux:menu.item icon="lock-closed" class="text-white hover:bg-sidebar-dropdown-hover">{{ __('Security') }}</flux:menu.item>
+                        <flux:menu.item icon="users" class="text-white hover:bg-sidebar-dropdown-hover">{{ __('Affiliate') }}</flux:menu.item>
+                        <flux:menu.item icon="link" class="text-white hover:bg-sidebar-dropdown-hover">{{ __('Referral') }}</flux:menu.item>
+                        <flux:menu.separator />
+                        <form method="POST" action="{{ route('logout') }}" class="w-full">
+                            @csrf
+                            <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full !text-red-500 hover:bg-sidebar-dropdown-hover">
+                                {{ __('Log out') }}
+                            </flux:menu.item>
+                        </form>
+                    </flux:menu>
+                </flux:dropdown>
             </div>
         </flux:sidebar>
 

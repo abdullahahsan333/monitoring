@@ -1,5 +1,5 @@
 <x-layouts.app :title="__('Create Monitor')">
-    <div class="mx-auto max-w-7xl pb-24">
+    <div class="mx-auto max-w-7xl pb-8">
 
         <div class="flex items-center justify-between mb-4">
             <a href="{{ route('monitoring.index') }}" class="inline-flex items-center gap-1 rounded-full bg-[#1a1f2e] px-2.5 py-1 text-xs text-neutral-400 border border-neutral-700" wire:navigate>
@@ -10,63 +10,149 @@
 
         <div class="relative grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-6 mb-10">
             <div id="tab-details" class="space-y-6 lg:order-1 order-2" role="tabpanel" aria-labelledby="tablink-details">
-                <div class="text-neutral-200 font-medium">{{ __('Add single monitor.') }}</div>
-                <div class="rounded-xl !bg-panel border border-neutral-800 p-5">
-                    <flux:heading size="md" class="!text-white">{{ __('Monitor type') }}</flux:heading>
-                    <div class="mt-3 ms-select relative">
-                        <button type="button" class="ms-trigger w-full flex items-center gap-3 rounded-lg bg-[#1a1f2e] border border-neutral-800 px-4 py-3 text-left">
-                            <span class="inline-flex h-8 w-8 items-center justify-center rounded bg-[#253047] text-neutral-300">HTTP</span>
-                            <div class="flex-1">
-                                <div class="ms-label text-white font-medium">HTTP / website monitoring</div>
-                                <div class="text-xs text-neutral-400">Use HTTP(s) monitor to monitor your website, API endpoint, or anything running on HTTP.</div>
-                            </div>
-                            <span class="text-neutral-400">▾</span>
-                        </button>
-                        <div class="ms-panel absolute top-full left-0 mt-2 min-w-full rounded-xl border border-neutral-800 bg-[#1a1f2e] p-2 text-white shadow-lg hidden z-50">
-                            <button type="button" class="ms-option w-full flex items-center gap-3 p-3 rounded-md hover:bg-gray-400 hover:text-gray-900" data-value="http" data-label="HTTP / website monitoring">
-                                <span class="inline-flex h-8 w-8 items-center justify-center rounded bg-[#253047] text-neutral-300">HTTP</span>
+                <div class="text-neutral-200 font-medium">{{ __('Add single monitor') }}</div>
+                <div class="space-y-4">
+                    <div class="rounded-xl !bg-panel border border-neutral-800 overflow-hidden">
+                        <div class="px-5 py-4 border-b border-neutral-800">
+                            <div class="text-neutral-200 font-medium">Monitor type</div>
+                        </div>
+
+                        <div class="dd">
+                            <button type="button" class="dd-trigger w-full flex items-start gap-4 px-5 py-4 bg-[#121826] hover:bg-sidebar-active transition-colors">
+                                <span class="dd-current-icon flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-400" data-dd-icon>
+                                    <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6.5A2.5 2.5 0 016.5 4h11A2.5 2.5 0 0120 6.5V15a2 2 0 01-2 2H6a2 2 0 01-2-2V6.5z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 9h16" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 20h4" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 17v3" />
+                                    </svg>
+                                </span>
                                 <div class="flex-1 text-left">
-                                    <div class="text-white text-sm font-medium">HTTP / website monitoring</div>
-                                    <div class="text-xs text-neutral-400">Use HTTP(s) monitor to monitor your website, API endpoint, or anything running on HTTP.</div>
+                                    <div class="dd-current-title text-white font-semibold">HTTP / website monitoring</div>
+                                    <div class="dd-current-desc mt-1 text-xs text-neutral-400">Use HTTP(s) monitor to monitor your website, API endpoint, or anything running on HTTP.</div>
                                 </div>
+                                <span class="mt-0.5 text-neutral-400">
+                                    <svg data-dd-chevron class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 15l6-6 6 6" />
+                                    </svg>
+                                </span>
                             </button>
-                            <button type="button" class="ms-option w-full flex items-center gap-3 p-3 rounded-md hover:bg-gray-400 hover:text-gray-900" data-value="keyword" data-label="Keyword monitoring">
-                                <span class="inline-flex h-8 w-8 items-center justify-center rounded bg-[#253047] text-neutral-300">🔑</span>
-                                <div class="flex-1 text-left">
-                                    <div class="text-white text-sm font-medium">Keyword monitoring</div>
-                                    <div class="text-xs text-neutral-400">Check presence or absence of specific text in the response.</div>
+
+                            <div class="dd-panel border-t border-neutral-800">
+                                <button type="button" class="dd-trigger w-full flex items-start gap-4 px-5 py-4 hover:bg-sidebar-active transition-colors" data-dd-option data-title="HTTP / website monitoring" data-description="Use HTTP(s) monitor to monitor your website, API endpoint, or anything running on HTTP.">
+                                    <span class="dd-current-icon flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-emerald-500/10 text-emerald-400" data-dd-icon>
+                                        <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6.5A2.5 2.5 0 016.5 4h11A2.5 2.5 0 0120 6.5V15a2 2 0 01-2 2H6a2 2 0 01-2-2V6.5z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 9h16" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 20h4" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 17v3" />
+                                        </svg>
+                                    </span>
+                                    <div class="flex-1 text-left">
+                                        <div class="dd-current-title text-white font-semibold">HTTP / website monitoring</div>
+                                        <div class="dd-current-desc mt-1 text-xs text-neutral-400">Use HTTP(s) monitor to monitor your website, API endpoint, or anything running on HTTP.</div>
+                                    </div>
+                                </button>
+                                <button type="button" class="w-full flex items-start gap-4 px-5 py-4 hover:bg-sidebar-active transition-colors" data-dd-option data-title="Keyword monitoring" data-description="Check the presence or absence of specific text in the request's response body (typically HTML or JSON).">
+                                    <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-violet-500/10 text-violet-300" data-dd-icon>
+                                        <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 14l-2 2 3 3 2-2" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 12l7-7a4 4 0 015 5l-7 7" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 7l2 2" />
+                                        </svg>
+                                    </span>
+                                    <div class="flex-1 text-left">
+                                        <div class="text-white font-semibold">Keyword monitoring</div>
+                                        <div class="mt-1 text-xs text-neutral-400">Check the presence or absence of specific text in the request's response body (typically HTML or JSON).</div>
+                                    </div>
+                                </button>
+
+                                <button type="button" class="w-full flex items-start gap-4 px-5 py-4 hover:bg-sidebar-active transition-colors" data-dd-option data-title="Ping monitoring" data-description="Make sure your server or any device in the network is always available.">
+                                    <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-sky-500/10 text-sky-300" data-dd-icon>
+                                        <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3a9 9 0 109 9 9 9 0 00-9-9z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 7a5 5 0 105 5 5 5 0 00-5-5z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 11a1 1 0 101 1 1 1 0 00-1-1z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M20 12h2" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M2 12h2" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 2v2" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 20v2" />
+                                        </svg>
+                                    </span>
+                                    <div class="flex-1 text-left">
+                                        <div class="text-white font-semibold">Ping monitoring</div>
+                                        <div class="mt-1 text-xs text-neutral-400">Make sure your server or any device in the network is always available.</div>
+                                    </div>
+                                </button>
+
+                                <button type="button" class="w-full flex items-start gap-4 px-5 py-4 hover:bg-sidebar-active transition-colors" data-dd-option data-title="Port monitoring" data-description="Monitor any service on your server. Useful for SMTP, POP3, FTP, and other services running on specific TCP ports.">
+                                    <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-fuchsia-500/10 text-fuchsia-300" data-dd-icon>
+                                        <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 9h10v10H7z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 9V7a2 2 0 012-2h2a2 2 0 012 2v2" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v2" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 19v2" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19v2" />
+                                        </svg>
+                                    </span>
+                                    <div class="flex-1 text-left">
+                                        <div class="text-white font-semibold">Port monitoring</div>
+                                        <div class="mt-1 text-xs text-neutral-400">Monitor any service on your server. Useful for SMTP, POP3, FTP, and other services running on specific TCP ports.</div>
+                                    </div>
+                                </button>
+
+                                <div class="w-full flex items-start gap-4 px-5 py-4 bg-[#0d1320] opacity-60">
+                                    <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-300">
+                                        <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 11V7" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 11V9a4 4 0 018 0v2" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 11h10v9a2 2 0 01-2 2H9a2 2 0 01-2-2v-9z" />
+                                        </svg>
+                                    </span>
+                                    <div class="flex-1 text-left">
+                                        <div class="text-white font-semibold">Cron job / Heartbeat monitoring</div>
+                                        <div class="mt-1 flex flex-wrap items-center gap-2 text-xs text-neutral-400">
+                                            <span class="inline-flex items-center gap-1">
+                                                <svg class="h-3.5 w-3.5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 11V7" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 11V9a4 4 0 018 0v2" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 11h10v9a2 2 0 01-2 2H9a2 2 0 01-2-2v-9z" />
+                                                </svg>
+                                                Available only in <span class="text-white font-semibold">Solo, Team</span> and <span class="text-white font-semibold">Enterprise</span>.
+                                            </span>
+                                            <a href="#" class="text-emerald-400 underline underline-offset-2 hover:text-emerald-300">Upgrade now</a>
+                                        </div>
+                                    </div>
                                 </div>
-                            </button>
-                            <button type="button" class="ms-option w-full flex items-center gap-3 p-3 rounded-md hover:bg-gray-400 hover:text-gray-900" data-value="ping" data-label="Ping monitoring">
-                                <span class="inline-flex h-8 w-8 items-center justify-center rounded bg-[#253047] text-neutral-300">📶</span>
-                                <div class="flex-1 text-left">
-                                    <div class="text-white text-sm font-medium">Ping monitoring</div>
-                                    <div class="text-xs text-neutral-400">Ensure your server or any device is always available.</div>
-                                </div>
-                            </button>
-                            <button type="button" class="ms-option w-full flex items-center gap-3 p-3 rounded-md hover:bg-gray-400 hover:text-gray-900" data-value="port" data-label="Port monitoring">
-                                <span class="inline-flex h-8 w-8 items-center justify-center rounded bg-[#253047] text-neutral-300">🧩</span>
-                                <div class="flex-1 text-left">
-                                    <div class="text-white text-sm font-medium">Port monitoring</div>
-                                    <div class="text-xs text-neutral-400">Monitor services via specific TCP ports.</div>
-                                </div>
-                            </button>
-                            <div class="w-full flex items-center gap-3 p-3 rounded-md bg-[#0d1320] opacity-60">
-                                <span class="inline-flex h-8 w-8 items-center justify-center rounded bg-[#253047] text-neutral-300">⏱</span>
-                                <div class="flex-1 text-left">
-                                    <div class="text-sm text-white">Cron job / Heartbeat monitoring</div>
-                                    <div class="text-xs text-neutral-400">Available only in Solo, Team and Enterprise. <a class="text-emerald-500 underline">Upgrade now</a></div>
-                                </div>
-                            </div>
-                            <div class="w-full flex items-center gap-3 p-3 rounded-md bg-[#0d1320] opacity-60">
-                                <span class="inline-flex h-8 w-8 items-center justify-center rounded bg-[#253047] text-neutral-300">🧾</span>
-                                <div class="flex-1 text-left">
-                                    <div class="text-sm text-white">DNS monitoring</div>
-                                    <div class="text-xs text-neutral-400">Available only in Solo, Team and Enterprise. <a class="text-emerald-500 underline">Upgrade now</a></div>
+
+                                <div class="w-full flex items-start gap-4 px-5 py-4 bg-[#0d1320] opacity-60">
+                                    <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-amber-500/10 text-amber-300">
+                                        <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 4h12v4H6z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 10h12v4H6z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 16h12v4H6z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 6h.01M10 6h.01" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M10 12h.01" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 18h.01M10 18h.01" />
+                                        </svg>
+                                    </span>
+                                    <div class="flex-1 text-left">
+                                        <div class="text-white font-semibold">DNS monitoring</div>
+                                        <div class="mt-1 flex flex-wrap items-center gap-2 text-xs text-neutral-400">
+                                            <span class="inline-flex items-center gap-1">
+                                                <svg class="h-3.5 w-3.5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 11V7" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 11V9a4 4 0 018 0v2" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 11h10v9a2 2 0 01-2 2H9a2 2 0 01-2-2v-9z" />
+                                                </svg>
+                                                Available only in <span class="text-white font-semibold">Solo, Team</span> and <span class="text-white font-semibold">Enterprise</span>.
+                                            </span>
+                                            <a href="#" class="text-emerald-400 underline underline-offset-2 hover:text-emerald-300">Upgrade now</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <input type="hidden" name="monitor_type" value="http">
                     </div>
                 </div>
 
@@ -84,14 +170,18 @@
                             <label class="text-xs text-neutral-200 mb-1 block">{{ __('Group') }}</label>
                             <div class="text-[11px] text-neutral-400 mb-2">{{ __('Groups are available only on Paid plans.') }} <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a></div>
                             <div class="text-[11px] text-neutral-400 mb-2">{{ __('Your monitor will be automatically added to the chosen group') }}</div>
-                            <select class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white">
-                                <option>{{ __('Monitors (default)') }}</option>
+                            <select name="group" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white">
+                                <option value="">{{ __('Monitors (default)') }}</option>
                             </select>
                         </div>
                         <div>
                             <label class="text-xs text-neutral-200 mb-1 block">{{ __('Add tags') }}</label>
                             <div class="text-[11px] text-neutral-400 mb-2">{{ __('Tags will enable you to organise your monitors in a better way') }}</div>
-                            <input type="text" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white" placeholder="{{ __('Click to add tag...') }}">
+                            <div id="tags-container" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 min-h-[42px] flex flex-col gap-2">
+                                <div class="tags-list flex flex-wrap gap-2"></div>
+                                <input type="text" id="tags-input" class="w-full bg-transparent border-0 outline-none text-sm text-white placeholder-neutral-400" placeholder="{{ __('Type and press Enter or comma to add tag...') }}" autocomplete="off">
+                            </div>
+                            <input type="hidden" name="tags" id="tags-value" value="">
                         </div>
                     </div>
                     <div class="border-t border-neutral-800"></div>
@@ -101,7 +191,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                             <div class="space-y-1">
                                 <label class="inline-flex items-center gap-2">
-                                    <input type="checkbox" class="rounded border-neutral-700 bg-neutral-900 accent-emerald-500" checked>
+                                    <input type="checkbox" name="notify_email" value="1" class="rounded border-neutral-700 bg-neutral-900 accent-emerald-500" checked>
                                     <span class="text-sm text-white">{{ __('E-mail') }}</span>
                                 </label>
                                 <div class="text-xs text-neutral-400">
@@ -114,7 +204,7 @@
                             </div>
                             <div class="space-y-1">
                                 <label class="inline-flex items-center gap-2">
-                                    <input type="checkbox" class="rounded border-neutral-700 bg-neutral-900 accent-emerald-500">
+                                    <input type="checkbox" name="notify_sms" value="1" class="rounded border-neutral-700 bg-neutral-900 accent-emerald-500">
                                     <span class="text-sm text-white">{{ __('SMS message') }}</span>
                                 </label>
                                 <div class="text-xs"><a href="#" class="text-emerald-500 underline">{{ __('Add phone number') }}</a></div>
@@ -125,7 +215,7 @@
                             </div>
                             <div class="space-y-1">
                                 <label class="inline-flex items-center gap-2">
-                                    <input type="checkbox" class="rounded border-neutral-700 bg-neutral-900 accent-emerald-500">
+                                    <input type="checkbox" name="notify_voice" value="1" class="rounded border-neutral-700 bg-neutral-900 accent-emerald-500">
                                     <span class="text-sm text-white">{{ __('Voice call') }}</span>
                                 </label>
                                 <div class="text-xs"><a href="#" class="text-emerald-500 underline">{{ __('Add phone number') }}</a></div>
@@ -136,7 +226,7 @@
                             </div>
                             <div class="space-y-1">
                                 <label class="inline-flex items-center gap-2">
-                                    <input type="checkbox" class="rounded border-neutral-700 bg-neutral-900 accent-emerald-500">
+                                    <input type="checkbox" name="notify_push" value="1" class="rounded border-neutral-700 bg-neutral-900 accent-emerald-500">
                                     <span class="text-sm text-white">{{ __('Push') }}</span>
                                 </label>
                                 <div class="text-xs text-neutral-400">
@@ -179,8 +269,8 @@
                             <div class="text-neutral-200 font-medium">{{ __('Region to monitor from') }}</div>
                             <div class="text-[11px] text-neutral-400">{{ __('Available only in Solo, Team and Enterprise.') }} <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a></div>
                         </div>
-                        <select disabled class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white">
-                            <option>{{ __('Default (auto-select by UptimeRobot)') }}</option>
+                        <select name="region" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white">
+                            <option value="auto">{{ __('Default (auto-select by UptimeRobot)') }}</option>
                         </select>
                     </div>
 
@@ -194,25 +284,25 @@
                             <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a>
                         </div>
                         <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-2">
-                            <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2 opacity-60">
+                            <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2">
                                 <span class="text-sm text-white">Check SSL errors</span>
-                                <input type="checkbox" class="peer sr-only" disabled>
-                                <span class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 relative">
-                                    <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-500"></span>
+                                <input type="checkbox" name="check_ssl_errors" value="1" class="peer sr-only">
+                                <span data-switch class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 peer-checked:bg-primary relative transition-colors cursor-pointer select-none">
+                                    <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-300 peer-checked:translate-x-5 transition-transform"></span>
                                 </span>
                             </label>
-                            <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2 opacity-60">
+                            <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2">
                                 <span class="text-sm text-white">SSL expiry reminders</span>
-                                <input type="checkbox" class="peer sr-only" disabled>
-                                <span class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 relative">
-                                    <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-500"></span>
+                                <input type="checkbox" name="ssl_expiry_reminders" value="1" class="peer sr-only">
+                                <span data-switch class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 peer-checked:bg-primary relative transition-colors cursor-pointer select-none">
+                                    <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-300 peer-checked:translate-x-5 transition-transform"></span>
                                 </span>
                             </label>
-                            <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2 opacity-60">
+                            <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2">
                                 <span class="text-sm text-white">Domain expiry reminders</span>
-                                <input type="checkbox" class="peer sr-only" disabled>
-                                <span class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 relative">
-                                    <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-500"></span>
+                                <input type="checkbox" name="domain_expiry_reminders" value="1" class="peer sr-only">
+                                <span data-switch class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 peer-checked:bg-primary relative transition-colors cursor-pointer select-none">
+                                    <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-300 peer-checked:translate-x-5 transition-transform"></span>
                                 </span>
                             </label>
                         </div>
@@ -228,8 +318,8 @@
                                     <span id="rt-label" class="text-blue-400">30 seconds</span>.
                                     {{ __('The shorter the timeout the earlier we mark website as down.') }}
                                 </div>
-                                <input id="rt-range" type="range" min="0" max="4" step="1" value="2" class="w-full h-2 rounded bg-[#253047] accent-blue-600">
-                                <div class="grid grid-cols-5 gap-2 text-xs text-neutral-400">
+                                <input id="rt-range" type="range" min="1" max="60" step="1" value="30" class="w-full h-2 rounded bg-[#253047] accent-blue-600">
+                                <div class="flex justify-between text-xs text-neutral-400">
                                     <div>1s</div>
                                     <div>15s</div>
                                     <div>30s</div>
@@ -250,16 +340,16 @@
                                     {{ __('Once it drops back below the threshold, you\'ll be notified again, and the incident will be marked as resolved.') }}
                                 </div>
                                 <div class="flex items-center gap-2">
-                                    <input type="number" class="w-full rounded-lg bg-[#0d1320] border border-neutral-800 px-3 py-2 text-sm text-neutral-400" value="1000" disabled>
+                                    <input type="number" name="slow_response_threshold" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white" value="1000">
                                     <span class="text-xs text-neutral-400">{{ __('milliseconds') }}</span>
                                 </div>
                             </div>
 
                             <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2">
                                 <span class="text-sm text-white">Follow redirections</span>
-                                <input type="checkbox" class="peer sr-only" checked>
-                                <span data-switch class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 relative transition-colors cursor-pointer select-none">
-                                    <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-300 transition-transform"></span>
+                                <input type="checkbox" name="follow_redirects" value="1" class="peer sr-only" checked>
+                                <span data-switch class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 peer-checked:bg-primary relative transition-colors cursor-pointer select-none">
+                                    <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-300 peer-checked:translate-x-5 transition-transform"></span>
                                 </span>
                             </label>
 
@@ -269,14 +359,18 @@
                                     <div class="text-[11px] text-neutral-400">{{ __('Available only in Solo, Team and Enterprise.') }} <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a></div>
                                 </div>
                                 <div class="text-[11px] text-neutral-400 mb-2">{{ __('We will consider incident when we receive HTTP status code other than defined below.') }}</div>
-                                <input type="text" class="w-full rounded-lg bg-[#0d1320] border border-neutral-800 px-3 py-2 text-sm text-neutral-400" placeholder="2xx, 3xx" disabled>
+                                <div id="status-codes-tags" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 min-h-[42px] flex flex-wrap gap-2 items-center">
+                                    <div class="status-tags-list flex flex-wrap gap-2 flex-1"></div>
+                                    <input type="text" id="status-codes-input" class="flex-1 min-w-[120px] bg-transparent border-0 outline-none text-sm text-white placeholder-neutral-400" placeholder="Type and press Enter or comma" autocomplete="off">
+                                </div>
+                                <input type="hidden" name="expected_status_codes" id="status-codes-value" value="2xx, 3xx">
                             </div>
 
                             <div class="space-y-2">
                                 <div class="grid grid-cols-1 sm:grid-cols-[240px_1fr] gap-3 items-start">
                                     <div>
                                         <label class="text-xs text-neutral-400 mb-1 block">{{ __('Auth. type') }}</label>
-                                        <select id="auth-type" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white">
+                                        <select id="auth-type" name="auth_type" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white">
                                             <option value="none">{{ __('None') }}</option>
                                             <option value="basic">{{ __('Basic') }}</option>
                                         </select>
@@ -284,11 +378,11 @@
                                     <div id="auth-creds" class="grid grid-cols-2 gap-3">
                                         <div>
                                             <label class="text-xs text-neutral-400 mb-1 block">{{ __('Auth. credentials') }}</label>
-                                            <input id="auth-username" name="auth_username" type="text" class="w-full rounded-lg bg-[#0d1320] border border-neutral-800 px-3 py-2 text-sm text-neutral-400" placeholder="{{ __('Username') }}" disabled>
+                                            <input id="auth-username" name="auth_username" type="text" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white" placeholder="{{ __('Username') }}">
                                         </div>
                                         <div class="relative">
                                             <label class="text-xs text-neutral-400 mb-1 block">&nbsp;</label>
-                                            <input id="auth-password" name="auth_password" type="password" class="w-full rounded-lg bg-[#0d1320] border border-neutral-800 px-3 py-2 pr-10 text-sm text-neutral-400" placeholder="{{ __('Password') }}" disabled>
+                                            <input id="auth-password" name="auth_password" type="password" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 pr-10 text-sm text-white" placeholder="{{ __('Password') }}">
                                             <button type="button" id="auth-pass-toggle" class="absolute right-2 top-7 text-neutral-400 hover:text-neutral-200 text-sm">👁</button>
                                         </div>
                                     </div>
@@ -300,14 +394,14 @@
                                     <label class="text-xs text-neutral-400">{{ __('HTTP method') }}</label>
                                     <div class="text-[11px] text-neutral-400">{{ __('Available only in Solo, Team and Enterprise.') }} <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a></div>
                                 </div>
-                                <div class="flex flex-wrap justify-around gap-2 opacity-60">
-                                    <button type="button" class="http-method px-3 py-1.5 rounded bg-emerald-600 text-xs text-white cursor-not-allowed" data-value="HEAD" disabled>HEAD</button>
-                                    <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-not-allowed" data-value="GET" disabled>GET</button>
-                                    <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-not-allowed" data-value="POST" disabled>POST</button>
-                                    <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-not-allowed" data-value="PUT" disabled>PUT</button>
-                                    <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-not-allowed" data-value="PATCH" disabled>PATCH</button>
-                                    <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-not-allowed" data-value="DELETE" disabled>DELETE</button>
-                                    <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-not-allowed" data-value="OPTIONS" disabled>OPTIONS</button>
+                                <div class="flex flex-wrap justify-around gap-2">
+                                    <button type="button" class="http-method px-3 py-1.5 rounded bg-emerald-600 text-xs text-white cursor-pointer" data-value="HEAD">HEAD</button>
+                                    <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-pointer" data-value="GET">GET</button>
+                                    <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-pointer" data-value="POST">POST</button>
+                                    <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-pointer" data-value="PUT">PUT</button>
+                                    <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-pointer" data-value="PATCH">PATCH</button>
+                                    <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-pointer" data-value="DELETE">DELETE</button>
+                                    <button type="button" class="http-method px-3 py-1.5 rounded bg-[#253047] text-xs text-white cursor-pointer" data-value="OPTIONS">OPTIONS</button>
                                 </div>
                                 <input type="hidden" id="http-method-value" name="method" value="HEAD">
                             </div>
@@ -317,12 +411,12 @@
                                     <label class="text-xs text-neutral-400">{{ __('Request body') }}</label>
                                     <div class="text-[11px] text-neutral-400">{{ __('Available only in Solo, Team and Enterprise.') }} <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a></div>
                                 </div>
-                                <textarea class="w-full rounded-lg bg-[#0d1320] border border-neutral-800 px-3 py-2 text-sm text-neutral-400" rows="3" placeholder='{"key":"value"}' disabled></textarea>
-                                <label class="flex items-center justify-between rounded-lg bg-[#0d1320] border border-neutral-800 px-3 py-2">
+                                <textarea name="request_body" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white" rows="3" placeholder='{"key":"value"}'></textarea>
+                                <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2">
                                     <span class="text-sm text-neutral-300">Send as JSON (application/json)</span>
-                                    <input type="checkbox" class="peer sr-only" disabled>
-                                    <span data-switch class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 relative select-none">
-                                        <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-500"></span>
+                                    <input type="checkbox" name="request_body_json" value="1" class="peer sr-only">
+                                    <span data-switch class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 peer-checked:bg-primary relative transition-colors cursor-pointer select-none">
+                                        <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-300 peer-checked:translate-x-5 transition-transform"></span>
                                     </span>
                                 </label>
                                 <div class="text-[11px] text-neutral-400">{{ __('Data will be sent as a standard POST (application/x-www-form-urlencoded) unless you choose the JSON option.') }}</div>
@@ -340,9 +434,9 @@
                                     </div>
                                 </div>
                                 <div class="grid grid-cols-[1fr_1fr_40px] gap-2">
-                                    <input class="rounded-lg bg-[#0d1320] border border-neutral-800 px-3 py-2 text-sm text-neutral-400" placeholder="X-Header-Name" disabled>
-                                    <input class="rounded-lg bg-[#0d1320] border border-neutral-800 px-3 py-2 text-sm text-neutral-400" placeholder="Value" disabled>
-                                    <button type="button" class="inline-flex items-center justify-center rounded-lg bg-neutral-800 text-red-400 px-2 py-2 cursor-not-allowed" disabled>
+                                    <input name="header_name[]" class="rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white" placeholder="X-Header-Name">
+                                    <input name="header_value[]" class="rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white" placeholder="Value">
+                                    <button type="button" class="inline-flex items-center justify-center rounded-lg bg-neutral-800 hover:bg-neutral-700 text-red-400 px-2 py-2 cursor-pointer">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                                             <path d="M9 3h6a1 1 0 011 1v2h4v2h-1l-1 12a2 2 0 01-2 2H8a2 2 0 01-2-2L5 8H4V6h4V4a1 1 0 011-1zm2 3h2V5h-2v1zm-1 5h2v8H10v-8zm4 0h2v8h-2v-8z"/>
                                         </svg>
@@ -433,20 +527,20 @@
                     <button type="button" id="tablink-maintenance" class="py-2 tab-link w-full text-left text-neutral-400" data-tab="maintenance" role="tab" aria-selected="false" aria-controls="tab-maintenance">{{ __('Maintenance info') }}</button>
                 </div>
             </div>
-
-        </div>
-        
-        <div class="border-t rounded-xl border-neutral-800 !bg-panel">
-            <div class="mx-auto p-4">
-                <div class="flex items-center gap-6">
-                    <flux:link :href="route('monitors.notifications')" class="inline-flex items-center justify-center rounded-md bg-primary px-5 py-2 text-white hover:bg-primary-hover">
-                        {{ __('Create monitor') }}
-                    </flux:link>
-                </div>
-            </div>
         </div>
 
     </div>
+    
+    <div class="fixed bottom-0 left-64 right-0 z-50 border-t border-neutral-800 !bg-panel shadow-lg">
+        <div class="mx-auto max-w-7xl p-4 pl-10">
+            <div class="flex items-center gap-6">
+                <flux:link :href="route('monitors.notifications')" class="inline-flex items-center justify-center rounded-md bg-primary px-5 py-2 text-white hover:bg-primary-hover">
+                    {{ __('Create monitor') }}
+                </flux:link>
+            </div>
+        </div>
+    </div>
+    
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -475,49 +569,100 @@
             var rtLabel = document.getElementById('rt-label');
             var rtValue = document.getElementById('rt-value');
             if (rtRange && rtLabel && rtValue) {
-                var rtSteps = ['1s','15s','30s','45s','60s'];
                 function updateRt() {
-                    var idx = parseInt(rtRange.value, 10);
-                    var v = rtSteps[idx] || '30s';
+                    var seconds = parseInt(rtRange.value, 10);
+                    var v = seconds + 's';
                     rtValue.value = v;
-                    rtLabel.textContent = v.endsWith('s') ? v.replace('s', ' seconds') : v;
+                    rtLabel.textContent = seconds === 1 ? '1 second' : seconds + ' seconds';
                 }
                 updateRt();
                 rtRange.addEventListener('input', updateRt);
                 rtRange.addEventListener('change', updateRt);
             }
-            document.querySelectorAll('.ms-select').forEach(function (wrap) {
-                var trigger = wrap.querySelector('.ms-trigger');
-                var panel = wrap.querySelector('.ms-panel');
-                var input = wrap.querySelector('input[type="hidden"]');
-                var labelEl = trigger.querySelector('.ms-label');
-                function closeAll() {
-                    document.querySelectorAll('.ms-panel').forEach(function (p) { p.classList.add('hidden'); });
-                }
-                if (trigger && panel) {
-                    panel.classList.add('hidden');
-                    trigger.addEventListener('click', function (e) {
-                        e.stopPropagation();
-                        var open = !panel.classList.contains('hidden');
-                        closeAll();
-                        if (!open) panel.classList.remove('hidden');
-                    });
+            // Handle .dd dropdowns (Monitor type selector)
+            document.querySelectorAll('.dd').forEach(function (dd) {
+                var trigger = dd.querySelector(':scope > .dd-trigger');
+                var panel = dd.querySelector(':scope > .dd-panel');
+                var closeBtn = panel ? panel.querySelector('.dd-close') : null;
+                if (panel) {
+                    if (!dd.hasAttribute('data-open')) panel.classList.add('hidden');
+                    panel.classList.add('z-50');
                     panel.addEventListener('click', function (e) { e.stopPropagation(); });
                 }
-                wrap.querySelectorAll('.ms-option').forEach(function (opt) {
-                    opt.addEventListener('click', function () {
-                        var v = opt.getAttribute('data-value');
-                        var lbl = opt.getAttribute('data-label');
-                        if (input) input.value = v || '';
-                        if (labelEl && lbl) labelEl.textContent = lbl;
-                        if (panel) panel.classList.add('hidden');
+                if (closeBtn && panel) {
+                    closeBtn.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        panel.classList.add('hidden');
                     });
-                });
-                document.addEventListener('click', closeAll);
-                document.addEventListener('keydown', function (e) {
-                    if (e.key === 'Escape') closeAll();
+                }
+                if (trigger) {
+                    trigger.setAttribute('aria-expanded', panel && !panel.classList.contains('hidden') ? 'true' : 'false');
+                    var chevron = trigger.querySelector('[data-dd-chevron]');
+                    if (chevron) chevron.classList.toggle('rotate-180', panel && !panel.classList.contains('hidden'));
+                    trigger.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        var isOpen = panel && !panel.classList.contains('hidden');
+                        document.querySelectorAll('.dd').forEach(function (other) {
+                            if (other !== dd) {
+                                var op = other.querySelector(':scope > .dd-panel');
+                                if (op) op.classList.add('hidden');
+                            }
+                        });
+                        if (isOpen) {
+                            if (panel) panel.classList.add('hidden');
+                        } else {
+                            if (panel) panel.classList.remove('hidden');
+                        }
+                        trigger.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+                        var chevron2 = trigger.querySelector('[data-dd-chevron]');
+                        if (chevron2) chevron2.classList.toggle('rotate-180', !isOpen);
+                    });
+                }
+
+                if (panel && trigger) {
+                    panel.querySelectorAll('[data-dd-option]').forEach(function (opt) {
+                        opt.addEventListener('click', function (e) {
+                            e.stopPropagation();
+                            var title = opt.getAttribute('data-title');
+                            var description = opt.getAttribute('data-description');
+                            var icon = opt.querySelector('[data-dd-icon]');
+                            var currentTitle = trigger.querySelector('.dd-current-title');
+                            var currentDesc = trigger.querySelector('.dd-current-desc');
+                            var currentIcon = trigger.querySelector('.dd-current-icon');
+
+                            if (currentTitle && title) currentTitle.textContent = title;
+                            if (currentDesc && description) currentDesc.textContent = description;
+                            if (currentIcon && icon) {
+                                currentIcon.className = icon.className + ' dd-current-icon';
+                                currentIcon.innerHTML = icon.innerHTML;
+                            }
+
+                            panel.classList.add('hidden');
+                            trigger.setAttribute('aria-expanded', 'false');
+                            var chevron3 = trigger.querySelector('[data-dd-chevron]');
+                            if (chevron3) chevron3.classList.remove('rotate-180');
+                        });
+                    });
+                }
+                dd.addEventListener('click', function (e) { e.stopPropagation(); });
+            });
+
+            document.addEventListener('click', function () {
+                document.querySelectorAll('.dd').forEach(function (dd) {
+                    var p = dd.querySelector(':scope > .dd-panel');
+                    if (p) p.classList.add('hidden');
                 });
             });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    document.querySelectorAll('.dd').forEach(function (dd) {
+                        var p = dd.querySelector(':scope > .dd-panel');
+                        if (p) p.classList.add('hidden');
+                    });
+                }
+            });
+
             document.querySelectorAll('[data-switch]').forEach(function (switchEl) {
                 var input = switchEl.previousElementSibling;
                 var knob = switchEl.querySelector('span');
@@ -662,6 +807,179 @@
                 });
             });
             activateTab('details');
+
+            // Tags input
+            var tagsInput = document.getElementById('tags-input');
+            var tagsContainer = document.getElementById('tags-container');
+            var tagsList = tagsContainer ? tagsContainer.querySelector('.tags-list') : null;
+            var tagsValue = document.getElementById('tags-value');
+            
+            function addTag(tag) {
+                if (!tag || tag.trim().length === 0 || !tagsList) return;
+                tag = tag.trim();
+                
+                // Check if tag already exists
+                var existingTags = Array.from(tagsList.querySelectorAll('.tag-item')).map(function(el) {
+                    return el.getAttribute('data-tag');
+                });
+                if (existingTags.indexOf(tag) !== -1) return;
+                
+                var tagEl = document.createElement('span');
+                tagEl.className = 'tag-item inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-primary/20 text-primary text-xs font-medium';
+                tagEl.setAttribute('data-tag', tag);
+                tagEl.innerHTML = '<span>' + tag + '</span><button type="button" class="tag-remove hover:text-primary-hover" aria-label="Remove">×</button>';
+                
+                var removeBtn = tagEl.querySelector('.tag-remove');
+                removeBtn.addEventListener('click', function() {
+                    tagEl.remove();
+                    updateTagsValue();
+                });
+                
+                tagsList.appendChild(tagEl);
+                updateTagsValue();
+            }
+            
+            function updateTagsValue() {
+                if (!tagsValue || !tagsList) return;
+                var tags = Array.from(tagsList.querySelectorAll('.tag-item')).map(function(el) {
+                    return el.getAttribute('data-tag');
+                });
+                tagsValue.value = tags.join(',');
+            }
+            
+            if (tagsInput && tagsContainer && tagsList && tagsValue) {
+                tagsInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ',') {
+                        e.preventDefault();
+                        var value = tagsInput.value.trim();
+                        if (value) {
+                            // Handle comma-separated values
+                            if (e.key === ',' || value.indexOf(',') !== -1) {
+                                var parts = value.split(',').map(function(p) { return p.trim(); }).filter(function(p) { return p.length > 0; });
+                                parts.forEach(function(part) {
+                                    addTag(part);
+                                });
+                            } else {
+                                addTag(value);
+                            }
+                            tagsInput.value = '';
+                        }
+                    } else if (e.key === 'Backspace' && tagsInput.value === '') {
+                        var lastTag = tagsList.querySelector('.tag-item:last-child');
+                        if (lastTag) {
+                            lastTag.remove();
+                            updateTagsValue();
+                        }
+                    }
+                });
+                
+                tagsInput.addEventListener('blur', function() {
+                    var value = tagsInput.value.trim();
+                    if (value) {
+                        if (value.indexOf(',') !== -1) {
+                            var parts = value.split(',').map(function(p) { return p.trim(); }).filter(function(p) { return p.length > 0; });
+                            parts.forEach(function(part) {
+                                addTag(part);
+                            });
+                        } else {
+                            addTag(value);
+                        }
+                        tagsInput.value = '';
+                    }
+                });
+            }
+
+            // Status codes tags input
+            var statusCodesInput = document.getElementById('status-codes-input');
+            var statusCodesTags = document.getElementById('status-codes-tags');
+            var statusCodesList = statusCodesTags ? statusCodesTags.querySelector('.status-tags-list') : null;
+            var statusCodesValue = document.getElementById('status-codes-value');
+            
+            function initStatusCodesTags() {
+                if (!statusCodesValue || !statusCodesList) return;
+                var initialValue = statusCodesValue.value || '2xx, 3xx';
+                var tags = initialValue.split(',').map(function(t) { return t.trim(); }).filter(function(t) { return t.length > 0; });
+                tags.forEach(function(tag) {
+                    addStatusCodeTag(tag);
+                });
+            }
+            
+            function addStatusCodeTag(tag) {
+                if (!tag || tag.trim().length === 0 || !statusCodesList) return;
+                tag = tag.trim();
+                
+                // Check if tag already exists
+                var existingTags = Array.from(statusCodesList.querySelectorAll('.status-tag')).map(function(el) {
+                    return el.getAttribute('data-tag');
+                });
+                if (existingTags.indexOf(tag) !== -1) return;
+                
+                var tagEl = document.createElement('span');
+                tagEl.className = 'status-tag inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-primary/20 text-primary text-xs font-medium';
+                tagEl.setAttribute('data-tag', tag);
+                tagEl.innerHTML = '<span>' + tag + '</span><button type="button" class="status-tag-remove hover:text-primary-hover" aria-label="Remove">×</button>';
+                
+                var removeBtn = tagEl.querySelector('.status-tag-remove');
+                removeBtn.addEventListener('click', function() {
+                    tagEl.remove();
+                    updateStatusCodesValue();
+                });
+                
+                statusCodesList.appendChild(tagEl);
+                updateStatusCodesValue();
+            }
+            
+            function updateStatusCodesValue() {
+                if (!statusCodesValue || !statusCodesList) return;
+                var tags = Array.from(statusCodesList.querySelectorAll('.status-tag')).map(function(el) {
+                    return el.getAttribute('data-tag');
+                });
+                statusCodesValue.value = tags.join(', ');
+            }
+            
+            if (statusCodesInput && statusCodesTags && statusCodesList && statusCodesValue) {
+                initStatusCodesTags();
+                
+                statusCodesInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ',') {
+                        e.preventDefault();
+                        var value = statusCodesInput.value.trim();
+                        if (value) {
+                            // Handle comma-separated values
+                            if (e.key === ',' || value.indexOf(',') !== -1) {
+                                var parts = value.split(',').map(function(p) { return p.trim(); }).filter(function(p) { return p.length > 0; });
+                                parts.forEach(function(part) {
+                                    addStatusCodeTag(part);
+                                });
+                            } else {
+                                addStatusCodeTag(value);
+                            }
+                            statusCodesInput.value = '';
+                        }
+                    } else if (e.key === 'Backspace' && statusCodesInput.value === '') {
+                        var lastTag = statusCodesList.querySelector('.status-tag:last-child');
+                        if (lastTag) {
+                            lastTag.remove();
+                            updateStatusCodesValue();
+                        }
+                    }
+                });
+                
+                statusCodesInput.addEventListener('blur', function() {
+                    var value = statusCodesInput.value.trim();
+                    if (value) {
+                        if (value.indexOf(',') !== -1) {
+                            var parts = value.split(',').map(function(p) { return p.trim(); }).filter(function(p) { return p.length > 0; });
+                            parts.forEach(function(part) {
+                                addStatusCodeTag(part);
+                            });
+                        } else {
+                            addStatusCodeTag(value);
+                        }
+                        statusCodesInput.value = '';
+                    }
+                });
+            }
         });
     </script>
 </x-layouts.app>
