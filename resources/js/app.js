@@ -16,8 +16,6 @@ for (const [key, value] of Object.entries(theme)) {
 
 // Clear all caches function
 function clearCaches() {
-    console.log('Clearing all caches...');
-    
     // Clear browser caches
     if ('caches' in window) {
         caches.keys().then(function(names) {
@@ -25,7 +23,7 @@ function clearCaches() {
                 caches.delete(name);
             });
         }).catch(function(error) {
-            console.error('Error clearing caches:', error);
+            // Error clearing caches
         });
     }
     
@@ -33,29 +31,23 @@ function clearCaches() {
     try {
         if (typeof localStorage !== 'undefined') {
             // localStorage.clear(); // Uncomment if you want to clear everything
-            console.log('LocalStorage cleared');
         }
     } catch (error) {
-        console.error('Error clearing localStorage:', error);
+        // Error clearing localStorage
     }
     
     // Clear sessionStorage if needed
     try {
         if (typeof sessionStorage !== 'undefined') {
             // sessionStorage.clear(); // Uncomment if you want to clear everything
-            console.log('SessionStorage cleared');
         }
     } catch (error) {
-        console.error('Error clearing sessionStorage:', error);
+        // Error clearing sessionStorage
     }
-    
-    console.log('Cache clearing complete');
 }
 
 // Global dropdown initialization function
 function initializeAllDropdowns() {
-    console.log('Initializing all dropdowns...');
-    
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initializeDropdowns);
@@ -64,21 +56,15 @@ function initializeAllDropdowns() {
     }
     
     function initializeDropdowns() {
-        console.log('DOM ready, setting up dropdowns...');
-        
         // Find all dropdown elements
         const dropdowns = document.querySelectorAll('.dd');
-        console.log('Found dropdowns:', dropdowns.length);
         
         dropdowns.forEach(function(dd, index) {
-            console.log(`Setting up dropdown ${index + 1}:`, dd);
-            
             const trigger = dd.querySelector('.dd-trigger');
             const panel = dd.querySelector('.dd-panel');
             const chevron = trigger ? trigger.querySelector('[data-dd-chevron]') : null;
             
             if (!trigger || !panel) {
-                console.error(`Dropdown ${index + 1}: Missing trigger or panel`, { trigger, panel });
                 return;
             }
             
@@ -94,7 +80,6 @@ function initializeAllDropdowns() {
             
             // Add click handler
             newTrigger.addEventListener('click', function(e) {
-                console.log(`Dropdown ${index + 1} clicked`);
                 e.preventDefault();
                 e.stopPropagation();
                 
@@ -120,8 +105,6 @@ function initializeAllDropdowns() {
                     panel.classList.remove('hidden');
                     if (chevron) chevron.classList.add('rotate-180');
                 }
-                
-                console.log(`Dropdown ${index + 1} is now:`, isOpen ? 'closed' : 'open');
             });
             
             // Handle option selection
@@ -132,7 +115,6 @@ function initializeAllDropdowns() {
                 option.parentNode.replaceChild(newOption, option);
                 
                 newOption.addEventListener('click', function(e) {
-                    console.log(`Option selected in dropdown ${index + 1}:`, newOption.getAttribute('data-value'));
                     e.preventDefault();
                     e.stopPropagation();
                     
@@ -161,7 +143,6 @@ function initializeAllDropdowns() {
                     const hiddenInput = dd.querySelector('input[type="hidden"]');
                     if (hiddenInput && value) {
                         hiddenInput.value = value;
-                        console.log(`Updated hidden input to: ${value}`);
                     }
                     
                     // Close dropdown
@@ -194,20 +175,14 @@ function initializeAllDropdowns() {
                 });
             }
         });
-        
-        console.log('All dropdowns initialized successfully');
     }
 }
 
 // Global tab initialization function
 function initializeAllTabs() {
-    console.log('Initializing all tabs...');
-    
     const tabLinks = document.querySelectorAll('.tab-link');
-    console.log('Found tab links:', tabLinks.length);
     
     if (tabLinks.length === 0) {
-        console.log('No tabs found on this page');
         return;
     }
     
@@ -217,11 +192,7 @@ function initializeAllTabs() {
         maintenance: document.getElementById('tab-maintenance')
     };
     
-    console.log('Tab panes found:', panes);
-    
     function activateTab(tabName) {
-        console.log('Activating tab:', tabName);
-        
         // Hide all panes
         Object.keys(panes).forEach(function(key) {
             const pane = panes[key];
@@ -258,7 +229,6 @@ function initializeAllTabs() {
         newLink.addEventListener('click', function(e) {
             e.preventDefault();
             const tabName = newLink.getAttribute('data-tab') || 'details';
-            console.log('Tab clicked:', tabName);
             activateTab(tabName);
         });
         
@@ -306,23 +276,18 @@ function initializeAllTabs() {
     
     // Activate first tab by default
     activateTab('details');
-    console.log('All tabs initialized successfully');
 }
 
 // Global form elements initialization
 function initializeAllFormElements() {
-    console.log('Initializing all form elements...');
-    
     // Toggle switches
     const switches = document.querySelectorAll('[data-switch]');
-    console.log('Found switches:', switches.length);
     
     switches.forEach(function(switchEl) {
         const input = switchEl.previousElementSibling;
         const knob = switchEl.querySelector('span');
         
         if (!input || !knob) {
-            console.error('Switch missing input or knob', { switchEl, input, knob });
             return;
         }
         
@@ -357,27 +322,19 @@ function initializeAllFormElements() {
             }
         });
     });
-    
-    console.log('All form elements initialized successfully');
 }
 
 // Main initialization function
 function initializePage() {
-    console.log('=== PAGE INITIALIZATION START ===');
-    
     // Clear caches first
     clearCaches();
     
     // Wait a bit for everything to settle
     setTimeout(function() {
-        console.log('Starting page initialization...');
-        
         // Initialize all components
         initializeAllDropdowns();
         initializeAllTabs();
         initializeAllFormElements();
-        
-        console.log('=== PAGE INITIALIZATION COMPLETE ===');
     }, 100);
 }
 

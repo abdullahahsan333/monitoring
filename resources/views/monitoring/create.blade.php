@@ -662,6 +662,7 @@
                 
                 console.log('Create monitor specific features initialized');
             }, 150);
+        });
         </script>
     @endpush
 </x-layouts.app>
