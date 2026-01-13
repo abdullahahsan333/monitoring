@@ -145,13 +145,22 @@
                                 <div class="monitor-checkbox-wrap w-0 opacity-0 overflow-hidden transition-all duration-200 group-hover:w-5 group-hover:opacity-100">
                                     <label class="relative inline-flex">
                                         <input type="checkbox" class="peer monitor-checkbox appearance-none w-4 h-4 rounded border border-neutral-600 bg-neutral-800" />
-                                        <span class="absolute inset-0 hidden peer-checked:flex items-center justify-center text-xs">✔</span>
+                                        <span class="absolute inset-0 hidden peer-checked:flex items-center justify-center"></span>
                                     </label>
                                 </div>
                                 
                                 <!-- Status Dot -->
                                 <div class="relative shrink-0">
                                     <span class="flex h-6 w-6 items-center justify-center rounded-full bg-{{ $monitor->current_status === 'Up' ? 'emerald-500' : 'red-500' }}">
+                                        @if($monitor->current_status === 'Up')
+                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" class="size-2 text-white">
+                                            <path d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"></path>
+                                        </svg>
+                                        @else
+                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="size-2 text-white">
+                                            <path d="M96 448h106.7V64H96v384zM309.3 64v384H416V64H309.3z"></path>
+                                        </svg>
+                                        @endif
                                         <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-{{ $monitor->current_status === 'Up' ? 'emerald-400' : 'red-400' }} opacity-75"></span>
                                     </span>
                                 </div>
@@ -209,8 +218,8 @@
                                             <flux:menu.item class="text-white hover:bg-main-panel-dropdown-hover">{{ __('Edit monitor') }}</flux:menu.item>
                                             <flux:menu.item class="text-white hover:bg-main-panel-dropdown-hover">{{ __('Integrations & team') }}</flux:menu.item>
                                             <flux:menu.item class="text-white hover:bg-main-panel-dropdown-hover">{{ __('Maintenance') }}</flux:menu.item>
-                                            <flux:menu.item class="text-white hover:bg-main-panel-dropdown-hover">{{ __('Add / Remove tags') }}</flux:menu.item>
-                                            <flux:menu.item class="text-white hover:bg-main-panel-dropdown-hover">{{ __('Add to status page') }}</flux:menu.item>
+                                            <flux:menu.item class="add-remove-tags-btn text-white hover:bg-main-panel-dropdown-hover">{{ __('Add / Remove tags') }}</flux:menu.item>
+                                            <flux:menu.item class="add-to-status-page-btn text-white hover:bg-main-panel-dropdown-hover">{{ __('Add to status page') }}</flux:menu.item>
                                             <flux:menu.item class="text-white hover:bg-main-panel-dropdown-hover">{{ __('Clone monitor') }}</flux:menu.item>
                                             <flux:menu.item class="text-white hover:bg-main-panel-dropdown-hover">{{ __('Pause monitor') }}</flux:menu.item>
                                             <flux:menu.item class="text-white hover:bg-main-panel-dropdown-hover">{{ __('Reset stats') }}</flux:menu.item>
@@ -241,11 +250,15 @@
                             <div class="relative">
                                 @if($statusCounts['down'] > 0)
                                     <span class="flex h-10 w-10 items-center justify-center rounded-full bg-red-500">
-                                        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
+                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" class="size-2 text-white">
+                                            <path d="M96 448h106.7V64H96v384zM309.3 64v384H416V64H309.3z"></path>
+                                        </svg>
                                     </span>
                                 @else
                                     <span class="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500">
-                                        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" class="size-2 text-white">
+                                            <path d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"></path>
+                                        </svg>
                                     </span>
                                 @endif
                             </div>
@@ -307,7 +320,7 @@
     </div>
 
     <!-- Add/Remove Tags Modal -->
-    <div id="tags-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div id="tags-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
         <div class="bg-main-panel-components rounded-xl border border-neutral-800 w-full max-w-md mx-4">
             <div class="p-6">
                 <div class="flex items-center justify-between mb-6">
@@ -431,6 +444,88 @@
                         <div class="flex-1">
                             <div class="text-main-panel-text font-medium">cdn.assets.com</div>
                             <div class="text-xs text-neutral-400">CDN Monitor</div>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="flex gap-3">
+                    <button id="cancel-status" class="flex-1 px-4 py-2.5 rounded-lg border border-neutral-700 text-main-panel-text hover:bg-main-panel-dropdown transition-colors">
+                        {{ __('Cancel') }}
+                    </button>
+                    <button id="save-status" class="flex-1 px-4 py-2.5 rounded-lg bg-primary hover:bg-primary-hover text-main-panel-text transition-colors">
+                        {{ __('Save') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add to Status Page Modal -->
+    <div id="status-page-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
+        <div class="bg-main-panel-components rounded-xl border border-neutral-800 w-full max-w-md mx-4">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-semibold text-main-panel-text">{{ __('Add to status page') }}</h2>
+                    <button id="close-status-modal" class="text-neutral-400 hover:text-white transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="mb-6">
+                    <label class="text-xs text-neutral-400 mb-1 block">{{ __('Select status page') }}</label>
+                    <select class="w-full rounded-lg bg-main-panel-dropdown border border-neutral-700 px-4 py-3 text-sm text-main-panel-text focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary">
+                        <option value="">{{ __('Choose a status page...') }}</option>
+                        <option value="1">{{ __('Main Status Page') }}</option>
+                        <option value="2">{{ __('Internal Status Page') }}</option>
+                        <option value="3">{{ __('Public Status Page') }}</option>
+                    </select>
+                </div>
+
+                <div class="mb-6">
+                    <label class="text-xs text-neutral-400 mb-1 block">{{ __('Search monitors...') }}</label>
+                    <input 
+                        type="text" 
+                        id="monitor-search" 
+                        placeholder="{{ __('Search monitors...') }}"
+                        class="w-full rounded-lg bg-main-panel-dropdown border border-neutral-700 px-4 py-3 text-sm text-main-panel-text placeholder-neutral-400 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                    />
+                </div>
+
+                <div class="mb-6">
+                    <button id="deselect-all-monitors" class="text-sm text-neutral-400 hover:text-white transition-colors">
+                        {{ __('Deselect all') }}
+                    </button>
+                </div>
+
+                <div class="space-y-2 mb-6 max-h-64 overflow-y-auto" id="monitors-list">
+                    <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-main-panel-dropdown cursor-pointer transition-colors">
+                        <input type="checkbox" value="mail.google.com" class="monitor-checkbox w-4 h-4 rounded border-neutral-600 bg-neutral-800 accent-primary" />
+                        <div class="flex-1">
+                            <div class="text-main-panel-text font-medium">mail.google.com</div>
+                            <div class="text-xs text-neutral-400">HTTP Monitor</div>
+                        </div>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-main-panel-dropdown cursor-pointer transition-colors">
+                        <input type="checkbox" value="api.example.com" class="monitor-checkbox w-4 h-4 rounded border-neutral-600 bg-neutral-800 accent-primary" />
+                        <div class="flex-1">
+                            <div class="text-main-panel-text font-medium">api.example.com</div>
+                            <div class="text-xs text-neutral-400">API Monitor</div>
+                        </div>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-main-panel-dropdown cursor-pointer transition-colors">
+                        <input type="checkbox" value="database.local" class="monitor-checkbox w-4 h-4 rounded border-neutral-600 bg-neutral-800 accent-primary" />
+                        <div class="flex-1">
+                            <div class="text-main-panel-text font-medium">database.local</div>
+                            <div class="text-xs text-neutral-400">Database Monitor</div>
+                        </div>
+                    </label>
+                    <label class="flex items-center gap-3 p-3 rounded-lg hover:bg-main-panel-dropdown cursor-pointer transition-colors">
+                        <input type="checkbox" value="website.com" class="monitor-checkbox w-4 h-4 rounded border-neutral-600 bg-neutral-800 accent-primary" />
+                        <div class="flex-1">
+                            <div class="text-main-panel-text font-medium">website.com</div>
+                            <div class="text-xs text-neutral-400">Website Monitor</div>
                         </div>
                     </label>
                 </div>

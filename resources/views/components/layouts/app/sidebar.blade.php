@@ -107,6 +107,102 @@
         {{ $slot }}
 
         @stack('all_script')
+        
+        @push('all_script')
+        <script>
+            // Global DOM ready initialization for all pages
+            document.addEventListener('DOMContentLoaded', function() {
+                console.log('DOM ready - Global initialization started');
+                
+                // Ensure all dropdowns are properly initialized
+                setTimeout(function() {
+                    // Initialize any dropdowns that might not be working
+                    const dropdowns = document.querySelectorAll('.dd');
+                    dropdowns.forEach(function(dropdown) {
+                        const trigger = dropdown.querySelector('.dd-trigger');
+                        const panel = dropdown.querySelector('.dd-panel');
+                        
+                        if (trigger && panel) {
+                            // Ensure proper initial state
+                            panel.classList.add('hidden');
+                            
+                            // Add click handler if not already present
+                            if (!trigger.hasAttribute('data-initialized')) {
+                                trigger.addEventListener('click', function(e) {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    
+                                    const isOpen = !panel.classList.contains('hidden');
+                                    
+                                    // Close all other dropdowns
+                                    document.querySelectorAll('.dd-panel').forEach(function(p) {
+                                        if (p !== panel) {
+                                            p.classList.add('hidden');
+                                        }
+                                    });
+                                    
+                                    // Toggle current dropdown
+                                    if (isOpen) {
+                                        panel.classList.add('hidden');
+                                    } else {
+                                        panel.classList.remove('hidden');
+                                    }
+                                });
+                                
+                                trigger.setAttribute('data-initialized', 'true');
+                            }
+                        }
+                    });
+                    
+                    console.log('Global dropdown initialization completed');
+                }, 100);
+            });
+            
+            // Additional window load backup
+            window.addEventListener('load', function() {
+                console.log('Window loaded - Final initialization check');
+                
+                setTimeout(function() {
+                    // Final check for any un-initialized dropdowns
+                    const dropdowns = document.querySelectorAll('.dd:not([data-initialized])');
+                    dropdowns.forEach(function(dropdown) {
+                        const trigger = dropdown.querySelector('.dd-trigger');
+                        const panel = dropdown.querySelector('.dd-panel');
+                        
+                        if (trigger && panel) {
+                            panel.classList.add('hidden');
+                            
+                            trigger.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                
+                                const isOpen = !panel.classList.contains('hidden');
+                                
+                                // Close all other dropdowns
+                                document.querySelectorAll('.dd-panel').forEach(function(p) {
+                                    if (p !== panel) {
+                                        p.classList.add('hidden');
+                                    }
+                                });
+                                
+                                // Toggle current dropdown
+                                if (isOpen) {
+                                    panel.classList.add('hidden');
+                                } else {
+                                    panel.classList.remove('hidden');
+                                }
+                            });
+                            
+                            trigger.setAttribute('data-initialized', 'true');
+                        }
+                    });
+                    
+                    console.log('Final dropdown check completed');
+                }, 200);
+            });
+        </script>
+        @endpush
+        
         @fluxScripts
     </body>
 </html>

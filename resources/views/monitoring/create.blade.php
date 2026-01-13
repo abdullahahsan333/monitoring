@@ -187,11 +187,11 @@
                             <div>
                                 <label class="text-xs text-neutral-200 mb-1 block">{{ __('Add tags') }}</label>
                                 <div class="text-[11px] text-neutral-400 mb-2">{{ __('Tags will enable you to organise your monitors in a better way') }}</div>
-                                <div id="tags-container" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 min-h-[42px] flex flex-col gap-2">
+                                <div id="monitor-tags-container" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 min-h-[42px] flex flex-col gap-2">
                                     <div class="tags-list flex flex-wrap gap-2"></div>
-                                    <input type="text" id="tags-input" class="w-full bg-transparent border-0 outline-none text-sm text-white placeholder-neutral-400" placeholder="{{ __('Type and press Enter or comma to add tag...') }}" autocomplete="off">
+                                    <input type="text" id="monitor-tags-input" class="w-full bg-transparent border-0 outline-none text-sm text-white placeholder-neutral-400" placeholder="{{ __('Type and press Enter or comma to add tag...') }}" autocomplete="off">
                                 </div>
-                                <input type="hidden" name="tags" id="tags-value" value="">
+                                <input type="hidden" name="tags" id="monitor-tags-value" value="">
                             </div>
                         </div>
                         <div class="border-t border-neutral-800"></div>
@@ -296,22 +296,22 @@
                             <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-2">
                                 <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2 opacity-60">
                                     <span class="text-sm text-white">Check SSL errors</span>
-                                    <input type="checkbox" class="peer sr-only" disabled>
-                                    <span class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 peer-checked:bg-primary relative transition-colors cursor-pointer select-none">
+                                    <input type="checkbox" name="check_ssl_errors" value="1" class="peer sr-only" disabled>
+                                    <span class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 relative transition-colors cursor-pointer select-none">
                                         <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-500"></span>
                                     </span>
                                 </label>
                                 <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2 opacity-60">
                                     <span class="text-sm text-white">SSL expiry reminders</span>
-                                    <input type="checkbox" class="peer sr-only" disabled>
-                                    <span class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 peer-checked:bg-primary relative transition-colors cursor-pointer select-none">
+                                    <input type="checkbox" name="ssl_expiry_reminders" value="1" class="peer sr-only" disabled>
+                                    <span class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 relative transition-colors cursor-pointer select-none">
                                         <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-500"></span>
                                     </span>
                                 </label>
                                 <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2 opacity-60">
                                     <span class="text-sm text-white">Domain expiry reminders</span>
-                                    <input type="checkbox" class="peer sr-only" disabled>
-                                    <span class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 peer-checked:bg-primary relative transition-colors cursor-pointer select-none">
+                                    <input type="checkbox" name="domain_expiry_reminders" value="1" class="peer sr-only" disabled>
+                                    <span class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 relative transition-colors cursor-pointer select-none">
                                         <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-500"></span>
                                     </span>
                                 </label>
@@ -350,7 +350,7 @@
                                         {{ __('Once it drops back below the threshold, you\'ll be notified again, and the incident will be marked as resolved.') }}
                                     </div>
                                     <div class="flex items-center gap-2">
-                                        <input type="number" name="slow_response_threshold" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white" value="1000">
+                                        <input type="number" name="slow_response_threshold" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white" value="1000" disabled>
                                         <span class="text-xs text-neutral-400">{{ __('milliseconds') }}</span>
                                     </div>
                                 </div>
@@ -358,7 +358,7 @@
                                 <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2">
                                     <span class="text-sm text-white">Follow redirections</span>
                                     <input type="checkbox" name="follow_redirects" value="1" class="peer sr-only" checked>
-                                    <span data-switch class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 peer-checked:bg-primary relative transition-colors cursor-pointer select-none">
+                                    <span data-switch class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 peer-checked:bg-emerald-600 relative transition-colors cursor-pointer select-none">
                                         <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-300 peer-checked:translate-x-5 transition-transform"></span>
                                     </span>
                                 </label>
@@ -369,31 +369,31 @@
                                         <div class="text-[11px] text-neutral-400">{{ __('Available only in Solo, Team and Enterprise.') }} <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a></div>
                                     </div>
                                     <div class="text-[11px] text-neutral-400 mb-2">{{ __('We will consider incident when we receive HTTP status code other than defined below.') }}</div>
-                                    <div id="status-codes-tags" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 min-h-[42px] flex flex-wrap gap-2 items-center">
+                                    <div id="monitor-status-codes-tags" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 min-h-[42px] flex flex-wrap gap-2 items-center">
                                         <div class="status-tags-list flex flex-wrap gap-2 flex-1"></div>
-                                        <input type="text" id="status-codes-input" class="flex-1 min-w-[120px] bg-transparent border-0 outline-none text-sm text-white placeholder-neutral-400" placeholder="Type and press Enter or comma" autocomplete="off">
+                                        <input type="text" id="monitor-status-codes-input" class="flex-1 min-w-[120px] bg-transparent border-0 outline-none text-sm text-white placeholder-neutral-400" placeholder="Type and press Enter or comma" autocomplete="off">
                                     </div>
-                                    <input type="hidden" name="expected_status_codes" id="status-codes-value" value="2xx, 3xx">
+                                    <input type="hidden" name="expected_status_codes" id="monitor-status-codes-value" value="2xx, 3xx">
                                 </div>
 
                                 <div class="space-y-2">
                                     <div class="grid grid-cols-1 sm:grid-cols-[240px_1fr] gap-3 items-start">
                                         <div>
                                             <label class="text-xs text-neutral-400 mb-1 block">{{ __('Auth. type') }}</label>
-                                            <select id="auth-type" name="auth_type" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white">
+                                            <select id="monitor-auth-type" name="auth_type" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white">
                                                 <option value="none">{{ __('None') }}</option>
                                                 <option value="basic">{{ __('Basic') }}</option>
                                             </select>
                                         </div>
-                                        <div id="auth-creds" class="grid grid-cols-2 gap-3">
+                                        <div id="monitor-auth-creds" class="grid grid-cols-2 gap-3">
                                             <div>
                                                 <label class="text-xs text-neutral-400 mb-1 block">{{ __('Auth. credentials') }}</label>
-                                                <input id="auth-username" name="auth_username" type="text" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white" placeholder="{{ __('Username') }}">
+                                                <input id="monitor-auth-username" name="auth_username" type="text" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white" placeholder="{{ __('Username') }}">
                                             </div>
                                             <div class="relative">
                                                 <label class="text-xs text-neutral-400 mb-1 block">&nbsp;</label>
-                                                <input id="auth-password" name="auth_password" type="password" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 pr-10 text-sm text-white" placeholder="{{ __('Password') }}">
-                                                <button type="button" id="auth-pass-toggle" class="absolute right-2 top-7 text-neutral-400 hover:text-neutral-200 text-sm">👁</button>
+                                                <input id="monitor-auth-password" name="auth_password" type="password" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 pr-10 text-sm text-white" placeholder="{{ __('Password') }}">
+                                                <button type="button" id="monitor-auth-pass-toggle" class="absolute right-2 top-7 text-neutral-400 hover:text-neutral-200 text-sm">👁</button>
                                             </div>
                                         </div>
                                     </div>
@@ -421,12 +421,12 @@
                                         <label class="text-xs text-neutral-400">{{ __('Request body') }}</label>
                                         <div class="text-[11px] text-neutral-400">{{ __('Available only in Solo, Team and Enterprise.') }} <a href="#" class="text-emerald-500 underline">{{ __('Upgrade now') }}</a></div>
                                     </div>
-                                    <textarea name="request_body" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white" rows="3" placeholder='{"key":"value"}'></textarea>
+                                    <textarea name="request_body" class="w-full rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white" rows="3" placeholder='{"key":"value"}' disabled></textarea>
                                     <label class="flex items-center justify-between rounded-lg bg-[#1a1f2e] border border-neutral-800 px-3 py-2">
                                         <span class="text-sm text-neutral-300">Send as JSON (application/json)</span>
-                                        <input type="checkbox" name="request_body_json" value="1" class="peer sr-only">
-                                        <span data-switch class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 peer-checked:bg-primary relative transition-colors cursor-pointer select-none">
-                                            <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-300 peer-checked:translate-x-5 transition-transform"></span>
+                                        <input type="checkbox" name="request_body_json" value="1" class="peer sr-only" disabled>
+                                        <span class="ms-2 inline-flex w-10 h-5 rounded-full bg-neutral-700 relative transition-colors cursor-pointer select-none">
+                                            <span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-neutral-300"></span>
                                         </span>
                                     </label>
                                     <div class="text-[11px] text-neutral-400">{{ __('Data will be sent as a standard POST (application/x-www-form-urlencoded) unless you choose the JSON option.') }}</div>
@@ -444,9 +444,9 @@
                                         </div>
                                     </div>
                                     <div class="grid grid-cols-[1fr_1fr_40px] gap-2">
-                                        <input name="header_name[]" class="rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white" placeholder="X-Header-Name">
-                                        <input name="header_value[]" class="rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white" placeholder="Value">
-                                        <button type="button" class="inline-flex items-center justify-center rounded-lg bg-neutral-800 hover:bg-neutral-700 text-red-400 px-2 py-2 cursor-pointer">
+                                        <input name="header_name[]" class="rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white" placeholder="X-Header-Name" disabled>
+                                        <input name="header_value[]" class="rounded-lg bg-[#1a1f2e] border border-neutral-700 px-3 py-2 text-sm text-white" placeholder="Value" disabled>
+                                        <button type="button" class="inline-flex items-center justify-center rounded-lg bg-neutral-800 hover:bg-neutral-700 text-red-400 px-2 py-2 cursor-pointer" disabled>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                                                 <path d="M9 3h6a1 1 0 011 1v2h4v2h-1l-1 12a2 2 0 01-2 2H8a2 2 0 01-2-2L5 8H4V6h4V4a1 1 0 011-1zm2 3h2V5h-2v1zm-1 5h2v8H10v-8zm4 0h2v8h-2v-8z"/>
                                             </svg>
@@ -564,105 +564,622 @@
 
     @push('all_script')
     <script>
-        // Page-specific initialization for create monitor
-        document.addEventListener('DOMContentLoaded', function () {
-            console.log('Create monitor page loaded');
+    // Clear caches first
+    if (typeof clearCaches === 'function') {
+        console.log('🧹 Clearing caches...');
+        clearCaches();
+    }
+
+    console.log('🚀 Monitoring Create Page - JavaScript loaded');
+    console.log('📊 DOM Ready State:', document.readyState);
+    console.log('🔍 Checking for required elements...');
+
+    // Small helper: safe text convert
+    function toStr(v){ return v === undefined || v === null ? '' : String(v); }
+
+    // Initialize a single dropdown (idempotent)
+    function initializeDropdown(dropdown) {
+        if (!dropdown || dropdown.dataset.ddInitialized === '1') return;
+        try {
+            console.log('🔽 Initializing dropdown:', dropdown);
             
-            // Global initialization will handle dropdowns, tabs, and form elements
-            // Any page-specific code can go here
-            
-            // Initialize monitor type specific functionality
-            setTimeout(function() {
-                console.log('Setting up create monitor specific features...');
-                
-                // Monitor interval slider
-                const miRange = document.getElementById('mi-range');
-                const miLabel = document.getElementById('mi-label');
-                const miValue = document.getElementById('mi-value');
-                if (miRange && miLabel && miValue) {
-                    const steps = ['30s','1m','5m','30m','1h','12h','24h'];
-                    function fmt(v) {
-                        if (v.endsWith('s')) return v.replace('s', ' seconds');
-                        if (v.endsWith('m')) return v.replace('m', ' minutes');
-                        if (v.endsWith('h')) return v.replace('h', ' hours');
-                        return v;
+            const trigger = dropdown.querySelector('.dd-trigger');
+            const panel = dropdown.querySelector('.dd-panel');
+            const currentTitle = dropdown.querySelector('.dd-current-title');
+            const currentDesc = dropdown.querySelector('.dd-current-desc');
+            const currentIcon = dropdown.querySelector('.dd-current-icon') || dropdown.querySelector('[data-dd-icon]');
+            const chevron = dropdown.querySelector('[data-dd-chevron]');
+            const hiddenInput = dropdown.parentElement ? dropdown.parentElement.querySelector('input[type="hidden"]') : null;
+
+            console.log('🔽 Dropdown elements found:', {
+                trigger: !!trigger,
+                panel: !!panel,
+                currentTitle: !!currentTitle,
+                currentDesc: !!currentDesc,
+                chevron: !!chevron,
+                hiddenInput: !!hiddenInput
+            });
+
+            if (!trigger || !panel) {
+                console.log('❌ Dropdown missing trigger or panel, marking as initialized');
+                dropdown.dataset.ddInitialized = '1';
+                return;
+            }
+
+            // mark initialized
+            dropdown.dataset.ddInitialized = '1';
+            console.log('✅ Dropdown marked as initialized');
+
+            trigger.setAttribute('aria-expanded', 'false');
+            trigger.setAttribute('aria-haspopup', 'true');
+            panel.setAttribute('aria-hidden', 'true');
+
+            function closeDropdown() {
+                console.log('🔽 Closing dropdown:', dropdown);
+                trigger.setAttribute('aria-expanded', 'false');
+                panel.setAttribute('aria-hidden', 'true');
+                panel.classList.remove('open');
+                setTimeout(() => panel.classList.add('hidden'), 200);
+                if (chevron) chevron.style.transform = 'rotate(0deg)';
+            }
+
+            function openDropdown() {
+                console.log('🔽 Opening dropdown:', dropdown);
+                // close other open dropdowns
+                document.querySelectorAll('.dd').forEach(function(d){ 
+                    if (d !== dropdown) {
+                        const p = d.querySelector('.dd-panel'); 
+                        if (p) { 
+                            p.classList.remove('open'); 
+                            p.classList.add('hidden'); 
+                            d.querySelector('.dd-trigger')?.setAttribute('aria-expanded','false'); 
+                            p.setAttribute('aria-hidden','true'); 
+                        }
                     }
-                    function updateMi() {
-                        const idx = parseInt(miRange.value, 10);
-                        const v = steps[idx] || '5m';
-                        miValue.value = v;
-                        miLabel.textContent = fmt(v);
-                    }
-                    updateMi();
-                    miRange.addEventListener('input', updateMi);
-                    miRange.addEventListener('change', updateMi);
-                }
-                
-                // Request timeout slider
-                const rtRange = document.getElementById('rt-range');
-                const rtLabel = document.getElementById('rt-label');
-                const rtValue = document.getElementById('rt-value');
-                if (rtRange && rtLabel && rtValue) {
-                    function updateRt() {
-                        const seconds = parseInt(rtRange.value, 10);
-                        const v = seconds + 's';
-                        rtValue.value = v;
-                        rtLabel.textContent = seconds === 1 ? '1 second' : seconds + ' seconds';
-                    }
-                    updateRt();
-                    rtRange.addEventListener('input', updateRt);
-                    rtRange.addEventListener('change', updateRt);
-                }
-                
-                // HTTP method buttons
-                document.querySelectorAll('.http-method').forEach(function (btn) {
-                    btn.addEventListener('click', function () {
-                        document.querySelectorAll('.http-method').forEach(function (b) {
-                            b.classList.remove('bg-emerald-600');
-                            b.classList.add('bg-[#253047]');
-                        });
-                        btn.classList.remove('bg-[#253047]');
-                        btn.classList.add('bg-emerald-600');
-                        const v = btn.getAttribute('data-value');
-                        const input = document.getElementById('http-method-value');
-                        if (input) input.value = v;
-                    });
                 });
+
+                panel.classList.remove('hidden');
+                setTimeout(() => panel.classList.add('open'), 10);
+                trigger.setAttribute('aria-expanded', 'true');
+                panel.setAttribute('aria-hidden', 'false');
+                if (chevron) chevron.style.transform = 'rotate(180deg)';
+            }
+
+            function toggleDropdown() {
+                const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+                console.log('🔽 Toggling dropdown, isExpanded:', isExpanded);
+                if (isExpanded) closeDropdown(); else openDropdown();
+            }
+
+            trigger.addEventListener('click', function(e){ 
+                console.log('🔽 Dropdown trigger clicked:', trigger);
+                e.preventDefault(); 
+                e.stopPropagation(); 
+                toggleDropdown(); 
+            });
+
+            // click options safely
+            const options = dropdown.querySelectorAll('[data-dd-option]');
+            console.log('🔽 Found dropdown options:', options.length);
+            
+            options.forEach(function(option){
+                option.addEventListener('click', function(e){
+                    console.log('🔽 Dropdown option clicked:', option);
+                    try {
+                        const value = toStr(this.getAttribute('data-value'));
+                        const title = toStr(this.getAttribute('data-title'));
+                        const description = toStr(this.getAttribute('data-description'));
+                        const iconEl = this.querySelector('[data-dd-icon]') || this.querySelector('.dd-current-icon');
+                        const icon = iconEl ? iconEl.innerHTML : '';
+
+                        console.log('🔽 Option data:', { value, title, description });
+
+                        if (currentTitle && title) currentTitle.textContent = title;
+                        if (currentDesc && description) currentDesc.textContent = description;
+                        if (currentIcon && icon) currentIcon.innerHTML = icon;
+
+                        if (hiddenInput) {
+                            hiddenInput.value = value;
+                            console.log('🔽 Hidden input updated to:', value);
+                        }
+                    } catch (err) {
+                        console.error('Error handling dropdown option:', err);
+                    }
+                    // close regardless
+                    closeDropdown();
+                });
+            });
+            
+            console.log('✅ Dropdown initialization completed:', dropdown);
+        } catch (err) {
+            console.error('initializeDropdown error:', err);
+        }
+    }
+
+    function initializeAllDropdowns() {
+        try {
+            const dropdowns = document.querySelectorAll('.dd');
+            console.log('🔽 Found dropdowns to initialize:', dropdowns.length);
+            
+            dropdowns.forEach(function(dd, index){ 
+                console.log(`🔽 Processing dropdown ${index + 1}:`, dd);
+                initializeDropdown(dd); 
+            });
+            
+            console.log('✅ All dropdowns initialization completed');
+        } catch (err) { 
+            console.error('initializeAllDropdowns error:', err); 
+        }
+    }
+
+    // Tabs - idempotent
+    function initializeTabs(){
+        try {
+            const tabs = document.querySelectorAll('.tab-link');
+            console.log('📑 Found tabs to initialize:', tabs.length);
+            
+            tabs.forEach(function(tab, index){
+                if (tab.dataset.tabInit === '1') {
+                    console.log(`📑 Tab ${index + 1} already initialized, skipping`);
+                    return; 
+                }
                 
-                // Authentication type toggle
-                const authType = document.getElementById('auth-type');
-                const authUser = document.getElementById('auth-username');
-                const authPass = document.getElementById('auth-password');
-                const authPassToggle = document.getElementById('auth-pass-toggle');
-                function setDisabled(el, disabled) {
-                    if (!el) return;
-                    el.disabled = disabled;
-                    el.classList.toggle('bg-[#0d1320]', disabled);
-                    el.classList.toggle('border-neutral-800', disabled);
-                    el.classList.toggle('text-neutral-400', disabled);
-                    el.classList.toggle('bg-[#1a1f2e]', !disabled);
-                    el.classList.toggle('border-neutral-700', !disabled);
-                    el.classList.toggle('text-white', !disabled);
+                console.log(`📑 Initializing tab ${index + 1}:`, tab);
+                tab.dataset.tabInit = '1';
+                
+                tab.addEventListener('click', function(){
+                    console.log('📑 Tab clicked:', tab);
+                    const targetTab = this.getAttribute('data-tab');
+                    
+                    // Update tab buttons
+                    document.querySelectorAll('.tab-link').forEach(function(t){ 
+                        t.classList.remove('text-emerald-500','font-medium'); 
+                        t.classList.add('text-neutral-400'); 
+                        t.setAttribute('aria-selected','false'); 
+                    });
+                    
+                    this.classList.remove('text-neutral-400'); 
+                    this.classList.add('text-emerald-500','font-medium'); 
+                    this.setAttribute('aria-selected','true');
+                    
+                    // Update tab panels
+                    const panels = document.querySelectorAll('[role="tabpanel"]');
+                    console.log('📑 Found tab panels:', panels.length);
+                    
+                    panels.forEach(function(panel){ 
+                        if (panel.id === 'tab-'+targetTab) {
+                            panel.classList.remove('hidden');
+                            console.log('📑 Tab panel shown:', panel.id);
+                        } else {
+                            panel.classList.add('hidden');
+                            console.log('📑 Tab panel hidden:', panel.id);
+                        }
+                    });
+                    
+                    console.log('📑 Tab switched to:', targetTab);
+                });
+            });
+            
+            console.log('✅ All tabs initialization completed');
+        } catch (err) { 
+            console.error('initializeTabs error:', err); 
+        }
+    }
+
+    // Form elements (switches, method buttons, sliders) - FIXED
+    function initializeFormElements(){
+        try {
+            console.log('🔄 Initializing form elements...');
+            
+            // Only initialize actual switch-style checkboxes (those with [data-switch] on the span)
+            const switchSpans = document.querySelectorAll('[data-switch]');
+            console.log('🔄 Found switch spans:', switchSpans.length);
+            
+            switchSpans.forEach(function(switchSpan, index){ 
+                if (switchSpan.dataset.switchInit === '1') {
+                    console.log(`🔄 Switch span ${index + 1} already initialized, skipping`);
+                    return; 
                 }
-                function updateAuth() {
-                    const isBasic = authType && authType.value === 'basic';
-                    setDisabled(authUser, !isBasic);
-                    setDisabled(authPass, !isBasic);
+                
+                console.log(`🔄 Initializing switch span ${index + 1}:`, switchSpan);
+                switchSpan.dataset.switchInit = '1'; 
+                
+                // Find the checkbox that comes BEFORE the switch span (previous sibling)
+                const checkbox = switchSpan.previousElementSibling;
+                console.log('🔄 Found checkbox for switch span:', !!checkbox, checkbox?.type);
+                
+                if (checkbox && checkbox.type === 'checkbox') {
+                    // Set initial state
+                    console.log(`🔄 Setting initial state for switch ${index + 1}:`, checkbox.checked);
+                    updateSwitchVisual(switchSpan, checkbox.checked);
+                    
+                    // Switch span click handler
+                    switchSpan.addEventListener('click', function(){ 
+                        console.log('🔄 Switch span clicked:', switchSpan);
+                        if (!checkbox.disabled) {
+                            checkbox.checked = !checkbox.checked; 
+                            console.log('🔄 Checkbox toggled to:', checkbox.checked);
+                            updateSwitchVisual(switchSpan, checkbox.checked);
+                            checkbox.dispatchEvent(new Event('change')); 
+                        } else {
+                            console.log('🔄 Checkbox is disabled, ignoring click');
+                        }
+                    }); 
+                    
+                    // Checkbox change handler to keep visual in sync
+                    checkbox.addEventListener('change', function() {
+                        console.log('🔄 Checkbox changed via form:', checkbox.checked);
+                        updateSwitchVisual(switchSpan, checkbox.checked);
+                    });
+                    
+                    console.log('✅ Switch span event listener added');
+                } else {
+                    console.log('❌ No valid checkbox found for switch span');
                 }
-                if (authType) {
-                    authType.addEventListener('change', updateAuth);
-                    updateAuth();
+            });
+
+            // Helper function to update switch visual state
+            function updateSwitchVisual(switchEl, isChecked) {
+                const dot = switchEl.querySelector('span:last-child');
+                if (dot) {
+                    if (isChecked) {
+                        // Active state - dot on right, emerald background
+                        dot.style.transform = 'translateX(1.25rem)'; // 20px = 1.25rem
+                        switchEl.style.backgroundColor = '#10b981'; // emerald-600
+                        dot.style.backgroundColor = '#ffffff'; // White dot
+                        console.log('🔄 Switch set to ACTIVE - dot right, emerald bg');
+                    } else {
+                        // Inactive state - dot on left, gray background
+                        dot.style.transform = 'translateX(0.125rem)'; // 2px = 0.125rem
+                        switchEl.style.backgroundColor = '#374151'; // neutral-700
+                        dot.style.backgroundColor = '#d1d5db'; // neutral-300
+                        console.log('🔄 Switch set to INACTIVE - dot left, gray bg');
+                    }
+                    console.log('🔄 Switch visual updated:', isChecked, 'transform:', dot.style.transform);
                 }
-                if (authPassToggle && authPass) {
-                    authPassToggle.addEventListener('click', function () {
-                        if (authPass.disabled) return;
-                        authPass.type = authPass.type === 'password' ? 'text' : 'password';
+            }
+
+            // HTTP method buttons
+            const methodButtons = document.querySelectorAll('.http-method');
+            console.log('🌐 Found HTTP method buttons:', methodButtons.length);
+            
+            methodButtons.forEach(function(btn, index){ 
+                if (btn.dataset.httpInit==='1') {
+                    console.log(`🌐 HTTP method ${index + 1} already initialized, skipping`);
+                    return; 
+                }
+                
+                console.log(`🌐 Initializing HTTP method ${index + 1}:`, btn);
+                btn.dataset.httpInit='1'; 
+                btn.addEventListener('click', function(){ 
+                    console.log('🌐 HTTP method clicked:', btn);
+                    
+                    methodButtons.forEach(function(b){ 
+                        b.classList.remove('bg-emerald-600'); 
+                        b.classList.add('bg-[#253047]'); 
+                    }); 
+                    
+                    btn.classList.remove('bg-[#253047]'); 
+                    btn.classList.add('bg-emerald-600'); 
+                    
+                    const v = btn.getAttribute('data-value'); 
+                    const input = document.getElementById('http-method-value'); 
+                    console.log('🌐 Setting HTTP method value:', v, 'to input:', !!input);
+                    
+                    if (input) {
+                        input.value = v; 
+                        console.log('✅ HTTP method value updated:', v);
+                    } else {
+                        console.log('❌ HTTP method value input not found');
+                    }
+                }); 
+                console.log('✅ HTTP method event listener added');
+            });
+
+            // sliders
+            const miRange = document.getElementById('mi-range'); 
+            const miLabel = document.getElementById('mi-label'); 
+            const miValue = document.getElementById('mi-value');
+            if (miRange && miLabel && miValue && !miRange.dataset.miInit) {
+                miRange.dataset.miInit='1'; 
+                const steps = ['30s','1m','5m','30m','1h','12h','24h']; 
+                function fmt(v){ 
+                    if (v.endsWith('s')) return v.replace('s',' seconds'); 
+                    if (v.endsWith('m')) return v.replace('m',' minutes'); 
+                    if (v.endsWith('h')) return v.replace('h',' hours'); 
+                    return v; 
+                } 
+                function updateMi(){ 
+                    const idx = parseInt(miRange.value,10); 
+                    const v = steps[idx] || '5m'; 
+                    miValue.value = v; 
+                    miLabel.textContent = fmt(v); 
+                } 
+                updateMi(); 
+                miRange.addEventListener('input', updateMi); 
+            }
+
+            const rtRange = document.getElementById('rt-range'); 
+            const rtLabel = document.getElementById('rt-label'); 
+            const rtValue = document.getElementById('rt-value');
+            if (rtRange && rtLabel && rtValue && !rtRange.dataset.rtInit) {
+                rtRange.dataset.rtInit='1'; 
+                function updateRt(){ 
+                    const seconds = parseInt(rtRange.value,10); 
+                    const v = seconds+'s'; 
+                    rtValue.value = v; 
+                    rtLabel.textContent = seconds===1 ? '1 second' : seconds+' seconds'; 
+                } 
+                updateRt(); 
+                rtRange.addEventListener('input', updateRt);
+            }
+
+            // auth
+            const authType = document.getElementById('monitor-auth-type'); 
+            const authUser = document.getElementById('monitor-auth-username'); 
+            const authPass = document.getElementById('monitor-auth-password'); 
+            const authPassToggle = document.getElementById('monitor-auth-pass-toggle');
+            if (authType && authUser && authPass && !authType.dataset.authInit) {
+                authType.dataset.authInit='1'; 
+                function updateAuth(){ 
+                    const isBasic = authType.value === 'basic'; 
+                    authUser.disabled = !isBasic; 
+                    authPass.disabled = !isBasic; 
+                    if (!isBasic) { 
+                        authUser.classList.add('bg-[#0d1320]', 'border-neutral-800', 'text-neutral-400'); 
+                        authPass.classList.add('bg-[#0d1320]', 'border-neutral-800', 'text-neutral-400'); 
+                    } else { 
+                        authUser.classList.remove('bg-[#0d1320]', 'border-neutral-800', 'text-neutral-400'); 
+                        authPass.classList.remove('bg-[#0d1320]', 'border-neutral-800', 'text-neutral-400'); 
+                    } 
+                }
+                updateAuth(); 
+                authType.addEventListener('change', updateAuth);
+                if (authPassToggle) {
+                    authPassToggle.addEventListener('click', function(){ 
+                        if (authPass.disabled) return; 
+                        authPass.type = authPass.type === 'password' ? 'text' : 'password'; 
                     });
                 }
+            }
+        console.log('✅ Form elements initialization completed');
+        } catch (err) { 
+            console.error('initializeFormElements error:', err); 
+        }
+    }
+
+    // Tags
+    function initializeTags(){
+        try {
+            const tagsContainer = document.getElementById('monitor-tags-container'); 
+            if (!tagsContainer || tagsContainer.dataset.tagsInit==='1') return; 
+            tagsContainer.dataset.tagsInit='1';
+            const tagsInput = document.getElementById('monitor-tags-input'); 
+            const tagsValue = document.getElementById('monitor-tags-value'); 
+            const tagsList = tagsContainer.querySelector('.tags-list'); 
+            if (!tagsInput || !tagsValue || !tagsList) return;
+            
+            console.log('🏷️ Initializing tags functionality...');
+            
+            function updateHiddenValue(){ 
+                const tags = Array.from(tagsList.querySelectorAll('.tag')).map(tag => tag.textContent.replace('×','').trim()); 
+                tagsValue.value = tags.join(','); 
+                console.log('🏷️ Tags updated:', tagsValue.value);
+            }
+            
+            function createTag(text){ 
+                const tag = document.createElement('span'); 
+                tag.className = 'tag inline-flex items-center gap-1 rounded-full bg-[#253047] px-3 py-1 text-xs text-neutral-300'; 
+                tag.innerHTML = `${text}<span class="tag-remove cursor-pointer hover:text-red-400 ml-1">×</span>`; 
+                tag.querySelector('.tag-remove').addEventListener('click', function(){ 
+                    tag.remove(); 
+                    updateHiddenValue(); 
+                }); 
+                return tag; 
+            }
+            
+            tagsInput.addEventListener('keydown', function(e){ 
+                if (e.key === 'Enter' || e.key === ',') { 
+                    e.preventDefault(); 
+                    const value = this.value.trim(); 
+                    if (value) { 
+                        tagsList.appendChild(createTag(value)); 
+                        this.value = ''; 
+                        updateHiddenValue(); 
+                    } 
+                } 
+            });
+            
+            tagsInput.addEventListener('blur', function(){ 
+                const value = this.value.trim(); 
+                if (value) { 
+                    tagsList.appendChild(createTag(value)); 
+                    this.value = ''; 
+                    updateHiddenValue(); 
+                } 
+            });
+            
+            console.log('✅ Tags functionality initialized');
+        } catch (err) { 
+            console.error('initializeTags error:', err); 
+        }
+    }
+
+    // Status Codes - similar to tags
+    function initializeStatusCodes(){
+        try {
+            const statusContainer = document.getElementById('monitor-status-codes-tags'); 
+            if (!statusContainer || statusContainer.dataset.statusInit==='1') return; 
+            statusContainer.dataset.statusInit='1';
+            const statusInput = document.getElementById('monitor-status-codes-input'); 
+            const statusValue = document.getElementById('monitor-status-codes-value'); 
+            const statusList = statusContainer.querySelector('.status-tags-list'); 
+            if (!statusInput || !statusValue || !statusList) return;
+            
+            console.log('📊 Initializing status codes functionality...');
+            
+            // Initialize with default values
+            const defaultValue = statusValue.value;
+            if (defaultValue) {
+                const codes = defaultValue.split(',').map(code => code.trim());
+                codes.forEach(code => {
+                    if (code) {
+                        statusList.appendChild(createStatusCodeTag(code));
+                    }
+                });
+            }
+            
+            function updateHiddenValue(){ 
+                const codes = Array.from(statusList.querySelectorAll('.tag')).map(tag => tag.textContent.replace('×','').trim()); 
+                statusValue.value = codes.join(','); 
+                console.log('📊 Status codes updated:', statusValue.value);
+            }
+            
+            function createStatusCodeTag(text){ 
+                const tag = document.createElement('span'); 
+                tag.className = 'tag inline-flex items-center gap-1 rounded-full bg-[#253047] px-3 py-1 text-xs text-neutral-300'; 
+                tag.innerHTML = `${text}<span class="tag-remove cursor-pointer hover:text-red-400 ml-1">×</span>`; 
+                tag.querySelector('.tag-remove').addEventListener('click', function(){ 
+                    tag.remove(); 
+                    updateHiddenValue(); 
+                }); 
+                return tag; 
+            }
+            
+            statusInput.addEventListener('keydown', function(e){ 
+                if (e.key === 'Enter' || e.key === ',') { 
+                    e.preventDefault(); 
+                    const value = this.value.trim(); 
+                    if (value) { 
+                        statusList.appendChild(createStatusCodeTag(value)); 
+                        this.value = ''; 
+                        updateHiddenValue(); 
+                    } 
+                } 
+            });
+            
+            statusInput.addEventListener('blur', function(){ 
+                const value = this.value.trim(); 
+                if (value) { 
+                    statusList.appendChild(createStatusCodeTag(value)); 
+                    this.value = ''; 
+                    updateHiddenValue(); 
+                } 
+            });
+            
+            console.log('✅ Status codes functionality initialized');
+        } catch (err) { 
+            console.error('initializeStatusCodes error:', err); 
+        }
+    }
+
+    // close dropdown when clicking outside
+    function bindDocumentClickClose(){
+        if (document.body.dataset.ddBodyBind === '1') return; 
+        document.body.dataset.ddBodyBind = '1';
+        document.addEventListener('click', function(e){ 
+            // Check if click is inside a dropdown
+            const clickedInsideDropdown = e.target.closest('.dd');
+            
+            document.querySelectorAll('.dd').forEach(function(d){ 
+                const trigger = d.querySelector('.dd-trigger'); 
+                const panel = d.querySelector('.dd-panel'); 
                 
-                console.log('Create monitor specific features initialized');
-            }, 150);
+                if (trigger && trigger.getAttribute('aria-expanded') === 'true') {
+                    // If clicked outside the dropdown, close it
+                    if (!clickedInsideDropdown || !d.contains(e.target)) {
+                        panel.classList.remove('open'); 
+                        setTimeout(() => panel.classList.add('hidden'), 200); 
+                        trigger.setAttribute('aria-expanded','false'); 
+                        panel.setAttribute('aria-hidden','true'); 
+                        
+                        const chevron = d.querySelector('[data-dd-chevron]');
+                        if (chevron) chevron.style.transform = 'rotate(0deg)';
+                    }
+                } 
+            }); 
         });
-        </script>
+    }
+
+    // Main initialization function
+    function initAll(){ 
+        console.log('🚀 Starting main initialization...');
+        console.log('📊 Current DOM Ready State:', document.readyState);
+        
+        // Check if elements exist before initializing
+        console.log('🔍 Pre-initialization element check:');
+        console.log('🔽 Dropdowns:', document.querySelectorAll('.dd').length);
+        console.log('📑 Tabs:', document.querySelectorAll('.tab-link').length);
+        console.log('🔄 Switch spans:', document.querySelectorAll('[data-switch]').length);
+        console.log('🏷️ Tags container:', !!document.getElementById('monitor-tags-container'));
+        console.log('📊 Status codes container:', !!document.getElementById('monitor-status-codes-tags'));
+        console.log('🔑 Auth type:', !!document.getElementById('monitor-auth-type'));
+        
+        initializeAllDropdowns(); 
+        initializeTabs(); 
+        initializeFormElements(); 
+        initializeTags(); 
+        initializeStatusCodes();
+        bindDocumentClickClose(); 
+        
+        console.log('✅ Main initialization completed successfully');
+    }
+
+    // Initialize when DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', function(){ 
+        console.log('📱 DOMContentLoaded event fired');
+        console.log('📊 DOM Ready State on DOMContentLoaded:', document.readyState);
+        try { 
+            initAll(); 
+            
+            // Initialize again after a short delay to catch any dynamically added elements
+            console.log('⏰ Scheduling delayed initialization (100ms)...');
+            setTimeout(function() {
+                console.log('⏰ Running delayed initialization...');
+                initAll();
+            }, 100);
+            
+            // And another one for good measure
+            console.log('⏰ Scheduling final initialization (300ms)...');
+            setTimeout(function() {
+                console.log('⏰ Running final initialization...');
+                initAll();
+            }, 300);
+        } catch(e) {
+            console.error('❌ DOMContentLoaded initialization error:', e);
+        }
+    });
+
+    // Also initialize on window load as backup
+    window.addEventListener('load', function(){ 
+        console.log('🖥️ Window load event fired');
+        console.log('📊 DOM Ready State on window load:', document.readyState);
+        try { 
+            console.log('🔄 Running window load backup initialization...');
+            initAll(); 
+        } catch(e) {
+            console.error('❌ Window load initialization error:', e);
+        }
+    });
+
+    // Additional safety net - check if DOM is already loaded
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        console.log('⚡ DOM already loaded, running immediate initialization...');
+        setTimeout(function() {
+            console.log('⚡ Running immediate initialization...');
+            initAll();
+        }, 50);
+    }
+
+    // Expose for debugging
+    window.MonitoringUI = { 
+        initAll, 
+        initializeDropdown,
+        initializeTabs,
+        initializeFormElements,
+        initializeTags,
+        initializeStatusCodes
+    };
+    </script>
     @endpush
 </x-layouts.app>
